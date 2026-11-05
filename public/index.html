@@ -113,6 +113,13 @@ table{border-collapse:collapse;font-size:13px}
 .seg button.on{background:var(--soft);color:var(--primary);font-weight:600}
 .chart-wrap{position:relative;width:100%;overflow:hidden}
 .chart-wrap svg{display:block;width:100%;height:auto}
+/* 柱状图卡片：图表在卡片内垂直居中，避免下方留一大片空白 */
+.chart-card{display:flex;flex-direction:column}
+.chart-hold{display:flex;flex-direction:column;flex:1;min-height:0}
+.dy-scroll{max-height:400px;overflow:auto}
+.dy-scroll thead th{position:sticky;top:0;background:#fff;z-index:2;box-shadow:inset 0 -1px 0 var(--line)}
+.chart-card .fin-yearchart{margin:auto 0}
+.chart-card .legend{margin-top:12px}
 .chart-tip{position:absolute;pointer-events:none;background:rgba(15,23,42,.94);color:#fff;border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.7;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:270px;z-index:5;display:none}
 .chart-tip b{font-size:12.5px}
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin:4px 0 10px;font-size:12px;color:var(--muted)}
@@ -188,7 +195,7 @@ table{border-collapse:collapse;font-size:13px}
 
 @media(max-width:980px){.fin-grid{grid-template-columns:1fr}}
 .fin-yearchart svg{display:block;width:100%;height:auto}
-.fin-yearchart text{font:11px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#94a3b8}
+.fin-yearchart text{font:10px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#a8b3c4}
 .fin-form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 @media(max-width:980px){.fin-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.fin-form-grid{grid-template-columns:1fr}}
@@ -234,7 +241,7 @@ table{border-collapse:collapse;font-size:13px}
 .dy-bar .fill{background:linear-gradient(90deg,#fb923c,#dc2626)}
 .dy-bar.in .fill{background:linear-gradient(90deg,#4ade80,#16a34a)}
 .dy-chart svg{display:block;width:100%;height:auto}
-.dy-chart text{font:11px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#94a3b8}
+.dy-chart text{font:10px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#a8b3c4}
 .dy-chart rect.fd-hit{cursor:pointer}
 .dy-chart rect.fd-hit:hover{opacity:1}
 .dy-chart .fd-col:hover{fill:rgba(99,102,241,.07)}
@@ -404,12 +411,6 @@ table{border-collapse:collapse;font-size:13px}
 .hm-date{text-align:right;white-space:nowrap;position:relative;z-index:1}
 .hm-date b{font-size:30px;line-height:1;color:var(--primary);font-weight:700}
 .hm-date span{display:block;color:var(--muted);font-size:12px;margin-top:6px}
-.hm-quote{padding:18px 24px;border-radius:14px;background:linear-gradient(135deg,#fff7ed,#fef2f2);border:1px solid #fed7aa;margin-bottom:18px;position:relative}
-.hm-quote .mark{position:absolute;left:14px;top:2px;font-size:60px;color:rgba(234,88,12,.13);font-family:Georgia,serif;line-height:1}
-.hm-quote q{display:block;font-size:16.5px;line-height:1.9;color:#7c2d12;padding-left:34px;font-family:"Songti SC","SimSun",Georgia,serif}
-.hm-quote .by{display:block;text-align:right;color:#9a3412;font-size:12px;margin-top:6px}
-.hm-quote .qh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.hm-quote .qh span{font-size:11px;letter-spacing:1px;color:#c2410c;font-weight:600}
 .hm-mods{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
 .hm-mod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;transition:.18s;text-align:left;display:block;width:100%;font:inherit;color:inherit}
 .hm-mod:hover{transform:translateY(-2px);border-color:#c7d2fe;box-shadow:0 8px 24px rgba(79,70,229,.10)}
@@ -780,7 +781,7 @@ var FIN_TERMS=['上学期','下学期','暑期','寒假','全年'];
 var EXP_CATS=['学费','午托托管','课后服务','课本费','学科补课','兴趣特长','校服被褥','研学活动','生活用品','其他'];
 var INC_CATS=['奖学金','压岁钱','退费返还','其他收入'];
 var PAGE={
- home:['家庭总览','日历 · 每日美文 · NAS 相册 · 四大模块速览'],
+ home:['家庭总览','NAS 相册 · 四大模块速览 · 最近考试 · 本月收支'],
  dashboard:['概览','初一到高三的成绩全貌与最近变化'],
  entry:['成绩录入','月考 / 期中 / 期末，科目可增删，逐科记录分数、排名与问题备注'],
  records:['成绩记录','按年级查看历次考试明细与备注'],
@@ -1088,6 +1089,7 @@ function render(){
  var tb=$('#topAddBtn');if(tb)tb.textContent=(view==='notes'?'＋ 新建笔记':((view==='daily'||view==='home'||view==='calendar')?'＋ 记一笔':(view==='accounts'?'＋ 新增分组':'＋ 录入考试')));
  ({home:renderHome,calendar:renderCal,accounts:renderAccounts,dashboard:renderDashboard,entry:renderEntry,records:renderRecords,trend:renderTrend,analysis:renderAnalysis,report:renderReport,finance:renderFinance,lucky:renderLucky,daily:renderDaily,notes:renderNotes,settings:renderSettings})[view]();
  window.scrollTo(0,0);
+ try{requestAnimationFrame(fitCharts)}catch(e){try{fitCharts()}catch(e2){}}
 }
 function syncNavGroups(){
  var a=$('.nav-item.active'),g=a&&a.closest?a.closest('.nav-group'):null;
@@ -1109,65 +1111,36 @@ function emptyBox(title,desc,btn){
  return '<div class="empty"><h3>'+esc(title)+'</h3><div>'+esc(desc)+'</div>'+(btn?'<div style="margin-top:14px">'+btn+'</div>':'')+'</div>';
 }
 
+/* ---------- 柱状图自适应：按卡片实际高度重绘 svg，柱子尽量拉满 ---------- */
+var CB={},CB_SEQ=0;
+function cbReg(fn){var id='cb'+(++CB_SEQ);CB[id]=fn;return id}
+function fitCharts(){
+ try{
+  if(!document.querySelectorAll)return;
+  Array.prototype.slice.call(document.querySelectorAll('.fin-yearchart[data-cb]')).forEach(function(box){
+   var fn=CB[box.getAttribute('data-cb')];if(!fn)return;
+   var card=box.closest?box.closest('.card'):null;if(!card)return;
+   var head=card.querySelector('.card-h'),lg=card.querySelector('.legend');
+   var cs=window.getComputedStyle(card);
+   var innerH=card.clientHeight-(parseFloat(cs.paddingTop)||0)-(parseFloat(cs.paddingBottom)||0);
+   var avail=innerH-((head&&head.offsetHeight)||0)-((lg&&lg.offsetHeight)||0)-8;
+   var w=box.clientWidth||(card.clientWidth-40);
+   if(!w||avail<170)return;
+   var H=Math.round(avail*760/w);
+   H=Math.max(260,Math.min(H,980));
+   var old=Number(box.getAttribute('data-h'))||0;
+   if(Math.abs(H-old)<26)return;
+   box.setAttribute('data-h',H);
+   box.innerHTML=fn(H);
+  });
+ }catch(e){}
+}
+try{window.addEventListener('resize',function(){clearTimeout(fitCharts._t);fitCharts._t=setTimeout(fitCharts,200)})}catch(e){}
+
 /* ---------- 首页 · 家庭总览（登录后默认页，v2.3） ---------- */
-var HM_QUOTES=[
- {t:'凡是过往，皆为序章。',b:'莎士比亚'},
- {t:'生活不是等待暴风雨过去，而是学会在雨中起舞。',b:'佚名'},
- {t:'不积跬步，无以至千里；不积小流，无以成江海。',b:'荀子 · 劝学'},
- {t:'纸上得来终觉浅，绝知此事要躬行。',b:'陆游'},
- {t:'山重水复疑无路，柳暗花明又一村。',b:'陆游'},
- {t:'长风破浪会有时，直挂云帆济沧海。',b:'李白'},
- {t:'海内存知己，天涯若比邻。',b:'王勃'},
- {t:'会当凌绝顶，一览众山小。',b:'杜甫'},
- {t:'随风潜入夜，润物细无声。',b:'杜甫'},
- {t:'春蚕到死丝方尽，蜡炬成灰泪始干。',b:'李商隐'},
- {t:'落霞与孤鹜齐飞，秋水共长天一色。',b:'王勃'},
- {t:'但愿人长久，千里共婵娟。',b:'苏轼'},
- {t:'竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。',b:'苏轼'},
- {t:'回首向来萧瑟处，归去，也无风雨也无晴。',b:'苏轼'},
- {t:'人间有味是清欢。',b:'苏轼'},
- {t:'粗缯大布裹生涯，腹有诗书气自华。',b:'苏轼'},
- {t:'不畏浮云遮望眼，自缘身在最高层。',b:'王安石'},
- {t:'问渠那得清如许？为有源头活水来。',b:'朱熹'},
- {t:'等闲识得东风面，万紫千红总是春。',b:'朱熹'},
- {t:'沉舟侧畔千帆过，病树前头万木春。',b:'刘禹锡'},
- {t:'千淘万漉虽辛苦，吹尽狂沙始到金。',b:'刘禹锡'},
- {t:'莫听穿林打叶声，何妨吟啸且徐行。',b:'苏轼'},
- {t:'业精于勤，荒于嬉；行成于思，毁于随。',b:'韩愈'},
- {t:'书山有路勤为径，学海无涯苦作舟。',b:'韩愈'},
- {t:'三人行，必有我师焉。',b:'论语'},
- {t:'知之者不如好之者，好之者不如乐之者。',b:'论语'},
- {t:'逝者如斯夫，不舍昼夜。',b:'论语'},
- {t:'天行健，君子以自强不息。',b:'周易'},
- {t:'地势坤，君子以厚德载物。',b:'周易'},
- {t:'路漫漫其修远兮，吾将上下而求索。',b:'屈原 · 离骚'},
- {t:'采菊东篱下，悠然见南山。',b:'陶渊明'},
- {t:'好读书，不求甚解；每有会意，便欣然忘食。',b:'陶渊明'},
- {t:'少壮不努力，老大徒伤悲。',b:'汉乐府 · 长歌行'},
- {t:'宝剑锋从磨砺出，梅花香自苦寒来。',b:'佚名'},
- {t:'一寸光阴一寸金，寸金难买寸光阴。',b:'增广贤文'},
- {t:'行到水穷处，坐看云起时。',b:'王维'},
- {t:'大漠孤烟直，长河落日圆。',b:'王维'},
- {t:'明月松间照，清泉石上流。',b:'王维'},
- {t:'天生我材必有用，千金散尽还复来。',b:'李白'},
- {t:'莫愁前路无知己，天下谁人不识君。',b:'高适'},
- {t:'忽如一夜春风来，千树万树梨花开。',b:'岑参'},
- {t:'先天下之忧而忧，后天下之乐而乐。',b:'范仲淹'},
- {t:'衣带渐宽终不悔，为伊消得人憔悴。',b:'柳永'},
- {t:'昨夜西风凋碧树，独上高楼，望尽天涯路。',b:'晏殊'},
- {t:'众里寻他千百度，蓦然回首，那人却在灯火阑珊处。',b:'辛弃疾'},
- {t:'心里有光，慢食三餐；有人等你，便是归处。',b:'佚名'},
- {t:'把每一个平凡的日子过好，就是不平凡。',b:'佚名'}
-];
-var hmCfg={quoteDay:'',quoteIdx:null,photos:[],order:[],pos:0,url:'',playing:true,timer:null,busy:false};
+var hmCfg={quoteDay:'',photos:[],order:[],pos:0,url:'',playing:true,timer:null,busy:false};
 function hmPad(n){return String(n).padStart(2,'0')}
 function hmHash(s){var h=0,i;for(i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h}
-function hmQuote(){var i=hmCfg.quoteIdx==null?(hmHash('hm-'+today())%HM_QUOTES.length):hmCfg.quoteIdx;return HM_QUOTES[i]}
-function hmQuoteHtml(q){
- return '<span class="mark">&ldquo;</span>'+
-  '<div class="qh"><span>今 日 一 句 · 每天自动更换</span><button class="btn btn-sm" data-act="hm-quote-next">换一句</button></div>'+
-  '<q>'+esc(q.t)+'</q><span class="by">— '+esc(q.b)+'</span>';
-}
 function hmStop(){if(hmCfg.timer){clearInterval(hmCfg.timer);hmCfg.timer=null}}
 function hmMod(ico,title,desc,big,target){
  return '<button class="hm-mod" data-act="hm-go" data-val="'+esc(target)+'">'+
@@ -1233,11 +1206,7 @@ function hmStart(){
  hmStop();
  hmCfg.timer=setInterval(function(){
   if(view!=='home')return;
-  if(hmCfg.quoteDay!==today()){
-   hmCfg.quoteDay=today();hmCfg.quoteIdx=null;
-   var qb=$('#hmQuoteBox');if(qb)qb.innerHTML=hmQuoteHtml(hmQuote());
-   hmLedgerStats();
-  }
+  if(hmCfg.quoteDay!==today()){hmCfg.quoteDay=today();hmLedgerStats()}
   if(hmCfg.playing&&hmCfg.photos.length)hmShowPhoto(hmCfg.pos+1);
  },9000);
 }
@@ -1322,7 +1291,6 @@ function renderHome(){
    '　·　今天也把家里的事记下来吧</div></div>'+
   '<div class="hm-date"><b>'+hmPad(d.getMonth()+1)+'.'+hmPad(d.getDate())+'</b>'+
    '<span>'+d.getFullYear()+' 年 · '+wk+'　|　数据保存在自家 NAS</span></div></div>';
- h+='<div class="hm-quote" id="hmQuoteBox">'+hmQuoteHtml(hmQuote())+'</div>';
  h+='<div class="hm-mods">'+
   hmMod('i-book','学习成长轨迹','成绩录入 · 趋势 · 问题分析 · 成绩单',exs.length+' 次考试','dashboard')+
   hmMod('i-wallet','学生花销','袁铭泽花销记账 · 压岁钱管理',money(finOut+lkNet),'finance')+
@@ -2183,27 +2151,31 @@ function finYearChart(exps,incs){
  exps.forEach(function(r){put(r,'e')});incs.forEach(function(r){put(r,'i')});
  var years=Object.keys(byYear).sort();
  if(!years.length)return '<div class="hint">暂无记录</div>';
- var W=760,H=220,L=58,R=14,T=14,B=30,plotH=H-T-B;
  var max=Math.max.apply(null,years.map(function(y){return Math.max(byYear[y].e,byYear[y].i)}).concat([1]));
- var iw=(W-L-R)/years.length,bw=Math.min(30,iw/2.8),g='';
- for(var k=0;k<=4;k++){
-  var yy=T+plotH*k/4,val=max*(1-k/4);
-  g+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#eef1f7" stroke-width="1"/>'+
-     '<text x="'+(L-8)+'" y="'+(yy+4)+'" text-anchor="end">'+shortMoney(val)+'</text>';
+ function build(H){
+  var W=760,L=52,R=16,T=18,B=32,plotH=Math.max(H-T-B,80);
+  var iw=(W-L-R)/years.length,bw=Math.min(42,iw/2.35),g='';
+  for(var k=0;k<=4;k++){
+   var yy=T+plotH*k/4,val=max*(1-k/4),base=(k===4);
+   g+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="'+(base?'#e2e8f0':'#eef1f7')+'" stroke-width="1"'+(base?'':' stroke-dasharray="4 5"')+'/>'+
+      '<text x="'+(L-8)+'" y="'+(yy+3.5)+'" text-anchor="end">'+shortMoney(val)+'</text>';
+  }
+  years.forEach(function(y,idx){
+   var hx=L+iw*idx;
+   g+='<rect class="fd-col fd-hit" x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="transparent" data-act="fin-detail" data-dim="year" data-val="'+esc(y)+'" data-kind="all"><title>'+esc(y)+' 年全部收支，点击查看明细</title></rect>';
+  });
+  years.forEach(function(y,idx){
+   var cx=L+iw*idx+iw/2,he=byYear[y].e/max*plotH,hi=byYear[y].i/max*plotH;
+   var ay=' data-act="fin-detail" data-dim="year" data-val="'+esc(y)+'"';
+   g+='<rect class="fd-hit"'+ay+' data-kind="expense" x="'+(cx-bw-3)+'" y="'+(H-B-he)+'" width="'+bw+'" height="'+Math.max(he,0)+'" rx="4" fill="#dc2626" opacity=".9"><title>'+esc(y)+' 支出 '+money0(byYear[y].e)+'，点击查看支出明细</title></rect>';
+   if(byYear[y].i>0)g+='<rect class="fd-hit"'+ay+' data-kind="income" x="'+(cx+3)+'" y="'+(H-B-hi)+'" width="'+bw+'" height="'+Math.max(hi,0)+'" rx="4" fill="#16a34a" opacity=".9"><title>'+esc(y)+' 收入 '+money0(byYear[y].i)+'，点击查看收入明细</title></rect>';
+   g+='<text class="fd-hit"'+ay+' data-kind="all" x="'+cx+'" y="'+(H-12)+'" text-anchor="middle">'+esc(y)+'</text>';
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="年度收支趋势">'+g+'</svg>';
  }
- years.forEach(function(y,idx){
-  var hx=L+iw*idx;
-  g+='<rect class="fd-col fd-hit" x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="transparent" data-act="fin-detail" data-dim="year" data-val="'+esc(y)+'" data-kind="all"><title>'+esc(y)+' 年全部收支，点击查看明细</title></rect>';
- });
- years.forEach(function(y,idx){
-  var cx=L+iw*idx+iw/2,he=byYear[y].e/max*plotH,hi=byYear[y].i/max*plotH;
-  var ay=' data-act="fin-detail" data-dim="year" data-val="'+esc(y)+'"';
-  g+='<rect class="fd-hit"'+ay+' data-kind="expense" x="'+(cx-bw-2)+'" y="'+(H-B-he)+'" width="'+bw+'" height="'+Math.max(he,0)+'" rx="3" fill="#dc2626" opacity=".88"><title>'+esc(y)+' 支出 '+money0(byYear[y].e)+'，点击查看支出明细</title></rect>';
-  if(byYear[y].i>0)g+='<rect class="fd-hit"'+ay+' data-kind="income" x="'+(cx+2)+'" y="'+(H-B-hi)+'" width="'+bw+'" height="'+Math.max(hi,0)+'" rx="3" fill="#16a34a" opacity=".88"><title>'+esc(y)+' 收入 '+money0(byYear[y].i)+'，点击查看收入明细</title></rect>';
-  g+='<text class="fd-hit"'+ay+' data-kind="all" x="'+cx+'" y="'+(H-9)+'" text-anchor="middle">'+esc(y)+'</text>';
- });
- return '<div class="fin-yearchart"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="年度收支趋势">'+g+'</svg></div>'+
-  '<div class="legend"><span><i style="background:#dc2626"></i>支出</span><span><i style="background:#16a34a"></i>收入</span><span class="muted">按记录日期所属自然年统计 · 点击柱子或年份看明细</span></div>';
+ var id=cbReg(build);
+ return '<div class="chart-hold"><div class="fin-yearchart" data-cb="'+id+'">'+build(340)+'</div>'+
+  '<div class="legend"><span><i style="background:#dc2626"></i>支出</span><span><i style="background:#16a34a"></i>收入</span><span class="muted">按记录日期所属自然年统计 · 点击柱子或年份看明细</span></div></div>';
 }
 function finRowsHtml(list){
  if(!list.length)return '<tr><td colspan="9" style="text-align:center;color:var(--faint);padding:26px">没有符合条件的记录</td></tr>';
@@ -2274,7 +2246,7 @@ function renderFinance(){
   '<div class="card"><div class="card-h"><h2>支出构成</h2><span class="sub">点击条形查看该类别逐笔明细</span></div>'+
    catOrder.map(function(c){return finBar(c,byCat[c],catMax,false,'category','expense')}).join('')+
    '<div class="hint" style="margin-top:12px">支出前三类是 '+catOrder.slice(0,3).map(esc).join('、')+'，合计 '+money(top3)+'，占总支出的 '+(sumE?(top3/sumE*100).toFixed(1):'0')+'%。</div></div>'+
-  '<div class="card"><div class="card-h"><h2>年度收支趋势</h2><span class="sub">'+esc(yearList[0]||'')+' – '+esc(yearList[yearList.length-1]||'')+'</span></div>'+
+  '<div class="card chart-card"><div class="card-h"><h2>年度收支趋势</h2><span class="sub">'+esc(yearList[0]||'')+' – '+esc(yearList[yearList.length-1]||'')+'</span></div>'+
    finYearChart(exps,incs)+'</div></div>';
 
  var filtered=finFiltered();
@@ -2447,29 +2419,33 @@ function lkYearChart(){
   var ls=lkRecords().filter(function(r){return r.year===y});
   return {y:y,in:lkSum(ls,'in'),out:lkSum(ls,'out'),save:lkSum(ls,'save')};
  });
- var W=760,H=220,L=58,R=14,T=14,B=30,plotH=H-T-B;
  var max=Math.max.apply(null,data.map(function(d){return Math.max(d['in'],d.out,d.save)}).concat([1]));
- var iw=(W-L-R)/years.length,bw=Math.min(26,iw/3.8),g='';
- for(var k=0;k<=4;k++){
-  var yy=T+plotH*k/4,val=max*(1-k/4);
-  g+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#eef1f7" stroke-width="1"/>'+
-     '<text x="'+(L-8)+'" y="'+(yy+4)+'" text-anchor="end">'+shortMoney(val)+'</text>';
- }
- data.forEach(function(d,idx){
-  var hx=L+iw*idx;
-  g+='<rect class="fd-col fd-hit" x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="transparent" data-act="lk-detail" data-dim="year" data-val="'+d.y+'" data-kind="all" data-cat="all"><title>'+d.y+' 年全部记录，点击查看明细</title></rect>';
- });
- data.forEach(function(d,idx){
-  var cx=L+iw*idx+iw/2;
-  var cols=[{v:d['in'],k:'in',c:'#16a34a',t:'收到'},{v:d.out,k:'out',c:'#dc2626',t:'给出'},{v:d.save,k:'save',c:'#6366f1',t:'存入'}];
-  cols.forEach(function(o,i){
-   var h=o.v/max*plotH,x=cx-bw*1.6+i*(bw+2),a=' data-act="lk-detail" data-dim="year" data-val="'+d.y+'" data-kind="'+o.k+'" data-cat="all"';
-   g+='<rect class="fd-hit"'+a+' x="'+x+'" y="'+(H-B-h)+'" width="'+bw+'" height="'+Math.max(h,0)+'" rx="3" fill="'+o.c+'" opacity=".88"><title>'+d.y+' 年'+o.t+' '+money0(o.v)+'，点击查看明细</title></rect>';
+ function build(H){
+  var W=760,L=52,R=16,T=18,B=32,plotH=Math.max(H-T-B,80);
+  var iw=(W-L-R)/years.length,bw=Math.min(30,iw/4),g='';
+  for(var k=0;k<=4;k++){
+   var yy=T+plotH*k/4,val=max*(1-k/4),base=(k===4);
+   g+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="'+(base?'#e2e8f0':'#eef1f7')+'" stroke-width="1"'+(base?'':' stroke-dasharray="4 5"')+'/>'+
+      '<text x="'+(L-8)+'" y="'+(yy+3.5)+'" text-anchor="end">'+shortMoney(val)+'</text>';
+  }
+  data.forEach(function(d,idx){
+   var hx=L+iw*idx;
+   g+='<rect class="fd-col fd-hit" x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="transparent" data-act="lk-detail" data-dim="year" data-val="'+d.y+'" data-kind="all" data-cat="all"><title>'+d.y+' 年全部记录，点击查看明细</title></rect>';
   });
-  g+='<text class="fd-hit" data-act="lk-detail" data-dim="year" data-val="'+d.y+'" data-kind="all" data-cat="all" x="'+cx+'" y="'+(H-9)+'" text-anchor="middle">'+d.y+'</text>';
- });
- return '<div class="lk-chart fin-yearchart"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="各年压岁钱收、支、存入对比">'+g+'</svg></div>'+
-  '<div class="legend"><span><i style="background:#16a34a"></i>收到</span><span><i style="background:#dc2626"></i>给出 / 支出</span><span><i style="background:#6366f1"></i>存入银行</span><span class="muted">点击柱子、年份或整列看明细</span></div>';
+  data.forEach(function(d,idx){
+   var cx=L+iw*idx+iw/2;
+   var cols=[{v:d['in'],k:'in',c:'#16a34a',t:'收到'},{v:d.out,k:'out',c:'#dc2626',t:'给出'},{v:d.save,k:'save',c:'#6366f1',t:'存入'}];
+   cols.forEach(function(o,i){
+    var h=o.v/max*plotH,x=cx-bw*1.7+i*(bw+3),a=' data-act="lk-detail" data-dim="year" data-val="'+d.y+'" data-kind="'+o.k+'" data-cat="all"';
+    g+='<rect class="fd-hit"'+a+' x="'+x+'" y="'+(H-B-h)+'" width="'+bw+'" height="'+Math.max(h,0)+'" rx="4" fill="'+o.c+'" opacity=".9"><title>'+d.y+' 年'+o.t+' '+money0(o.v)+'，点击查看明细</title></rect>';
+   });
+   g+='<text class="fd-hit" data-act="lk-detail" data-dim="year" data-val="'+d.y+'" data-kind="all" data-cat="all" x="'+cx+'" y="'+(H-12)+'" text-anchor="middle">'+d.y+'</text>';
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="各年压岁钱收、支、存入对比">'+g+'</svg>';
+ }
+ var id=cbReg(build);
+ return '<div class="chart-hold"><div class="lk-chart fin-yearchart" data-cb="'+id+'">'+build(320)+'</div>'+
+  '<div class="legend"><span><i style="background:#16a34a"></i>收到</span><span><i style="background:#dc2626"></i>给出 / 支出</span><span><i style="background:#6366f1"></i>存入银行</span><span class="muted">点击柱子、年份或整列看明细</span></div></div>';
 }
 function lkPersonRank(kind){
  var m={};
@@ -2679,32 +2655,36 @@ function dailyBar(label,value,max,cls,act,dim,val){
   '<div class="ct fin-money">'+money0(value)+'</div></div>';
 }
 function dailySvg(rows,labels,drillDim,vals,focus){
- var W=760,H=220,L=58,R=14,T=14,B=30,plotH=H-T-B;
  vals=vals||labels;
  var data=rows.map(function(x){return {out:x.out,inc:x.inc}});
  var max=Math.max.apply(null,data.map(function(v){return Math.max(v.out,v.inc)}).concat([1]));
- var iw=(W-L-R)/Math.max(labels.length,1),bw=Math.min(26,iw/2.8),g='';
- for(var k=0;k<=4;k++){
-  var yy=T+plotH*k/4,v=max*(1-k/4);
-  g+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#eef1f7" stroke-width="1"/>'+
-     '<text x="'+(L-8)+'" y="'+(yy+4)+'" text-anchor="end">'+shortMoney(v)+'</text>';
+ function build(H){
+  var W=760,L=52,R=16,T=18,B=32,plotH=Math.max(H-T-B,80);
+  var iw=(W-L-R)/Math.max(labels.length,1),bw=Math.min(36,iw/2.05),g='';
+  for(var k=0;k<=4;k++){
+   var yy=T+plotH*k/4,v=max*(1-k/4),base=(k===4);
+   g+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="'+(base?'#e2e8f0':'#eef1f7')+'" stroke-width="1"'+(base?'':' stroke-dasharray="4 5"')+'/>'+
+      '<text x="'+(L-8)+'" y="'+(yy+3.5)+'" text-anchor="end">'+shortMoney(v)+'</text>';
+  }
+  labels.forEach(function(lb,idx){
+   var hx=L+iw*idx,dv=String(vals[idx]==null?lb:vals[idx]);
+   var isF=focus&&(dv===String(focus)||lb===String(focus));
+   if(isF)g+='<rect x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="rgba(79,70,229,.055)"/>';
+   g+='<rect class="fd-col fd-hit" x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="transparent" data-act="daily-drill" data-dim="'+drillDim+'" data-val="'+esc(dv)+'"><title>点击下钻：'+esc(lb)+'</title></rect>';
+  });
+  data.forEach(function(v,idx){
+   var cx=L+iw*idx+iw/2,lb=labels[idx],dv=String(vals[idx]==null?lb:vals[idx]);
+   var isF=focus&&(dv===String(focus)||lb===String(focus));
+   var he=v.out/max*plotH,hi=v.inc/max*plotH;
+   g+='<rect class="fd-hit" data-act="daily-detail" data-dim="'+drillDim+'" data-val="'+esc(dv)+'" data-kind="out" x="'+(cx-bw-3)+'" y="'+(H-B-he)+'" width="'+bw+'" height="'+Math.max(he,0)+'" rx="4" fill="#dc2626" opacity=".9"><title>'+esc(lb)+' 支出 '+money0(v.out)+'，点击查看明细</title></rect>';
+   if(v.inc>0)g+='<rect class="fd-hit" data-act="daily-detail" data-dim="'+drillDim+'" data-val="'+esc(dv)+'" data-kind="in" x="'+(cx+3)+'" y="'+(H-B-hi)+'" width="'+bw+'" height="'+Math.max(hi,0)+'" rx="4" fill="#16a34a" opacity=".9"><title>'+esc(lb)+' 收入 '+money0(v.inc)+'，点击查看明细</title></rect>';
+   g+='<text class="fd-hit'+(isF?' dy-focus-lb':'')+'" data-act="daily-drill" data-dim="'+drillDim+'" data-val="'+esc(dv)+'" x="'+cx+'" y="'+(H-12)+'" text-anchor="middle">'+esc(lb)+'</text>';
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="收支趋势">'+g+'</svg>';
  }
- labels.forEach(function(lb,idx){
-  var hx=L+iw*idx,dv=String(vals[idx]==null?lb:vals[idx]);
-  var isF=focus&&(dv===String(focus)||lb===String(focus));
-  if(isF)g+='<rect x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="rgba(79,70,229,.055)"/>';
-  g+='<rect class="fd-col fd-hit" x="'+hx+'" y="'+T+'" width="'+iw+'" height="'+plotH+'" fill="transparent" data-act="daily-drill" data-dim="'+drillDim+'" data-val="'+esc(dv)+'"><title>点击下钻：'+esc(lb)+'</title></rect>';
- });
- data.forEach(function(v,idx){
-  var cx=L+iw*idx+iw/2,lb=labels[idx],dv=String(vals[idx]==null?lb:vals[idx]);
-  var isF=focus&&(dv===String(focus)||lb===String(focus));
-  var he=v.out/max*plotH,hi=v.inc/max*plotH;
-  g+='<rect class="fd-hit" data-act="daily-detail" data-dim="'+drillDim+'" data-val="'+esc(dv)+'" data-kind="out" x="'+(cx-bw-2)+'" y="'+(H-B-he)+'" width="'+bw+'" height="'+Math.max(he,0)+'" rx="3" fill="#dc2626" opacity=".88"><title>'+esc(lb)+' 支出 '+money0(v.out)+'，点击查看明细</title></rect>';
-  if(v.inc>0)g+='<rect class="fd-hit" data-act="daily-detail" data-dim="'+drillDim+'" data-val="'+esc(dv)+'" data-kind="in" x="'+(cx+2)+'" y="'+(H-B-hi)+'" width="'+bw+'" height="'+Math.max(hi,0)+'" rx="3" fill="#16a34a" opacity=".88"><title>'+esc(lb)+' 收入 '+money0(v.inc)+'，点击查看明细</title></rect>';
-  g+='<text class="fd-hit'+(isF?' dy-focus-lb':'')+'" data-act="daily-drill" data-dim="'+drillDim+'" data-val="'+esc(dv)+'" x="'+cx+'" y="'+(H-9)+'" text-anchor="middle">'+esc(lb)+'</text>';
- });
- return '<div class="dy-chart fin-yearchart"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="收支趋势">'+g+'</svg></div>'+
-  '<div class="legend"><span><i style="background:#dc2626"></i>支出</span><span><i style="background:#16a34a"></i>收入</span><span class="muted">点击柱子看分项明细 · 点击年份 / 月份文字下钻</span></div>';
+ var id=cbReg(build);
+ return '<div class="chart-hold"><div class="dy-chart fin-yearchart" data-cb="'+id+'">'+build(340)+'</div>'+
+  '<div class="legend"><span><i style="background:#dc2626"></i>支出</span><span><i style="background:#16a34a"></i>收入</span><span class="muted">点击柱子看分项明细 · 点击年份 / 月份文字下钻</span></div></div>';
 }
 /* ---------- v2.4 明细表：表头排序 / 小票 / 备注换行 / 图3 紧凑样式 ---------- */
 var dailySort={key:'day',dir:'desc'};
@@ -3394,7 +3374,7 @@ function dailyFocusHtml(all){
    '<span class="sp"></span><span class="muted small">跟随上方查询条件</span>'+
    '<div class="dy-focus-tip">默认展示当年；点上方年份柱 / 年份行 /「月图」只切换这里的月图与年度花销数据，上方两张年度图表保持不变；这里点月份柱或「明细」才会打开逐笔明细。</div>'+
   '</div><div class="fin-grid">'+
-   '<div class="card"><div class="card-h"><h2>'+esc(y)+' 年 · 月花销图</h2><span class="sub">红=支出 绿=收入 · 点柱看明细，点月份下钻</span></div>'+
+   '<div class="card chart-card"><div class="card-h"><h2>'+esc(y)+' 年 · 月花销图</h2><span class="sub">红=支出 绿=收入 · 点柱看明细，点月份下钻</span></div>'+
     dailySvg(md.rows,md.labels,'month',md.vals,null)+'</div>'+
    '<div class="card"><div class="card-h"><h2>'+esc(y)+' 年 · 年度花销数据</h2><span class="sub">按 12 个月展开 · 共 '+n+' 笔</span></div>'+
     '<div class="dy-mini">'+
@@ -3403,7 +3383,7 @@ function dailyFocusHtml(all){
      '<div>月均支出<b>'+money(avg)+'</b></div>'+
      '<div>最高支出月<b>'+(peak.k?Number(peak.k.slice(5))+' 月 · '+money0(peak.v):'—')+'</b></div>'+
     '</div>'+
-    '<div class="table-wrap"><table class="tbl"><thead><tr><th>月份</th><th>支出</th><th>收入</th><th>笔数</th><th>操作</th></tr></thead><tbody>'+
+    '<div class="table-wrap dy-scroll"><table class="tbl"><thead><tr><th>月份</th><th>支出</th><th>收入</th><th>笔数</th><th>操作</th></tr></thead><tbody>'+
      md.labels.map(function(lb,i){
       var k=md.vals[i],b=md.byM[k];
       return '<tr class="fd-hit fd-hit-row" data-act="daily-drill" data-dim="month" data-val="'+k+'" title="点击查看 '+esc(y)+' 年 '+lb+'逐笔明细">'+
@@ -3470,11 +3450,11 @@ function renderDaily(){
    byY[y][(r.type==='out'?'out':(r.type==='in'?'inc':'neu'))]+=(Number(r.money)||0);byY[y].n++});
   var ys=Object.keys(byY).sort(),rows=ys.map(function(y){return {out:byY[y].out,inc:byY[y].inc}});
   html+='<div class="fin-grid">'+
-   '<div class="card"><div class="card-h"><h2>按年 · 收支趋势</h2><span class="sub">点年份柱 / 文字联动下方月图（本图不变）</span></div>'+dailySvg(rows,ys,'year',ys,dailyCfg.focusYear)+'</div>'+
+   '<div class="card chart-card"><div class="card-h"><h2>按年 · 收支趋势</h2><span class="sub">点年份柱 / 文字联动下方月图（本图不变）</span></div>'+dailySvg(rows,ys,'year',ys,dailyCfg.focusYear)+'</div>'+
    '<div class="card"><div class="card-h"><div class="dy-hd"><h2>年度花销</h2>'+
    '<span class="dy-total">总支出 <b class="fin-out">'+money(exp)+'</b>　总收入 <b class="fin-in">'+money(inc)+'</b></span></div>'+
    '<span class="sub">点年份行或「月图」联动下方月图（上方图表不变）</span></div>'+
-    '<div class="table-wrap"><table class="tbl"><thead><tr><th>年份</th><th>支出</th><th>收入</th><th>笔数</th><th>操作</th></tr></thead><tbody>'+
+    '<div class="table-wrap dy-scroll"><table class="tbl"><thead><tr><th>年份</th><th>支出</th><th>收入</th><th>笔数</th><th>操作</th></tr></thead><tbody>'+
     (ys.length?ys.map(function(y){return '<tr class="fd-hit fd-hit-row'+(String(y)===String(dailyCfg.focusYear)?' dy-focus-row':'')+'" data-act="daily-drill" data-dim="year" data-val="'+y+'" title="点击查看 '+y+' 年 12 个月">'+
      '<td><b>'+y+'</b> ↗</td><td class="fin-money fin-out">'+money(byY[y].out)+'</td><td class="fin-money fin-in">'+money(byY[y].inc)+'</td>'+
      '<td>'+byY[y].n+'</td><td><button class="btn btn-sm" data-act="daily-detail" data-dim="year" data-val="'+y+'" data-kind="all">月图</button></td></tr>'}).join(''):
@@ -4061,7 +4041,6 @@ document.addEventListener('click',function(ev){
   case 'hm-new-exam':newExam();break;
   case 'hm-new-note':go('notes');openNoteEditor(null,'note');break;
   case 'hm-new-daily':go('daily');dailyLoad().then(function(){if(view==='daily')openDailyForm(null)}).catch(function(){});break;
-  case 'hm-quote-next':hmCfg.quoteIdx=Math.floor(Math.random()*HM_QUOTES.length);var hq=$('#hmQuoteBox');if(hq)hq.innerHTML=hmQuoteHtml(hmQuote());break;
   case 'hm-photo-prev':hmShowPhoto(hmCfg.pos-1);break;
   case 'hm-photo-next':hmShowPhoto(hmCfg.pos+1);break;
   case 'hm-photo-toggle':hmCfg.playing=!hmCfg.playing;var ht=$('#hmPhotoToggle');if(ht)ht.textContent=hmCfg.playing?'暂停':'播放';break;

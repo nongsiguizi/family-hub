@@ -685,7 +685,7 @@ table{border-collapse:collapse;font-size:13px}
   <p id="fdSub" style="margin-bottom:10px"></p>
   <div class="fd-sum" id="fdSum"></div>
   <div class="fd-body" id="fdBody"></div>
-  <div class="fd-hint">点击条形、柱子、年份、核对表行或 KPI 卡片，都能打开对应分项明细；按 Esc 或点击空白处关闭。</div>
+  <div class="fd-hint">点击条形、柱子、年份、核对表行或 KPI 卡片，都能打开对应分项明细；弹层内点击表头可排序，点「小票」可预览 / 上传票据；按 Esc 或点击空白处关闭。</div>
   <div class="row"><button class="btn btn-sm" data-act="fin-detail-filter">在明细表中筛选</button><button class="btn btn-sm" data-act="fin-detail-export">导出这组 CSV</button><button class="btn" data-act="fin-detail-close">关闭</button></div>
 </div></div>
 <div class="overlay hidden" id="lkDetailLayer"><div class="modal fd-modal">
@@ -2046,28 +2046,76 @@ function finDetailTitle(cfg){
  var k=cfg.kind==='expense'?'支出':(cfg.kind==='income'?'收入':'收支');
  return base+' · '+k+'明细';
 }
+var finDetailSort={key:'date',dir:'desc'};
+var FD_COLS=[['date','日期'],['grade','年级 · 学期'],['category','类别'],['name','项目'],['amount','金额'],['note','备注']];
+function finDetailHead(){
+ return '<tr>'+FD_COLS.map(function(c){
+  var on=finDetailSort.key===c[0];
+  return '<th class="dy-th'+(on?' on':'')+'" data-act="fin-detail-sort" data-key="'+c[0]+'" title="点击按「'+esc(c[1])+'」排序">'+
+   esc(c[1])+'<span class="dy-ar">'+(on?(finDetailSort.dir==='asc'?'↑':'↓'):'⇅')+'</span></th>';
+ }).join('')+'<th class="dy-th">小票</th><th class="dy-th">操作</th></tr>';
+}
+function finDetailSorted(list){
+ var k=finDetailSort.key,sgn=finDetailSort.dir==='asc'?1:-1;
+ return list.slice().sort(function(a,b){
+  var x,y,c;
+  if(k==='amount'){x=Number(a.amount)||0;y=Number(b.amount)||0;c=x-y}
+  else if(k==='grade'){x=String(a.grade||'')+' '+String(a.term||'');y=String(b.grade||'')+' '+String(b.term||'');c=String(x).localeCompare(String(y),'zh-CN')}
+  else{x=String(a[k]==null?'':a[k]);y=String(b[k]==null?'':b[k]);c=x.localeCompare(y,'zh-CN')}
+  if(!c)c=String(b.date||'').localeCompare(String(a.date||''))||String(b.id||'').localeCompare(String(a.id||''));
+  return c*sgn;
+ });
+}
+function finDetailRow(r){
+ var inc=r.kind==='income';
+ return '<tr><td class="muted">'+esc(r.date)+'</td>'+
+  '<td>'+esc(r.grade)+' · '+esc(r.term)+'</td>'+
+  '<td><span class="pill'+(inc?'':' warn')+'">'+esc(r.category)+'</span></td>'+
+  '<td class="dy-name"><b>'+esc(r.name)+'</b></td>'+
+  '<td><span class="dy-amt '+(inc?'in':'out')+'">'+(inc?'+':'-')+money(r.amount)+'</span></td>'+
+  '<td class="dy-note">'+esc(r.note||'')+'</td>'+
+  '<td class="dy-ticket-cell"><button class="dy-ico ticket" data-act="fd-ticket" data-id="'+esc(r.id)+'" title="预览 / 上传票据">'+DY_ICO.ticket+'</button></td>'+
+  '<td class="dy-ops">'+
+   '<button class="dy-ico" data-act="fd-receipt" data-id="'+esc(r.id)+'" title="凭证管理 / 上传附件">'+DY_ICO.receipt+'</button>'+
+   '<button class="dy-ico" data-act="fd-edit" data-id="'+esc(r.id)+'" title="编辑">'+DY_ICO.edit+'</button>'+
+   '<button class="dy-ico del" data-act="fd-del" data-id="'+esc(r.id)+'" title="删除">'+DY_ICO.del+'</button></td></tr>';
+}
 function finDetailRowsHtml(list){
- if(!list.length)return '<tr><td colspan="6" style="text-align:center;color:var(--faint);padding:26px">这个分项暂无记录</td></tr>';
- return list.map(function(r){
-  var inc=r.kind==='income';
-  return '<tr><td class="muted">'+esc(r.date)+'</td>'+
-   '<td>'+esc(r.grade)+' · '+esc(r.term)+'</td>'+
-   '<td><span class="pill'+(inc?'':' warn')+'">'+esc(r.category)+'</span></td>'+
-   '<td><b>'+esc(r.name)+'</b></td>'+
-   '<td class="fin-money '+(inc?'fin-in':'fin-out')+'">'+(inc?'+':'-')+money(r.amount)+'</td>'+
-   '<td class="fin-note">'+esc(r.note||'')+'</td></tr>';
- }).join('');
+ var rows=finDetailSorted(list);
+ if(!rows.length)return '<tr><td colspan="8" style="text-align:center;color:var(--faint);padding:26px">这个分项暂无记录</td></tr>';
+ return rows.map(finDetailRow).join('');
+}
+function finDetailTable(list){
+ return '<table class="tbl dy-tbl"><thead>'+finDetailHead()+'</thead><tbody>'+finDetailRowsHtml(list)+'</tbody></table>';
+}
+function finDetailRedraw(){
+ if(!finDetail)return;
+ var b=$('#fdBody');if(!b)return;
+ var list=finDetailList(finDetail);
+ b.innerHTML=finDetailTable(list);
+ var sm=$('#fdSum');
+ if(sm)sm.innerHTML='<div>支出合计<b class="fin-out">'+money(finSum(list,'expense'))+'</b></div>'+
+  '<div>收入合计<b class="fin-in">'+money(finSum(list,'income'))+'</b></div>'+
+  '<div>净支出<b>'+money(finSum(list,'expense')-finSum(list,'income'))+'</b></div>';
+ var sb=$('#fdSub');if(sb)sb.textContent='共 '+list.length+' 笔 · 点击表头可排序（金额 / 日期 / 项目等）。';
+}
+function fdTicket(id){
+ if(!attReady()){toast('票据预览需要连接 NAS 服务','err');return}
+ attApi('api/attachments?examId='+encodeURIComponent('fin-'+id)).then(function(r){return r.json()}).then(function(j){
+  var fs=(j.items||[]).filter(function(f){return f.key==='receipt'});
+  if(fs.length){previewAttachment(fs[0].id);return}
+  closeFinDetail();openReceipt(id,{prefix:'fin'});
+ }).catch(function(){closeFinDetail();openReceipt(id,{prefix:'fin'})});
 }
 function openFinDetail(dim,val,kind){
  finDetail={dim:dim||'all',val:val==null?'':String(val),kind:kind||'all'};
  var list=finDetailList(finDetail);
  $('#fdTitle').textContent=finDetailTitle(finDetail);
- $('#fdSub').textContent='共 '+list.length+' 笔 · 按日期倒序。这里列出该分项下的全部记录，不受上方明细筛选条件影响；如需修改，点「在明细表中筛选」。';
+ $('#fdSub').textContent='共 '+list.length+' 笔 · 点击表头可排序（金额 / 日期 / 项目等），「小票」列可预览或上传票据，操作列可编辑 / 删除。';
  $('#fdSum').innerHTML='<div>支出合计<b class="fin-out">'+money(finSum(list,'expense'))+'</b></div>'+
   '<div>收入合计<b class="fin-in">'+money(finSum(list,'income'))+'</b></div>'+
   '<div>净支出<b>'+money(finSum(list,'expense')-finSum(list,'income'))+'</b></div>';
- $('#fdBody').innerHTML='<table class="tbl"><thead><tr><th>日期</th><th>年级 · 学期</th><th>类别</th><th>项目</th><th>金额</th><th>备注</th></tr></thead><tbody>'+
-  finDetailRowsHtml(list)+'</tbody></table>';
+ $('#fdBody').innerHTML=finDetailTable(list);
  $('#finDetailLayer').classList.remove('hidden');
 }
 function closeFinDetail(){var l=$('#finDetailLayer');if(l)l.classList.add('hidden');finDetail=null}
@@ -4273,6 +4321,15 @@ document.addEventListener('click',function(ev){
    toast('已保存 '+n+' 条归类规则','ok');break;
   }
   case 'daily-reset':dailyCfg={level:dailyCfg.level,year:dailyCfg.year,month:dailyCfg.month,focusYear:dailyCfg.focusYear,showCatMap:dailyCfg.showCatMap,showCatAdd:false,q:'',type:'all',cat:'all',pay:'all',from:'',to:'',min:'',max:''};renderDaily();break;
+  case 'fin-detail-sort':{
+   var fk=el.dataset.key;
+   if(finDetailSort.key===fk)finDetailSort.dir=finDetailSort.dir==='asc'?'desc':'asc';
+   else finDetailSort={key:fk,dir:(fk==='amount'||fk==='date')?'desc':'asc'};
+   finDetailRedraw();break}
+  case 'fd-ticket':fdTicket(id);break;
+  case 'fd-receipt':closeFinDetail();openReceipt(id,{prefix:'fin'});break;
+  case 'fd-edit':closeFinDetail();openFinForm(null,id);break;
+  case 'fd-del':closeFinDetail();deleteFinRecord(id);break;
   case 'fin-detail':openFinDetail(el.dataset.dim,el.dataset.val,el.dataset.kind);break;
   case 'fin-detail-close':closeFinDetail();break;
   case 'fin-detail-filter':finDetailFilterScope();break;

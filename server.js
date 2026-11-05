@@ -18,6 +18,9 @@
  *   DELETE api/attachments?id=|examId=   -> 删除单个 / 某次考试全部
  *   GET    api/file?id=                 -> 附件二进制流（inline 预览）
  * 附件不参与 grades.json 的 rev，避免多设备写成绩时被附件操作干扰。
+ * NAS 相册（v2.3 新增，可选只读挂载 /app/photos）：
+ *   GET api/photos?limit=  -> 200 { count, items:[{p,name,size,mtime}] }
+ *   GET api/photo?p=       -> 图片二进制流（p 为相对路径，禁止越界）
  * 所有需要鉴权的请求带请求头 X-Access-Key: <token>
  */
 const http = require('http');
@@ -202,6 +205,42 @@ const MIME = {
   '.woff2': 'font/woff2',
   '.apk': 'application/vnd.android.package-archive'
 };
+/* ---------------- NAS 相册（可选只读挂载；首页「随手拍」随机轮播） ---------------- */
+const PHOTO_DIR = process.env.PHOTO_DIR || path.join(__dirname, 'photos');
+const PHOTO_EXT = { '.jpg': 1, '.jpeg': 1, '.png': 1, '.webp': 1, '.gif': 1 };
+const PHOTO_MAX = 8 * 1024 * 1024;   // 跳过超大原图，避免轮播卡顿
+// 截图 / 下载 / 隐藏目录 / 缩略图不进入轮播；HEIC、MOV、MP4 因浏览器不支持，由扩展名白名单过滤
+const PHOTO_SKIP = /(^|\/)(Screenshots|screenshots|Download|download|@eaDir|\.thumbnails|thumb)(\/|$)/;
+let photoCache = null, photoCacheAt = 0;
+function scanPhotos() {
+  const out = [];
+  function walk(dir, depth) {
+    if (depth > 8 || out.length >= 4000) return;
+    let ents;
+    try { ents = fs.readdirSync(dir, { withFileTypes: true }); } catch (e) { return; }
+    for (const e of ents) {
+      if (e.name.charAt(0) === '.') continue;
+      const full = path.join(dir, e.name);
+      const rel = path.relative(PHOTO_DIR, full).split(path.sep).join('/');
+      if (PHOTO_SKIP.test('/' + rel + '/')) continue;
+      if (e.isDirectory()) { walk(full, depth + 1); continue; }
+      if (!e.isFile() || !PHOTO_EXT[path.extname(e.name).toLowerCase()]) continue;
+      let st;
+      try { st = fs.statSync(full); } catch (err) { continue; }
+      if (st.size > 0 && st.size <= PHOTO_MAX) out.push({ p: rel, name: e.name, size: st.size, mtime: st.mtimeMs });
+    }
+  }
+  if (fs.existsSync(PHOTO_DIR)) walk(PHOTO_DIR, 0);
+  out.sort(function (a, b) { return b.mtime - a.mtime; });
+  return out;
+}
+function photoItems() {
+  if (!photoCache || Date.now() - photoCacheAt > 10 * 60 * 1000) {
+    photoCache = scanPhotos(); photoCacheAt = Date.now();
+  }
+  return photoCache;
+}
+
 function sendJSON(res, code, obj) {
   const body = Buffer.from(JSON.stringify(obj));
   res.writeHead(code, {
@@ -316,6 +355,33 @@ const server = http.createServer(async function (req, res) {
     const token = issueToken(true); // 清空其它设备的登录态
     console.log('[auth] 密码已修改，其它设备需重新登录');
     return sendJSON(res, 200, { token: token });
+  }
+
+  /* ---------- NAS 相册：图片索引 + 单张图片（均需登录） ---------- */
+  if (apiName === 'photos') {
+    if (!isAuthorized(req)) return sendJSON(res, 401, { error: '需要密码' });
+    const q = new URL(req.url, 'http://localhost').searchParams;
+    const limit = Math.min(Math.max(Number(q.get('limit')) || 600, 1), 4000);
+    const items = photoItems();
+    return sendJSON(res, 200, { count: items.length, items: items.slice(0, limit) });
+  }
+  if (apiName === 'photo') {
+    if (!isAuthorized(req)) return sendJSON(res, 401, { error: '需要密码' });
+    const rel = new URL(req.url, 'http://localhost').searchParams.get('p') || '';
+    const root = path.resolve(PHOTO_DIR), full = path.resolve(root, rel);
+    if (full.indexOf(root + path.sep) !== 0 || !PHOTO_EXT[path.extname(full).toLowerCase()])
+      return sendJSON(res, 403, { error: 'forbidden' });
+    fs.stat(full, function (err, st) {
+      if (err || !st.isFile() || st.size > PHOTO_MAX) return sendJSON(res, 404, { error: 'not found' });
+      res.writeHead(200, {
+        'Content-Type': MIME[path.extname(full).toLowerCase()] || 'image/jpeg',
+        'Content-Length': st.size,
+        'Cache-Control': 'private, max-age=300',
+        'X-Content-Type-Options': 'nosniff'
+      });
+      fs.createReadStream(full).pipe(res);
+    });
+    return;
   }
 
   /* ---------- 试卷附件 ---------- */

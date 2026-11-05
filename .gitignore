@@ -6,6 +6,8 @@ data/attachments.json
 data/attachments/
 public/daily-ledger.json
 public/avatar.jpg
+photos/
+public/photos/
 
 # ===== 签名密钥与构建产物 =====
 *.keystore

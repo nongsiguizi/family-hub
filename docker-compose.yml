@@ -11,6 +11,9 @@ services:
       - "8999:3000"
     volumes:
       - ./:/app
+      # 可选：只读挂载 NAS 相册，首页「随手拍」会随机轮播。
+      # 换服务器时设置环境变量 PHOTO_DIR 指向自己的相册目录；目录不存在时首页显示引导，不影响其它功能。
+      - ${PHOTO_DIR:-/vol1/1000/Photos}:/app/photos:ro
     environment:
       TZ: Asia/Shanghai
       PORT: "3000"

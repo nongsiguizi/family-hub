@@ -392,6 +392,55 @@ table{border-collapse:collapse;font-size:13px}
 .dy-crumb .muted{margin-left:auto}
 @media(max-width:720px){.dy-acts{margin-left:0;width:100%}.dy-crumb .muted{display:none}}
 
+/* ---------- 首页 · 家庭总览（v2.3） ---------- */
+.hm-hero{display:flex;align-items:center;gap:20px;padding:22px 26px;border-radius:16px;background:linear-gradient(120deg,#eef2ff 0%,#f5f3ff 45%,#ecfeff 100%);border:1px solid #e0e7ff;margin-bottom:16px;position:relative;overflow:hidden}
+.hm-hero:after{content:"";position:absolute;right:-60px;top:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.12),transparent 70%)}
+.hm-hero img{width:74px;height:74px;border-radius:20px;object-fit:cover;border:3px solid #fff;box-shadow:0 6px 18px rgba(79,70,229,.18);flex:0 0 74px}
+.hm-hero-txt{flex:1;min-width:0;position:relative;z-index:1}
+.hm-hero h2{margin:0 0 5px;font-size:22px;letter-spacing:.3px}
+.hm-hero .sub{color:var(--muted);font-size:13px}
+.hm-hero .sub b{color:var(--text)}
+.hm-date{text-align:right;white-space:nowrap;position:relative;z-index:1}
+.hm-date b{font-size:30px;line-height:1;color:var(--primary);font-weight:700}
+.hm-date span{display:block;color:var(--muted);font-size:12px;margin-top:6px}
+.hm-quote{padding:18px 24px;border-radius:14px;background:linear-gradient(135deg,#fff7ed,#fef2f2);border:1px solid #fed7aa;margin-bottom:18px;position:relative}
+.hm-quote .mark{position:absolute;left:14px;top:2px;font-size:60px;color:rgba(234,88,12,.13);font-family:Georgia,serif;line-height:1}
+.hm-quote q{display:block;font-size:16.5px;line-height:1.9;color:#7c2d12;padding-left:34px;font-family:"Songti SC","SimSun",Georgia,serif}
+.hm-quote .by{display:block;text-align:right;color:#9a3412;font-size:12px;margin-top:6px}
+.hm-quote .qh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.hm-quote .qh span{font-size:11px;letter-spacing:1px;color:#c2410c;font-weight:600}
+.hm-mods{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.hm-mod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;transition:.18s;text-align:left;display:block;width:100%;font:inherit;color:inherit}
+.hm-mod:hover{transform:translateY(-2px);border-color:#c7d2fe;box-shadow:0 8px 24px rgba(79,70,229,.10)}
+.hm-mod .ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--soft);color:var(--primary);margin-bottom:10px}
+.hm-mod .ico svg{width:20px;height:20px}
+.hm-mod h3{margin:0 0 3px;font-size:15px}
+.hm-mod p{margin:0;color:var(--muted);font-size:12px}
+.hm-mod .big{font-size:19px;font-weight:700;color:var(--primary);margin-top:9px;display:block}
+.hm-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+.hm-photo{position:relative;border-radius:12px;overflow:hidden;background:#0f172a;height:480px;display:flex;align-items:center;justify-content:center}
+.hm-photo img{width:100%;height:100%;object-fit:contain;transition:opacity .45s;position:absolute;inset:0}
+.hm-photo .ph{color:#94a3b8;font-size:13px;text-align:center;padding:24px;line-height:1.8;max-width:90%}
+.hm-photo-bar{position:absolute;left:0;right:0;bottom:0;padding:12px;background:linear-gradient(transparent,rgba(15,23,42,.86));color:#fff;display:flex;align-items:center;gap:7px;font-size:12px;z-index:2}
+.hm-photo-bar .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hm-photo-bar button{background:rgba(255,255,255,.18);border:0;color:#fff;border-radius:7px;padding:5px 9px;cursor:pointer;font-size:12px;white-space:nowrap}
+.hm-photo-bar button:hover{background:rgba(255,255,255,.32)}
+.hm-list{list-style:none;margin:0;padding:0}
+.hm-list li{padding:9px 0;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:10px;font-size:13px}
+.hm-list li:last-child{border:0}
+.hm-list .grow{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hm-todo{display:flex;align-items:center;gap:9px;padding:8px 0;font-size:13px;border-bottom:1px solid var(--line2)}
+.hm-todo:last-child{border:0}
+.hm-todo .box{width:15px;height:15px;border:1.5px solid var(--primary2);border-radius:4px;flex:0 0 15px}
+.hm-todo.done .box{background:var(--primary);border-color:var(--primary)}
+.hm-todo.done span{text-decoration:line-through;color:var(--muted)}
+.hm-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.hm-mini>div{background:#f8fafc;border:1px solid var(--line2);border-radius:10px;padding:10px 12px}
+.hm-mini .l{font-size:11px;color:var(--muted)}
+.hm-mini .v{font-size:17px;font-weight:700;margin-top:3px}
+.hm-quick{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
+@media(max-width:1100px){.hm-mods{grid-template-columns:repeat(2,1fr)}.hm-2{grid-template-columns:1fr}}
+@media(max-width:640px){.hm-hero{flex-wrap:wrap}.hm-date{text-align:left}.hm-mods{grid-template-columns:1fr 1fr}.hm-photo{height:330px}}
 </style>
 </head>
 <body data-page-node-id="IQww0v65Vaa78CdoavCQeI">
@@ -413,6 +462,7 @@ table{border-collapse:collapse;font-size:13px}
   <aside data-page-node-id="KWtK9TXbhhW782sBRWBXEE" class="side">
     <div data-page-node-id="soLrwx4VN8qkH8GJ2KdQxN" class="brand"><img class="brand-logo" src="avatar.jpg" alt="袁铭泽"><div data-page-node-id="St7Eo3J4UfswKcrN6jqwDc"><b data-page-node-id="Yo3Xdn7ITKvTGRMrqAoI8k">家庭事项记录</b><small data-page-node-id="VGYjJcgNEyILfBoBizHcUF">Family Hub · 数据保存在自家 NAS</small></div></div>
     <nav id="mainNav">
+      <button class="nav-item sys" data-view="home" style="margin-bottom:8px"><svg fill="none" stroke="currentColor" stroke-width="1.7"><use href="#i-home"/></svg><span class="nt">首页 · 家庭总览</span></button>
       <div class="nav-tip">一级目录 · 点击可折叠</div>
       <div class="nav-group open" data-group="study">
         <button class="nav-group-h" data-act="nav-toggle"><svg><use href="#i-book"/></svg><span>学习成长轨迹</span><svg class="chev"><use href="#i-chev"/></svg></button>
@@ -459,7 +509,8 @@ table{border-collapse:collapse;font-size:13px}
       <div data-page-node-id="nCDetOn8KWzEPUz5FCLwmF" class="top-actions"><span data-page-node-id="NO6gNs19TUkmYIscVoXOmh" class="badge" id="storageBadge"><i data-page-node-id="5mwQOV2GflRcEcEHDtbU4Z"></i><!--pnid:lQzOv1QbdbNNYvPi3YSq50-->连接中</span><button data-page-node-id="RAzmc0iQcFTOqaevJSWiLF" class="btn btn-primary" data-act="top-add" id="topAddBtn"><!--pnid:BNUdgDTq6MU1hiZPxkdNpv-->＋ 录入考试</button></div>
     </header>
     <div data-page-node-id="z2j8t90Zf5tSXk3PVL66jQ" class="content">
-      <div data-page-node-id="ES7PmU3rpob8sGZaeyG1bh" class="view active" id="v-dashboard"></div>
+      <div class="view active" id="v-home"></div>
+      <div data-page-node-id="ES7PmU3rpob8sGZaeyG1bh" class="view" id="v-dashboard"></div>
       <div data-page-node-id="S8BFluHBHDzFxN2WYgb07Q" class="view" id="v-entry"></div>
       <div data-page-node-id="uPulBL0AFBFSPRhUYBMh8i" class="view" id="v-records"></div>
       <div data-page-node-id="SNYM2RMssvc693pSESx7H3" class="view" id="v-trend"></div>
@@ -597,6 +648,7 @@ var FIN_CLAIMED={'一年级':23150,'二年级':22515,'三年级':15476,'四年�
 /* 原始压岁钱账本写明的合计，仅用于看板核对；null 表示原文没给合计 */
 var LK_CLAIMED={2023:{in:9100,out:6300},2024:{in:9100,out:7000},2025:{in:7100,out:null},2026:{in:null,out:null}};
 var PAGE={
+ home:['家庭总览','日历 · 每日美文 · NAS 相册 · 四大模块速览'],
  dashboard:['概览','初一到高三的成绩全貌与最近变化'],
  entry:['成绩录入','月考 / 期中 / 期末，科目可增删，逐科记录分数、排名与问题备注'],
  records:['成绩记录','按年级查看历次考试明细与备注'],
@@ -876,18 +928,18 @@ function metricName(metric,pct){
 function noteCount(e){var n=0;Object.keys(e.rows||{}).forEach(function(k){var r=e.rows[k]||{};if((r.note&&r.note.trim())||(r.tags&&r.tags.length))n++});return n}
 
 /* ---------- 通用 UI ---------- */
-var view='dashboard';
+var view='home';
 var trendCfg={scope:'all',mode:'single',subject:'total',metric:'rate',pct:true,multi:['yuwen','shuxue','yingyu']};
 var recCfg={scope:'all'};
 var anCfg={scope:'all',subject:'all',tag:'all'};
 var editingId=null,formReady=false,expandedId=null,lastTagInput=null,modalOk=null;
 var formSubjects=[],formCustomized=false;
 
-function go(v){view=v;render()}
+function go(v){if(v!=='home'&&typeof hmStop==='function')hmStop();view=v;render()}
 function render(){
  if(locked){updateLockMsg();$('#lockLayer').classList.remove('hidden');return}
  $('#lockLayer').classList.add('hidden');
- var p=PAGE[view]||PAGE.dashboard;
+ var p=PAGE[view]||PAGE.home;
  $('#pageTitle').textContent=p[0];
  var who=(state.profile&&state.profile.name)?state.profile.name+' · ':'';
  var cls=(state.profile&&state.profile.className)?state.profile.className+' · ':'';
@@ -898,8 +950,8 @@ function render(){
  });
  $$('.view').forEach(function(v){v.classList.toggle('active',v.id==='v-'+view)});
  syncNavGroups();
- var tb=$('#topAddBtn');if(tb)tb.textContent=(view==='notes'?'＋ 新建笔记':(view==='daily'?'＋ 记一笔':'＋ 录入考试'));
- ({dashboard:renderDashboard,entry:renderEntry,records:renderRecords,trend:renderTrend,analysis:renderAnalysis,report:renderReport,finance:renderFinance,lucky:renderLucky,daily:renderDaily,notes:renderNotes,settings:renderSettings})[view]();
+ var tb=$('#topAddBtn');if(tb)tb.textContent=(view==='notes'?'＋ 新建笔记':((view==='daily'||view==='home')?'＋ 记一笔':'＋ 录入考试'));
+ ({home:renderHome,dashboard:renderDashboard,entry:renderEntry,records:renderRecords,trend:renderTrend,analysis:renderAnalysis,report:renderReport,finance:renderFinance,lucky:renderLucky,daily:renderDaily,notes:renderNotes,settings:renderSettings})[view]();
  window.scrollTo(0,0);
 }
 function syncNavGroups(){
@@ -920,6 +972,244 @@ function scopeOptions(sel){
 }
 function emptyBox(title,desc,btn){
  return '<div class="empty"><h3>'+esc(title)+'</h3><div>'+esc(desc)+'</div>'+(btn?'<div style="margin-top:14px">'+btn+'</div>':'')+'</div>';
+}
+
+/* ---------- 首页 · 家庭总览（登录后默认页，v2.3） ---------- */
+var HM_QUOTES=[
+ {t:'凡是过往，皆为序章。',b:'莎士比亚'},
+ {t:'生活不是等待暴风雨过去，而是学会在雨中起舞。',b:'佚名'},
+ {t:'不积跬步，无以至千里；不积小流，无以成江海。',b:'荀子 · 劝学'},
+ {t:'纸上得来终觉浅，绝知此事要躬行。',b:'陆游'},
+ {t:'山重水复疑无路，柳暗花明又一村。',b:'陆游'},
+ {t:'长风破浪会有时，直挂云帆济沧海。',b:'李白'},
+ {t:'海内存知己，天涯若比邻。',b:'王勃'},
+ {t:'会当凌绝顶，一览众山小。',b:'杜甫'},
+ {t:'随风潜入夜，润物细无声。',b:'杜甫'},
+ {t:'春蚕到死丝方尽，蜡炬成灰泪始干。',b:'李商隐'},
+ {t:'落霞与孤鹜齐飞，秋水共长天一色。',b:'王勃'},
+ {t:'但愿人长久，千里共婵娟。',b:'苏轼'},
+ {t:'竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。',b:'苏轼'},
+ {t:'回首向来萧瑟处，归去，也无风雨也无晴。',b:'苏轼'},
+ {t:'人间有味是清欢。',b:'苏轼'},
+ {t:'粗缯大布裹生涯，腹有诗书气自华。',b:'苏轼'},
+ {t:'不畏浮云遮望眼，自缘身在最高层。',b:'王安石'},
+ {t:'问渠那得清如许？为有源头活水来。',b:'朱熹'},
+ {t:'等闲识得东风面，万紫千红总是春。',b:'朱熹'},
+ {t:'沉舟侧畔千帆过，病树前头万木春。',b:'刘禹锡'},
+ {t:'千淘万漉虽辛苦，吹尽狂沙始到金。',b:'刘禹锡'},
+ {t:'莫听穿林打叶声，何妨吟啸且徐行。',b:'苏轼'},
+ {t:'业精于勤，荒于嬉；行成于思，毁于随。',b:'韩愈'},
+ {t:'书山有路勤为径，学海无涯苦作舟。',b:'韩愈'},
+ {t:'三人行，必有我师焉。',b:'论语'},
+ {t:'知之者不如好之者，好之者不如乐之者。',b:'论语'},
+ {t:'逝者如斯夫，不舍昼夜。',b:'论语'},
+ {t:'天行健，君子以自强不息。',b:'周易'},
+ {t:'地势坤，君子以厚德载物。',b:'周易'},
+ {t:'路漫漫其修远兮，吾将上下而求索。',b:'屈原 · 离骚'},
+ {t:'采菊东篱下，悠然见南山。',b:'陶渊明'},
+ {t:'好读书，不求甚解；每有会意，便欣然忘食。',b:'陶渊明'},
+ {t:'少壮不努力，老大徒伤悲。',b:'汉乐府 · 长歌行'},
+ {t:'宝剑锋从磨砺出，梅花香自苦寒来。',b:'佚名'},
+ {t:'一寸光阴一寸金，寸金难买寸光阴。',b:'增广贤文'},
+ {t:'行到水穷处，坐看云起时。',b:'王维'},
+ {t:'大漠孤烟直，长河落日圆。',b:'王维'},
+ {t:'明月松间照，清泉石上流。',b:'王维'},
+ {t:'天生我材必有用，千金散尽还复来。',b:'李白'},
+ {t:'莫愁前路无知己，天下谁人不识君。',b:'高适'},
+ {t:'忽如一夜春风来，千树万树梨花开。',b:'岑参'},
+ {t:'先天下之忧而忧，后天下之乐而乐。',b:'范仲淹'},
+ {t:'衣带渐宽终不悔，为伊消得人憔悴。',b:'柳永'},
+ {t:'昨夜西风凋碧树，独上高楼，望尽天涯路。',b:'晏殊'},
+ {t:'众里寻他千百度，蓦然回首，那人却在灯火阑珊处。',b:'辛弃疾'},
+ {t:'心里有光，慢食三餐；有人等你，便是归处。',b:'佚名'},
+ {t:'把每一个平凡的日子过好，就是不平凡。',b:'佚名'}
+];
+var hmCfg={quoteDay:'',quoteIdx:null,photos:[],order:[],pos:0,url:'',playing:true,timer:null,busy:false};
+function hmPad(n){return String(n).padStart(2,'0')}
+function hmHash(s){var h=0,i;for(i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h}
+function hmQuote(){var i=hmCfg.quoteIdx==null?(hmHash('hm-'+today())%HM_QUOTES.length):hmCfg.quoteIdx;return HM_QUOTES[i]}
+function hmQuoteHtml(q){
+ return '<span class="mark">&ldquo;</span>'+
+  '<div class="qh"><span>今 日 一 句 · 每天自动更换</span><button class="btn btn-sm" data-act="hm-quote-next">换一句</button></div>'+
+  '<q>'+esc(q.t)+'</q><span class="by">— '+esc(q.b)+'</span>';
+}
+function hmStop(){if(hmCfg.timer){clearInterval(hmCfg.timer);hmCfg.timer=null}}
+function hmMod(ico,title,desc,big,target){
+ return '<button class="hm-mod" data-act="hm-go" data-val="'+esc(target)+'">'+
+  '<div class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.7"><use href="#'+esc(ico)+'"/></svg></div>'+
+  '<h3>'+esc(title)+'</h3><p>'+esc(desc)+'</p><span class="big">'+big+'</span></button>';
+}
+function hmPhotoCard(){
+ return '<div class="card"><div class="card-h"><h2>NAS 相册 · 随手拍</h2><span class="sub">全宽展示 · 只读关联相册目录 · 每 9 秒随机切换</span></div>'+
+  '<div class="hm-photo" id="hmPhotoBox">'+
+   '<img id="hmPhotoImg" alt="相册照片" style="display:none">'+
+   '<div class="ph" id="hmPhotoHint">正在读取 NAS 相册…</div>'+
+   '<div class="hm-photo-bar"><span class="nm" id="hmPhotoName">—</span>'+
+    '<button data-act="hm-photo-prev" title="上一张">‹</button>'+
+    '<button data-act="hm-photo-toggle" id="hmPhotoToggle">暂停</button>'+
+    '<button data-act="hm-photo-next" title="下一张">›</button>'+
+    '<button data-act="hm-photo-shuffle" title="重新洗牌">换一批</button>'+
+    '<button data-act="hm-photo-open" title="放大查看">放大</button>'+
+   '</div></div>'+
+  '<div class="hint" style="margin-top:10px">照片来自 NAS 相册目录（只读挂载），不会复制进项目或上传到代码仓库；HEIC 与视频自动跳过。</div></div>';
+}
+function hmPhotoHint(msg){
+ var e=$('#hmPhotoHint');if(e){e.style.display='block';e.textContent=msg}
+ var i=$('#hmPhotoImg');if(i)i.style.display='none';
+ var n=$('#hmPhotoName');if(n)n.textContent='—';
+}
+function hmRestorePhoto(){
+ var i=$('#hmPhotoImg');if(!i||!hmCfg.url)return;
+ i.src=hmCfg.url;i.style.display='block';
+ var h=$('#hmPhotoHint');if(h)h.style.display='none';
+ var it=hmCfg.photos[hmCfg.order[hmCfg.pos]],n=$('#hmPhotoName');
+ if(n&&it)n.textContent=it.name+'　·　'+String(it.p||'').split('/').slice(0,-1).join('/')+'　·　'+(hmCfg.pos+1)+'/'+hmCfg.order.length;
+ var b=$('#hmPhotoToggle');if(b)b.textContent=hmCfg.playing?'暂停':'播放';
+}
+function hmShuffle(){
+ var a=[],i;for(i=0;i<hmCfg.photos.length;i++)a.push(i);
+ for(i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}
+ hmCfg.order=a;hmCfg.pos=0;
+}
+function hmInitPhoto(){
+ if(mode!=='server'){hmPhotoHint('相册需要连接 NAS 服务，本地浏览器模式下不显示照片。');return}
+ if(hmCfg.photos.length){hmRestorePhoto();return}
+ api('api/photos?limit=2000').then(function(r){if(!r.ok)throw new Error('相册接口未启用');return r.json()}).then(function(j){
+  hmCfg.photos=Array.isArray(j.items)?j.items:[];
+  if(!hmCfg.photos.length){hmPhotoHint('还没有读到照片。请确认 docker-compose.yml 已挂载相册目录并重启容器。');return}
+  hmShuffle();hmShowPhoto(0);
+ }).catch(function(e){hmPhotoHint('相册读取失败：'+e.message+'。请确认服务端已挂载 /app/photos。')});
+}
+function hmShowPhoto(pos){
+ if(!hmCfg.photos.length||!hmCfg.order.length||hmCfg.busy)return;
+ hmCfg.pos=((pos%hmCfg.order.length)+hmCfg.order.length)%hmCfg.order.length;
+ var it=hmCfg.photos[hmCfg.order[hmCfg.pos]];if(!it)return;
+ hmCfg.busy=true;
+ api('api/photo?p='+encodeURIComponent(it.p)).then(function(r){if(!r.ok)throw new Error('打不开这张照片');return r.blob()}).then(function(b){
+  hmCfg.busy=false;
+  if(hmCfg.url)URL.revokeObjectURL(hmCfg.url);
+  hmCfg.url=URL.createObjectURL(b);hmRestorePhoto();
+ }).catch(function(e){
+  hmCfg.busy=false;hmPhotoHint('这张照片打不开，正在换一张…');
+  setTimeout(function(){if(view==='home')hmShowPhoto(hmCfg.pos+1)},700);
+ });
+}
+function hmStart(){
+ hmStop();
+ hmCfg.timer=setInterval(function(){
+  if(view!=='home')return;
+  if(hmCfg.quoteDay!==today()){
+   hmCfg.quoteDay=today();hmCfg.quoteIdx=null;
+   var qb=$('#hmQuoteBox');if(qb)qb.innerHTML=hmQuoteHtml(hmQuote());
+   hmLedgerStats();
+  }
+  if(hmCfg.playing&&hmCfg.photos.length)hmShowPhoto(hmCfg.pos+1);
+ },9000);
+}
+function hmExamCard(last){
+ var head='<div class="card-h"><h2>最近考试</h2><button class="btn btn-sm" data-act="hm-go" data-val="records">查看全部</button></div>';
+ if(!last)return '<div class="card">'+head+emptyBox('还没有成绩记录','先录入一次月考 / 期中 / 期末成绩。','<button class="btn btn-primary" data-act="new-exam">＋ 录入第一次考试</button>')+'</div>';
+ var t=getRow(last,'total'),sc=num(t.score),rk=t.rankClass,rg=t.rankGrade;
+ var h='<div class="card">'+head+
+  '<div class="hm-mini">'+
+   '<div><div class="l">考试</div><div class="v" style="font-size:14px">'+esc(last.name||shortLabel(last))+'</div></div>'+
+   '<div><div class="l">总分</div><div class="v">'+(sc==null?'—':fmt(sc,0))+'</div></div>'+
+   '<div><div class="l">年级名次</div><div class="v">'+(rg==null?'—':'第 '+esc(rg))+'</div></div>'+
+  '</div>'+
+  '<div class="hint" style="margin-bottom:8px">'+esc(last.date||'')+' · '+esc(last.grade||'')+esc(last.term||'')+
+   (rk!=null?' · 班级第 '+esc(rk):'')+'</div><ul class="hm-list">';
+ (last.subjects||[]).forEach(function(s){
+  var r=getRow(last,s.id),v=num(r.score);
+  h+='<li><span class="grow">'+esc(s.name)+'</span><b>'+(v==null?'—':fmt(v,0))+'</b>'+
+   (r.note?'<span class="muted small" style="max-width:52%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(String(r.note).slice(0,26))+'</span>':'')+'</li>';
+ });
+ h+='</ul><div class="hm-quick" style="margin-top:12px">'+
+  '<button class="btn btn-sm" data-act="hm-go" data-val="trend">趋势曲线</button>'+
+  '<button class="btn btn-sm" data-act="hm-go" data-val="report">成绩单</button></div></div>';
+ return h;
+}
+function hmFillLedger(){
+ var recs=dailyRecords(),ym=today().slice(0,7),mon=recs.filter(function(r){return String(r.day).slice(0,7)===ym});
+ var out=dailySum(mon,'out'),inc=dailySum(mon,'in');
+ var b=$('#hmLedgerBox');
+ if(b)b.innerHTML='<div class="hm-mini">'+
+  '<div><div class="l">本月支出</div><div class="v fin-out">'+money(out)+'</div></div>'+
+  '<div><div class="l">本月收入</div><div class="v fin-in">'+money(inc)+'</div></div>'+
+  '<div><div class="l">本月笔数</div><div class="v">'+mon.length+'</div></div></div>'+
+  '<div class="hint" style="margin-bottom:8px">全账本共 '+recs.length+' 笔 · 数据来自 NAS 上的 daily-ledger.json</div>'+
+  '<ul class="hm-list">'+(mon.length?mon.slice().sort(function(a,b){return String(b.day).localeCompare(String(a.day))}).slice(0,5).map(function(r){
+   return '<li><span class="muted small">'+esc(String(r.day).slice(5))+'</span><span class="grow">'+esc(r.name||'—')+'</span>'+
+    '<b class="'+(r.type==='in'?'fin-in':'fin-out')+'">'+(r.type==='in'?'+':'-')+money(r.money)+'</b></li>';
+  }).join(''):'<li class="muted">本月还没有账目</li>')+'</ul>';
+ var mc=$('#hmModLedger');if(mc)mc.textContent=recs.length+' 笔账目';
+}
+function hmLedgerStats(){
+ if(dailyCache){hmFillLedger();return}
+ dailyLoad().then(function(){if(view==='home')hmFillLedger()}).catch(function(){
+  var b=$('#hmLedgerBox');if(b)b.innerHTML='<div class="hint">家庭账本文件暂不可用，请确认服务器上存在 public/daily-ledger.json。</div>';
+ });
+}
+function hmTodoCard(list){
+ return '<div class="card"><div class="card-h"><h2>待办清单</h2><button class="btn btn-sm" data-act="hm-go" data-val="notes">去笔记本</button></div>'+
+  (list.length?list.slice(0,8).map(function(t){
+   return '<div class="hm-todo"><span class="box"></span><span>'+esc(t.text)+'</span>'+
+    '<span class="muted small" style="margin-left:auto">'+esc(t.title)+'</span></div>';
+  }).join(''):'<div class="hint">没有未完成的待办，今天可以轻松一点。</div>')+'</div>';
+}
+function hmNoteCard(notes){
+ var live=notes.slice().sort(function(a,b){return String(b.updatedAt||'').localeCompare(String(a.updatedAt||''))}).slice(0,5);
+ return '<div class="card"><div class="card-h"><h2>最近笔记</h2><button class="btn btn-sm" data-act="hm-new-note">＋ 写笔记</button></div>'+
+  (live.length?'<ul class="hm-list">'+live.map(function(n){
+   return '<li><span class="pill">'+esc(n.folder||'日常')+'</span><span class="grow">'+esc(n.title)+'</span>'+
+    '<span class="muted small">'+esc(String(n.updatedAt||'').slice(5,16))+'</span></li>';
+  }).join('')+'</ul>':'<div class="hint">还没有笔记，点右上角写一篇吧。</div>')+'</div>';
+}
+function renderHome(){
+ hmStop();
+ var d=new Date();
+ if(hmCfg.quoteDay&&hmCfg.quoteDay!==today())hmCfg.quoteIdx=null;
+ hmCfg.quoteDay=today();
+ var wk=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][d.getDay()];
+ var hr=d.getHours(),greet=hr<6?'夜深了':(hr<11?'早上好':(hr<14?'中午好':(hr<18?'下午好':'晚上好')));
+ var p=state.profile||{},nm=String(p.name||'家人');
+ var exs=examsSorted(),last=exs[exs.length-1];
+ var finRecs=(state.finance&&Array.isArray(state.finance.records))?state.finance.records:[];
+ var finOut=finRecs.reduce(function(a,r){return a+(r.kind==='expense'?(Number(r.amount)||0):0)},0);
+ var lk=lkRecords(),lkNet=lkSum(lk,'in')-lkSum(lk,'out');
+ var notes=noteRecs().filter(function(n){return !n.trash}),todos=[];
+ notes.forEach(function(n){(n.todos||[]).forEach(function(t){if(!t.done)todos.push({title:n.title,text:t.text})})});
+ var t=getRow(last||{},'total'),rg=last?num(t.rankGrade):null;
+
+ var h='<div class="hm-hero">'+
+  '<img src="avatar.jpg" alt="'+esc(nm)+'">'+
+  '<div class="hm-hero-txt"><h2>'+esc(greet)+'，'+esc(nm)+'</h2>'+
+   '<div class="sub"><b>'+esc(p.school||'')+'</b>'+(p.className?' · '+esc(p.className):'')+
+   '　·　今天也把家里的事记下来吧</div></div>'+
+  '<div class="hm-date"><b>'+hmPad(d.getMonth()+1)+'.'+hmPad(d.getDate())+'</b>'+
+   '<span>'+d.getFullYear()+' 年 · '+wk+'　|　数据保存在自家 NAS</span></div></div>';
+ h+='<div class="hm-quote" id="hmQuoteBox">'+hmQuoteHtml(hmQuote())+'</div>';
+ h+='<div class="hm-mods">'+
+  hmMod('i-book','学习成长轨迹','成绩录入 · 趋势 · 问题分析 · 成绩单',exs.length+' 次考试','dashboard')+
+  hmMod('i-wallet','学生花销','袁铭泽花销记账 · 压岁钱管理',money(finOut+lkNet),'finance')+
+  hmMod('i-home','家庭账本','2017 年至今 · 年 / 月 / 类别下钻','<span id="hmModLedger">载入中…</span>','daily')+
+  hmMod('i-note','笔记本','随手记 · 待办 · 分类 · 收藏',notes.length+' 篇笔记','notes')+
+  '</div>';
+ h+=hmPhotoCard();
+ h+='<div class="hm-2">'+hmExamCard(last)+
+  '<div class="card"><div class="card-h"><h2>本月收支</h2><button class="btn btn-sm" data-act="hm-go" data-val="daily">查看账本</button></div>'+
+  '<div id="hmLedgerBox"><div class="hint">正在读取家庭账本…</div></div></div></div>';
+ h+='<div class="hm-2">'+hmTodoCard(todos)+hmNoteCard(notes)+'</div>';
+ h+='<div class="card"><div class="card-h"><h2>快捷操作</h2><span class="sub">常用入口，一键直达</span></div>'+
+  '<div class="hm-quick">'+
+   '<button class="btn btn-sm btn-primary" data-act="hm-new-exam">＋ 录入考试</button>'+
+   '<button class="btn btn-sm" data-act="hm-new-daily">＋ 记一笔</button>'+
+   '<button class="btn btn-sm" data-act="hm-new-note">＋ 新建笔记</button>'+
+   '<button class="btn btn-sm" data-act="hm-go" data-val="lucky">压岁钱管理</button>'+
+   '<button class="btn btn-sm" data-act="hm-go" data-val="settings">设置与数据备份</button>'+
+  '</div></div>';
+ var host=$('#v-home');if(!host)return;
+ host.innerHTML=h;
+ hmInitPhoto();hmLedgerStats();hmStart();
 }
 
 /* ---------- 概览 ---------- */
@@ -2251,8 +2541,9 @@ function dailyRowsHtml(list){
   var sign=t==='in'?'+':(t==='out'?'-':'·');
   return '<tr><td class="muted">'+esc(r.day)+'</td>'+
    '<td><span class="pill'+(t==='out'?' warn':'')+'">'+dailyTypeName(t)+'</span></td>'+
-   '<td>'+esc(r.cat)+'</td><td><b>'+esc(r.name||'—')+'</b></td>'+
+   '<td>'+esc(r.cat)+'</td>'+
    '<td class="fin-money '+cls+'">'+sign+money(r.money)+'</td>'+
+   '<td><b>'+esc(r.name||'—')+'</b></td>'+
    '<td>'+esc(r.pay)+'</td><td>'+esc(r.attr||'—')+'</td>'+
    '<td class="fin-note">'+esc(r.note||'')+(r.invoice?'<div class="dy-inv" title="'+esc(r.invoice)+'">原凭证：'+esc(r.invoice)+'</div>':'')+'</td>'+
    '<td style="white-space:nowrap"><button class="btn btn-sm" data-act="daily-receipt" data-id="'+esc(r.id)+'">凭证</button> '+
@@ -2306,11 +2597,12 @@ function dailyOpenDetail(title,list){
  $('#ddSum').innerHTML='<div>支出<b class="fin-out">'+money(dailySum(list,'out'))+'</b></div>'+
   '<div>收入<b class="fin-in">'+money(dailySum(list,'in'))+'</b></div>'+
   '<div>不计收支<b>'+money(dailySum(list,'none'))+'</b></div>';
- $('#ddBody').innerHTML='<table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>项目</th><th>金额</th><th>支付</th><th>归属</th><th>备注</th><th>操作</th></tr></thead><tbody>'+
+ $('#ddBody').innerHTML='<table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>金额</th><th>项目</th><th>支付</th><th>归属</th><th>备注</th><th>操作</th></tr></thead><tbody>'+
   (list.length?list.slice().sort(function(a,b){return String(b.day).localeCompare(String(a.day))}).slice(0,600).map(function(r){
    return '<tr><td class="muted">'+esc(r.day)+'</td><td>'+dailyTypeName(r.type)+'</td><td>'+esc(r.cat)+'</td>'+
-    '<td><b>'+esc(r.name||'—')+'</b></td><td class="fin-money '+(r.type==='in'?'fin-in':'fin-out')+'">'+
-    (r.type==='in'?'+':(r.type==='out'?'-':'·'))+money(r.money)+'</td><td>'+esc(r.pay)+'</td><td>'+esc(r.attr||'—')+'</td>'+
+    '<td class="fin-money '+(r.type==='in'?'fin-in':'fin-out')+'">'+
+    (r.type==='in'?'+':(r.type==='out'?'-':'·'))+money(r.money)+'</td><td><b>'+esc(r.name||'—')+'</b></td>'+
+    '<td>'+esc(r.pay)+'</td><td>'+esc(r.attr||'—')+'</td>'+
     '<td class="fin-note">'+esc(r.note||'')+'</td>'+
     '<td style="white-space:nowrap"><button class="btn btn-sm" data-act="daily-receipt" data-id="'+esc(r.id)+'">凭证</button> '+
     '<button class="btn btn-sm" data-act="daily-edit" data-id="'+esc(r.id)+'">编辑</button> '+
@@ -2400,22 +2692,22 @@ function dailyCatMapHtml(all){
    '<button class="btn btn-sm btn-primary" data-act="daily-group-map-save">保存归类</button>'+
    '<button class="btn btn-sm" data-act="daily-group-map-close">收起</button></div></div>';
 }
-function dailyCatPanel(all){
+function dailyCatPanel(all,y,mapAll){
  var gs=dailyGroupData(all),max=gs.length?gs[0].value:1;
  var custom=dailyCatGroups().filter(function(g){return DL_CAT_GROUPS.indexOf(g)<0});
- var h='<div class="card" id="dyCatCard"><div class="card-h"><h2>支出类别 · 合并后（当前条件）</h2>'+
+ var h='<div class="card" id="dyCatCard"><div class="card-h"><h2>支出类别 · '+esc(y||'')+' 年（合并后）</h2>'+
   '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
    '<button class="btn btn-sm" data-act="daily-group-add">＋ 新增类别</button>'+
    '<button class="btn btn-sm" data-act="daily-group-map">'+(dailyCfg.showCatMap?'收起归类管理':'归类管理')+'</button>'+
   '</div></div>'+
-  '<div class="hint" style="margin-bottom:12px">按 '+gs.length+' 个合并类别展示（页面顺序：年 → 月 → 支出类别）。点条形可查看该类别的逐笔明细。</div>';
+  '<div class="hint" style="margin-bottom:12px">按 '+gs.length+' 个合并类别展示 '+esc(y||'')+' 年数据（页面顺序：年 → 月 → 支出类别）。切换年份会同步更新；点条形可查看该类别当年的逐笔明细。</div>';
  if(custom.length)h+='<div class="dy-custom">自定义类别：'+custom.map(function(g){
    return '<span class="dy-chip">'+esc(g)+' <button class="dy-chip-x" data-act="daily-group-del" data-val="'+esc(g)+'" title="删除该类别">×</button></span>';
   }).join('')+'</div>';
  if(dailyCfg.showCatAdd)h+='<div class="dy-add"><input class="inp" id="dyNewGroup" placeholder="输入新类别名称，如 宠物">'+
   '<button class="btn btn-sm btn-primary" data-act="daily-group-save">保存</button>'+
   '<button class="btn btn-sm" data-act="daily-group-cancel">取消</button></div>';
- if(dailyCfg.showCatMap)h+=dailyCatMapHtml(all);
+ if(dailyCfg.showCatMap)h+=dailyCatMapHtml(mapAll||all);
  h+=gs.map(function(g){
   var n=Object.keys(g.cats).length;
   return dailyBar(g.name+'（'+n+' 个原始类）',g.value,max,'','daily-detail','group',g.name);
@@ -2462,7 +2754,7 @@ function dailyFocusHtml(all){
    '<select id="dy-focus-year">'+ys.map(function(q){return '<option value="'+q+'"'+(q===y?' selected':'')+'>'+q+' 年</option>'}).join('')+'</select>'+
    '<button class="btn btn-sm" data-act="daily-focus" data-val="next">下一年 →</button>'+
    '<span class="sp"></span><span class="muted small">跟随上方查询条件</span>'+
-   '<div class="dy-focus-tip">默认展示当年，点上方年份柱 / 年份行 /「月图」会切到该年并跳到这里；这里点月份柱或「明细」才会打开逐笔明细。</div>'+
+   '<div class="dy-focus-tip">默认展示当年；点上方年份柱 / 年份行 /「月图」只切换这里的月图与年度花销数据，上方两张年度图表保持不变；这里点月份柱或「明细」才会打开逐笔明细。</div>'+
   '</div><div class="fin-grid">'+
    '<div class="card"><div class="card-h"><h2>'+esc(y)+' 年 · 月花销图</h2><span class="sub">红=支出 绿=收入 · 点柱看明细，点月份下钻</span></div>'+
     dailySvg(md.rows,md.labels,'month',md.vals,null)+'</div>'+
@@ -2482,6 +2774,12 @@ function dailyFocusHtml(all){
      }).join('')+'</tbody></table></div>'+
     '<div class="hint" style="margin-top:10px">有记录月份 '+act+' 个 · 支出减收入 '+money(out-inc)+' · 数据随上方查询条件联动</div>'+
    '</div></div></div>';
+}
+function dailyFocusTo(y){
+ dailyCfg.focusYear=String(y).slice(0,4);
+ dailyCfg.level='year';dailyCfg.year='';dailyCfg.month='';
+ renderDaily();
+ var jf=$('#dyFocus');if(jf&&jf.scrollIntoView)jf.scrollIntoView({block:'start',behavior:'smooth'});
 }
 function dailyGo(level,year,month){
  dailyCfg.level=level;dailyCfg.year=year||'';dailyCfg.month=month||'';
@@ -2534,31 +2832,15 @@ function renderDaily(){
    byY[y][(r.type==='out'?'out':(r.type==='in'?'inc':'neu'))]+=(Number(r.money)||0);byY[y].n++});
   var ys=Object.keys(byY).sort(),rows=ys.map(function(y){return {out:byY[y].out,inc:byY[y].inc}});
   html+='<div class="fin-grid">'+
-   '<div class="card"><div class="card-h"><h2>按年 · 收支趋势</h2><span class="sub">点年份柱 / 文字联动下方月图</span></div>'+dailySvg(rows,ys,'year',ys,dailyCfg.focusYear)+'</div>'+
+   '<div class="card"><div class="card-h"><h2>按年 · 收支趋势</h2><span class="sub">点年份柱 / 文字联动下方月图（本图不变）</span></div>'+dailySvg(rows,ys,'year',ys,dailyCfg.focusYear)+'</div>'+
    '<div class="card"><div class="card-h"><div class="dy-hd"><h2>年度花销</h2>'+
    '<span class="dy-total">总支出 <b class="fin-out">'+money(exp)+'</b>　总收入 <b class="fin-in">'+money(inc)+'</b></span></div>'+
-   '<span class="sub">点年份行或「月图」跳到该年月图</span></div>'+
+   '<span class="sub">点年份行或「月图」联动下方月图（上方图表不变）</span></div>'+
     '<div class="table-wrap"><table class="tbl"><thead><tr><th>年份</th><th>支出</th><th>收入</th><th>笔数</th><th>操作</th></tr></thead><tbody>'+
     (ys.length?ys.map(function(y){return '<tr class="fd-hit fd-hit-row'+(String(y)===String(dailyCfg.focusYear)?' dy-focus-row':'')+'" data-act="daily-drill" data-dim="year" data-val="'+y+'" title="点击查看 '+y+' 年 12 个月">'+
      '<td><b>'+y+'</b> ↗</td><td class="fin-money fin-out">'+money(byY[y].out)+'</td><td class="fin-money fin-in">'+money(byY[y].inc)+'</td>'+
      '<td>'+byY[y].n+'</td><td><button class="btn btn-sm" data-act="daily-detail" data-dim="year" data-val="'+y+'" data-kind="all">月图</button></td></tr>'}).join(''):
      '<tr><td colspan="5" style="text-align:center;padding:24px">没有符合条件的记录</td></tr>')+'</tbody></table></div></div></div>';
-  var catHtml=dailyCatPanel(all);
- } else if(dailyCfg.level==='month'){
-  var y=dailyCfg.year,inYear=all.filter(function(r){return String(r.day).slice(0,4)===y});
-  var byM={},labels=[],mrows=[];
-  for(var m=1;m<=12;m++){var k=y+'-'+String(m).padStart(2,'0');byM[k]={out:0,inc:0,n:0};labels.push(String(m)+'月')}
-  inYear.forEach(function(r){var k=String(r.day).slice(0,7);if(byM[k]){if(r.type==='out')byM[k].out+=Number(r.money)||0;else if(r.type==='in')byM[k].inc+=Number(r.money)||0;byM[k].n++}});
-  var mVals=labels.map(function(lb,i){return y+'-'+String(i+1).padStart(2,'0')});
-  labels.forEach(function(lb,i){var k=mVals[i];mrows.push({out:byM[k].out,inc:byM[k].inc})});
-  html+='<div class="fin-grid">'+
-   '<div class="card"><div class="card-h"><h2>'+esc(y)+' 年 · 逐月收支</h2><span class="sub">点月份文字下钻到明细</span></div>'+dailySvg(mrows,labels,'month',mVals,null)+'</div>'+
-   '<div class="card"><div class="card-h"><h2>'+esc(y)+' 年 · 月度花销</h2><span class="sub">点月份行下钻 · 点「明细」弹逐笔</span></div>'+
-    '<div class="table-wrap"><table class="tbl"><thead><tr><th>月份</th><th>支出</th><th>收入</th><th>笔数</th><th>操作</th></tr></thead><tbody>'+
-    labels.map(function(lb,i){var k=y+'-'+String(i+1).padStart(2,'0');return '<tr class="fd-hit fd-hit-row" data-act="daily-drill" data-dim="month" data-val="'+k+'" title="点击查看 '+lb+'逐笔明细">'+
-     '<td><b>'+lb+'</b> ↗</td><td class="fin-money fin-out">'+money(byM[k].out)+'</td><td class="fin-money fin-in">'+money(byM[k].inc)+'</td>'+
-     '<td>'+byM[k].n+'</td><td><button class="btn btn-sm" data-act="daily-detail" data-dim="month" data-val="'+k+'" data-kind="all">明细</button></td></tr>'}).join('')+
-    '</tbody></table></div></div></div>';
  } else {
   var ym=dailyCfg.year+'-'+String(dailyCfg.month).padStart(2,'0');
   var list=all.filter(function(r){return String(r.day).slice(0,7)===ym});
@@ -2567,17 +2849,19 @@ function renderDaily(){
    '<button class="btn btn-sm" data-act="daily-export">导出 CSV</button></div></div>'+
    '<div class="hint" style="margin-bottom:12px">共 '+list.length+' 笔 · 支出 '+money(dailySum(list,'out'))+' / 收入 '+money(dailySum(list,'in'))+
    '。「凭证」列可为任意一笔上传 PDF 或图片，文件保存在 NAS，不占用 grades.json 体积；标「原凭证」的是 9090 记账软件里已有的凭证文件名。</div>';
-  html+='<div class="table-wrap"><table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>项目</th><th>金额</th><th>支付</th><th>归属</th><th>备注 / 原凭证</th><th>操作</th></tr></thead><tbody>'+
+  html+='<div class="table-wrap"><table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>金额</th><th>项目</th><th>支付</th><th>归属</th><th>备注 / 原凭证</th><th>操作</th></tr></thead><tbody>'+
    dailyRowsHtml(list)+'</tbody></table></div></div>';
  }
  html+=dailyFocusHtml(all);
- if(typeof catHtml!=='undefined')html+=catHtml;
+ var fy=dailyFocusYear(all);
+ var allYear=all.filter(function(r){return String(r.day).slice(0,4)===fy});
+ html+=dailyCatPanel(allYear,fy,all);
  $('#v-daily').innerHTML=html;
 }
 function dailyDrill(dim,val){
  if(dim==='year'){
   if(!val){dailyGo('year','','');return}
-  dailyGo('month',val,'');
+  dailyFocusTo(val);
  } else if(dim==='month'){
   var p=String(val).split('-');
   dailyGo('list',p[0],p[1]);
@@ -2588,8 +2872,8 @@ function dailyDetailList(dim,val){
  return all.filter(function(r){
   if(dim==='year')return String(r.day).slice(0,4)===String(val);
   if(dim==='month')return String(r.day).slice(0,7)===String(val);
-  if(dim==='category')return r.cat===String(val);
-  if(dim==='group')return r.type==='out'&&dailyGroupOf(r.cat||'其他')===String(val);
+  if(dim==='category')return r.cat===String(val)&&String(r.day).slice(0,4)===String(dailyFocusYear());
+  if(dim==='group')return r.type==='out'&&dailyGroupOf(r.cat||'其他')===String(val)&&String(r.day).slice(0,4)===String(dailyFocusYear());
   return true;
  });
 }
@@ -3118,7 +3402,22 @@ document.addEventListener('click',function(ev){
  var el=ev.target.closest('[data-act]');if(!el)return;
  var act=el.dataset.act,id=el.dataset.id;
  switch(act){
-  case 'top-add':if(view==='notes')openNoteEditor(null,'note');else if(view==='daily')openDailyForm(null);else newExam();break;
+  case 'top-add':
+   if(view==='notes')openNoteEditor(null,'note');
+   else if(view==='daily')openDailyForm(null);
+   else if(view==='home'){go('daily');dailyLoad().then(function(){if(view==='daily')openDailyForm(null)}).catch(function(){})}
+   else newExam();
+   break;
+  case 'hm-go':go(String(el.dataset.val||'dashboard'));break;
+  case 'hm-new-exam':newExam();break;
+  case 'hm-new-note':go('notes');openNoteEditor(null,'note');break;
+  case 'hm-new-daily':go('daily');dailyLoad().then(function(){if(view==='daily')openDailyForm(null)}).catch(function(){});break;
+  case 'hm-quote-next':hmCfg.quoteIdx=Math.floor(Math.random()*HM_QUOTES.length);var hq=$('#hmQuoteBox');if(hq)hq.innerHTML=hmQuoteHtml(hmQuote());break;
+  case 'hm-photo-prev':hmShowPhoto(hmCfg.pos-1);break;
+  case 'hm-photo-next':hmShowPhoto(hmCfg.pos+1);break;
+  case 'hm-photo-toggle':hmCfg.playing=!hmCfg.playing;var ht=$('#hmPhotoToggle');if(ht)ht.textContent=hmCfg.playing?'暂停':'播放';break;
+  case 'hm-photo-shuffle':hmShuffle();hmShowPhoto(0);break;
+  case 'hm-photo-open':if(hmCfg.url){var hw=window.open(hmCfg.url,'_blank');if(!hw)location.href=hmCfg.url}break;
   case 'nav-toggle':{var ng=el.closest('.nav-group');if(ng)ng.classList.toggle('open');break}
   case 'note-tab':noteCfg.tab=el.dataset.val;if(noteCfg.tab!=='folder')noteCfg.folder='all';go('notes');break;
   case 'note-folder':{
@@ -3234,16 +3533,13 @@ document.addEventListener('click',function(ev){
    var gd=el.dataset.dim,gv=String(el.dataset.val||'');
    if((gd==='year'||gd==='month')&&/^\d{4}/.test(gv))dailyCfg.focusYear=gv.slice(0,4);
    dailyDrill(gd,gv);
-   if(gd==='year'&&gv){var jd=$('#dyFocus');if(jd&&jd.scrollIntoView)jd.scrollIntoView({block:'start',behavior:'smooth'})}
    break;
   }
-  case 'daily-up':dailyGo(dailyCfg.level==='list'?'month':'year',dailyCfg.level==='list'?dailyCfg.year:'','');break;
+  case 'daily-up':dailyGo('year','','');break;
   case 'daily-detail':{
    var dd=el.dataset.dim,dv=String(el.dataset.val||'');
    if(dd==='year'){
-    dailyCfg.focusYear=dv;
-    dailyGo('month',dv,'');
-    var jf=$('#dyFocus');if(jf&&jf.scrollIntoView)jf.scrollIntoView({block:'start',behavior:'smooth'});
+    dailyFocusTo(dv);
    }else{
     if(dd==='month'&&/^\d{4}/.test(dv)){dailyCfg.focusYear=dv.slice(0,4);renderDaily()}
     dailyOpenDetail(dailyDetailTitle(dd,dv)+' · 分项明细',dailyDetailList(dd,dv));

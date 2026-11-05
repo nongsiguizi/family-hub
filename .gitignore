@@ -21,3 +21,6 @@ node_modules/
 Thumbs.db
 *.bak-*
 *.tmp
+
+# 备份产物（backup.sh 会写到项目内 backups/）
+backups/

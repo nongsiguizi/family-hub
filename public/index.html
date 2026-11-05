@@ -368,6 +368,30 @@ table{border-collapse:collapse;font-size:13px}
 @media(max-width:900px){.nt-wrap{grid-template-columns:1fr}.nt-folders{flex-direction:row;flex-wrap:wrap}.nt-folder{width:auto}.fin-grid{grid-template-columns:1fr}}
 @media(max-width:720px){.side{width:158px;flex:0 0 158px}.brand{padding:14px 10px}.brand small{display:none}.content{padding:14px}.nt-grid{grid-template-columns:1fr}.dy-mini{grid-template-columns:1fr 1fr}}
 
+
+/* 支出类别合并 / 归类管理 */
+.dy-map{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#fff}
+.dy-map-row{display:grid;grid-template-columns:minmax(120px,1fr) 150px 90px;gap:10px;align-items:center;padding:5px 0;border-bottom:1px dashed var(--line2);font-size:12px}
+.dy-map-row:last-child{border-bottom:0}
+.dy-map-row .inp{padding:5px 8px;font-size:12px;width:100%}
+.dy-map-cat{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dy-map-row .small{text-align:right;font-variant-numeric:tabular-nums}
+.dy-add{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#f8fafc;border:1px solid var(--line2);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+.dy-add .inp{max-width:260px}
+.dy-custom{margin-bottom:12px;font-size:12px;color:var(--muted)}
+.dy-chip{display:inline-flex;align-items:center;gap:4px;background:var(--soft);color:var(--primary);border-radius:8px;padding:3px 8px;margin:0 6px 4px 0}
+.dy-chip-x{border:0;background:transparent;color:var(--primary);font-size:14px;padding:0 2px;line-height:1}
+@media(max-width:720px){.dy-map-row{grid-template-columns:1fr 120px 70px}}
+
+
+/* 年度花销合计 / 面包屑操作区 */
+.dy-hd{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.dy-total{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dy-total b{font-size:14px;margin-left:3px}
+.dy-acts{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.dy-crumb .muted{margin-left:auto}
+@media(max-width:720px){.dy-acts{margin-left:0;width:100%}.dy-crumb .muted{display:none}}
+
 </style>
 </head>
 <body data-page-node-id="IQww0v65Vaa78CdoavCQeI">
@@ -492,7 +516,7 @@ table{border-collapse:collapse;font-size:13px}
   <p id="ddSub" style="margin-bottom:10px"></p>
   <div class="fd-sum" id="ddSum"></div>
   <div class="fd-body" id="ddBody"></div>
-  <div class="fd-hint">点击柱子、类别条形或表格里的「明细」都能打开分项明细；按 Esc 或点击空白处关闭。</div>
+  <div class="fd-hint">点月份柱 /「明细」打开逐笔明细，这里可直接编辑、上传凭证或删除；按 Esc 或点击空白处关闭。</div>
   <div class="row"><button class="btn btn-sm" data-act="daily-detail-export">导出这组 CSV</button><button class="btn" data-act="daily-detail-close">关闭</button></div>
 </div></div>
 <div class="overlay hidden" id="receiptLayer"><div class="modal att-modal">
@@ -606,7 +630,7 @@ function download(name,text,type){
  var b=new Blob([text],{type:type||'application/json;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
  a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1500);
 }
-function defaultState(){return {version:1,profile:{name:'袁铭泽',school:'西安市航天城第一中学',className:'初一四班'},subjects:deep(DEF_SUBJECTS),exams:[],finance:{records:[]},lucky:{records:[]},daily:{extra:[],edits:{},deleted:[]},notes:{records:[],folders:['日常','学习','家庭','工作','灵感']}}}
+function defaultState(){return {version:1,profile:{name:'袁铭泽',school:'西安市航天城第一中学',className:'初一四班'},subjects:deep(DEF_SUBJECTS),exams:[],finance:{records:[]},lucky:{records:[]},daily:{extra:[],edits:{},deleted:[],catGroups:['日常花销','红包转账','交通出行','爱车养车','数码电器','学习教育','餐饮美食','住房物业'],catMap:{}},notes:{records:[],folders:['日常','学习','家庭','工作','灵感']}}}
 function normalizeExam(e){
  return {id:String(e.id),stage:e.stage||'初中',grade:e.grade||'初一',term:e.term||'上学期',type:e.type||'月考',
   seq:e.seq||'',name:e.name||'',date:e.date||'',classSize:num(e.classSize),gradeSize:num(e.gradeSize),districtSize:num(e.districtSize),
@@ -2123,11 +2147,11 @@ function lkExportCSV(){lkExportList(lkFiltered(),'压岁钱明细')}
 /* 与「袁铭泽花销记账」「压岁钱管理」完全独立：
  * 历史数据只读文件 daily-ledger.json；新录入 / 修改 / 删除以增量形式存在 state.daily。 */
 var dailyCache=null;
-var dailyCfg={level:'year',year:'',month:'',focusYear:'',q:'',type:'all',cat:'all',pay:'all',from:'',to:'',min:'',max:''};
+var dailyCfg={level:'year',year:'',month:'',focusYear:'',showCatMap:false,showCatAdd:false,q:'',type:'all',cat:'all',pay:'all',from:'',to:'',min:'',max:''};
 var dailyForm={open:false,id:null};
 var dailyDetail=null,receiptCtx=null,receiptFiles=[];
 function normalizeDaily(d){
- var s={extra:[],edits:{},deleted:[]};
+ var s={extra:[],edits:{},deleted:[],catGroups:DL_CAT_GROUPS.slice(),catMap:{}};
  if(!d||typeof d!=='object')return s;
  if(Array.isArray(d.extra))s.extra=d.extra.filter(function(r){return r&&r.id}).map(function(r){
   return {id:String(r.id),day:String(r.day||''),type:(r.type==='in'||r.type==='none')?r.type:'out',
@@ -2136,6 +2160,15 @@ function normalizeDaily(d){
  });
  if(d.edits&&typeof d.edits==='object')s.edits=d.edits;
  if(Array.isArray(d.deleted))s.deleted=d.deleted.map(String);
+ if(Array.isArray(d.catGroups)&&d.catGroups.length){
+  var g=[],seen={};
+  d.catGroups.forEach(function(x){var v=String(x||'').trim();if(v&&v.length<=16&&!seen[v]){seen[v]=1;g.push(v)}});
+  if(g.length)s.catGroups=g;
+ }
+ if(d.catMap&&typeof d.catMap==='object'&&!Array.isArray(d.catMap)){
+  var cm={};Object.keys(d.catMap).forEach(function(k){var v=String(d.catMap[k]||'').trim();if(v)cm[k]=v});
+  s.catMap=cm;
+ }
  return s;
 }
 function dailyLoad(){
@@ -2257,6 +2290,15 @@ function dailyExportList(list,label){
  download(filePrefix()+label+'-'+today()+'.csv','\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8');
  toast('已导出 '+list.length+' 笔记录','ok');
 }
+function dailyExportJSON(){
+ var recs=dailyRecords(),d=state.daily||{};
+ var payload={source:'家庭账本全量导出',exported:nowStamp(),count:recs.length,
+  fields:['id','day','type','cat','pay','money','name','note','attr','invoice'],
+  rows:recs.map(function(r){return [r.id,r.day,r.type,r.cat,r.pay,r.money,r.name,r.note,r.attr,r.invoice]}),
+  daily:{extra:d.extra||[],edits:d.edits||{},deleted:d.deleted||[],catGroups:d.catGroups||[],catMap:d.catMap||{}}};
+ download(filePrefix()+'家庭账本-全量-'+today()+'.json',JSON.stringify(payload),'application/json;charset=utf-8');
+ toast('已导出 '+recs.length+' 笔账目','ok');
+}
 function dailyOpenDetail(title,list){
  dailyDetail={title:title,list:list};
  $('#ddTitle').textContent=title;
@@ -2264,25 +2306,131 @@ function dailyOpenDetail(title,list){
  $('#ddSum').innerHTML='<div>支出<b class="fin-out">'+money(dailySum(list,'out'))+'</b></div>'+
   '<div>收入<b class="fin-in">'+money(dailySum(list,'in'))+'</b></div>'+
   '<div>不计收支<b>'+money(dailySum(list,'none'))+'</b></div>';
- $('#ddBody').innerHTML='<table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>项目</th><th>金额</th><th>支付</th><th>归属</th><th>备注</th></tr></thead><tbody>'+
+ $('#ddBody').innerHTML='<table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>项目</th><th>金额</th><th>支付</th><th>归属</th><th>备注</th><th>操作</th></tr></thead><tbody>'+
   (list.length?list.slice().sort(function(a,b){return String(b.day).localeCompare(String(a.day))}).slice(0,600).map(function(r){
    return '<tr><td class="muted">'+esc(r.day)+'</td><td>'+dailyTypeName(r.type)+'</td><td>'+esc(r.cat)+'</td>'+
     '<td><b>'+esc(r.name||'—')+'</b></td><td class="fin-money '+(r.type==='in'?'fin-in':'fin-out')+'">'+
     (r.type==='in'?'+':(r.type==='out'?'-':'·'))+money(r.money)+'</td><td>'+esc(r.pay)+'</td><td>'+esc(r.attr||'—')+'</td>'+
-    '<td class="fin-note">'+esc(r.note||'')+'</td></tr>';
-  }).join(''):'<tr><td colspan="8" style="text-align:center;padding:26px">这个分项暂无记录</td></tr>')+'</tbody></table>';
+    '<td class="fin-note">'+esc(r.note||'')+'</td>'+
+    '<td style="white-space:nowrap"><button class="btn btn-sm" data-act="daily-receipt" data-id="'+esc(r.id)+'">凭证</button> '+
+    '<button class="btn btn-sm" data-act="daily-edit" data-id="'+esc(r.id)+'">编辑</button> '+
+    '<button class="btn btn-sm btn-danger" data-act="daily-del" data-id="'+esc(r.id)+'">删除</button></td></tr>';
+  }).join(''):'<tr><td colspan="9" style="text-align:center;padding:26px">这个分项暂无记录</td></tr>')+'</tbody></table>';
  $('#dailyDetailLayer').classList.remove('hidden');
 }
 function dailyCloseDetail(){var l=$('#dailyDetailLayer');if(l)l.classList.add('hidden');dailyDetail=null}
+/* ---------- 支出类别合并（8 类，可新增类项 / 逐类调整归类） ---------- */
+var DL_CAT_GROUPS=['日常花销','红包转账','交通出行','爱车养车','数码电器','学习教育','餐饮美食','住房物业'];
+var DL_CAT_RULES={
+ '商户消费':'日常花销','扫二维码付款':'日常花销','住房物业':'住房物业',
+ '学习教育':'学习教育','教育培训':'学习教育','转账':'红包转账',
+ '数码电器':'数码电器','家居家装':'日常花销','餐饮美食':'餐饮美食',
+ '爱车养车':'爱车养车','日用百货':'日常花销','电脑办公':'数码电器',
+ '酒店旅游':'交通出行','充值缴费':'日常花销','保险':'日常花销',
+ '医疗健康':'日常花销','手机通讯':'数码电器','微信红包（单发）':'红包转账',
+ '转账红包':'红包转账','汽车用品':'爱车养车','出差':'交通出行',
+ '人情':'红包转账','交通出行':'交通出行','其他':'日常花销',
+ '日常花销':'日常花销','水电煤气':'住房物业','食品酒饮':'餐饮美食',
+ '服饰装扮':'日常花销','文化休闲':'日常花销','母婴亲子':'日常花销',
+ '生活服务':'日常花销','运动户外':'日常花销','美容美发':'日常花销',
+ '美妆个护':'日常花销','图书文娱':'学习教育','图书文娱 教育培训':'学习教育',
+ '群收款':'红包转账','公共服务':'日常花销','党费':'红包转账',
+ '商业服务':'日常花销','清洁纸品':'日常花销','孝敬老人':'红包转账',
+ '信用借还':'红包转账','文体玩具':'学习教育','药品':'日常花销',
+ '珠宝首饰':'日常花销','鞋服箱包':'日常花销','水饮':'餐饮美食',
+ '衣服':'日常花销','亲友代付':'红包转账','医疗保健':'日常花销',
+ '母婴用品':'日常花销','其他网购':'数码电器','群收款 ':'红包转账'
+};
+/* 组合类别（如「数码电器 食品酒饮」）按下面的优先顺序归到第一个命中的组 */
+var DL_CAT_KEYWORDS=[
+ [/住房|物业|房租|水电|煤气|水费|电费/,'住房物业'],
+ [/教育|培训|图书|文具|学费|文体玩具/,'学习教育'],
+ [/爱车|汽车|养车|加油|洗车|保养|停车|车险/,'爱车养车'],
+ [/数码|电器|电脑|办公|手机|电子|二手商品/,'数码电器'],
+ [/交通|出行|打车|酒店|旅游|出差|机票|火车|地铁|公交/,'交通出行'],
+ [/红包|转账|群收款|代付|人情|孝敬|党费|借还/,'红包转账'],
+ [/餐饮|美食|食品|酒饮|水饮|外卖/,'餐饮美食']
+];
+function dailyCatGroups(){
+ var d=state.daily||{},g=d.catGroups;
+ return (Array.isArray(g)&&g.length)?g.map(String):DL_CAT_GROUPS.slice();
+}
+function dailyCatMap(){
+ var d=state.daily||{};
+ return (d.catMap&&typeof d.catMap==='object'&&!Array.isArray(d.catMap))?d.catMap:{};
+}
+function dailyGroupOf(c){
+ c=String(c||'其他');
+ var m=dailyCatMap();
+ if(m[c]&&dailyCatGroups().indexOf(m[c])>=0)return m[c];
+ if(DL_CAT_RULES[c]&&dailyCatGroups().indexOf(DL_CAT_RULES[c])>=0)return DL_CAT_RULES[c];
+ for(var i=0;i<DL_CAT_KEYWORDS.length;i++){
+  var g=DL_CAT_KEYWORDS[i][1];
+  if(DL_CAT_KEYWORDS[i][0].test(c)&&dailyCatGroups().indexOf(g)>=0)return g;
+ }
+ return dailyCatGroups()[0]||'日常花销';
+}
+function dailyGroupData(all){
+ var gs=dailyCatGroups(),out=[],by={},i;
+ for(i=0;i<gs.length;i++)by[gs[i]]={name:gs[i],value:0,cats:{}};
+ all.forEach(function(r){
+  if(r.type!=='out')return;
+  var c=String(r.cat||'其他'),g=dailyGroupOf(c);
+  if(!by[g]){by[g]={name:g,value:0,cats:{}};gs.push(g)}
+  by[g].value+=Number(r.money)||0;
+  by[g].cats[c]=(by[g].cats[c]||0)+1;
+ });
+ gs.forEach(function(g){if(by[g])out.push(by[g])});
+ return out.sort(function(a,b){return b.value-a.value});
+}
+function dailyCatMapHtml(all){
+ var m={};
+ all.forEach(function(r){if(r.type==='out'){var c=String(r.cat||'其他');m[c]=(m[c]||0)+(Number(r.money)||0)}});
+ var cats=Object.keys(m).sort(function(a,b){return m[b]-m[a]}),gs=dailyCatGroups();
+ return '<div class="card" style="background:#fbfcff;margin-bottom:14px">'+
+  '<div class="card-h"><h2>归类管理</h2><span class="sub">把原始类别指派到合并后的类别，保存后整页图表立即更新</span></div>'+
+  '<div class="hint" style="margin-bottom:10px">原始账本共 '+cats.length+' 类；未单独指定的类别会按内置规则自动归类。</div>'+
+  '<div class="dy-map">'+cats.map(function(c){
+   return '<div class="dy-map-row"><span class="dy-map-cat" title="'+esc(c)+'">'+esc(c)+'</span>'+
+    '<select class="inp" data-rawcat="'+esc(c)+'">'+gs.map(function(g){
+     return '<option value="'+esc(g)+'"'+(dailyGroupOf(c)===g?' selected':'')+'>'+esc(g)+'</option>';
+    }).join('')+'</select><span class="muted small">'+money0(m[c])+'</span></div>';
+  }).join('')+'</div>'+
+  '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">'+
+   '<button class="btn btn-sm btn-primary" data-act="daily-group-map-save">保存归类</button>'+
+   '<button class="btn btn-sm" data-act="daily-group-map-close">收起</button></div></div>';
+}
+function dailyCatPanel(all){
+ var gs=dailyGroupData(all),max=gs.length?gs[0].value:1;
+ var custom=dailyCatGroups().filter(function(g){return DL_CAT_GROUPS.indexOf(g)<0});
+ var h='<div class="card" id="dyCatCard"><div class="card-h"><h2>支出类别 · 合并后（当前条件）</h2>'+
+  '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+   '<button class="btn btn-sm" data-act="daily-group-add">＋ 新增类别</button>'+
+   '<button class="btn btn-sm" data-act="daily-group-map">'+(dailyCfg.showCatMap?'收起归类管理':'归类管理')+'</button>'+
+  '</div></div>'+
+  '<div class="hint" style="margin-bottom:12px">按 '+gs.length+' 个合并类别展示（页面顺序：年 → 月 → 支出类别）。点条形可查看该类别的逐笔明细。</div>';
+ if(custom.length)h+='<div class="dy-custom">自定义类别：'+custom.map(function(g){
+   return '<span class="dy-chip">'+esc(g)+' <button class="dy-chip-x" data-act="daily-group-del" data-val="'+esc(g)+'" title="删除该类别">×</button></span>';
+  }).join('')+'</div>';
+ if(dailyCfg.showCatAdd)h+='<div class="dy-add"><input class="inp" id="dyNewGroup" placeholder="输入新类别名称，如 宠物">'+
+  '<button class="btn btn-sm btn-primary" data-act="daily-group-save">保存</button>'+
+  '<button class="btn btn-sm" data-act="daily-group-cancel">取消</button></div>';
+ if(dailyCfg.showCatMap)h+=dailyCatMapHtml(all);
+ h+=gs.map(function(g){
+  var n=Object.keys(g.cats).length;
+  return dailyBar(g.name+'（'+n+' 个原始类）',g.value,max,'','daily-detail','group',g.name);
+ }).join('')||'<div class="hint">暂无支出记录</div>';
+ return h+'</div>';
+}
+
 function dailyFocusYears(all){
  var m={};all.forEach(function(r){var y=String(r.day).slice(0,4);if(/^\d{4}$/.test(y))m[y]=1});
  return Object.keys(m).sort();
 }
 function dailyFocusYear(all){
- var ys=dailyFocusYears(all),f=String(dailyCfg.focusYear||'').slice(0,4);
- if(!ys.length)return String(new Date().getFullYear());
- if(f&&ys.indexOf(f)>=0)return f;
- return ys[ys.length-1];
+ var f=String(dailyCfg.focusYear||'').slice(0,4);
+ if(/^\d{4}$/.test(f))return f;
+ return String(new Date().getFullYear());
 }
 function dailyMonthData(all,y){
  var byM={},labels=[],vals=[],rows=[],m,k;
@@ -2298,7 +2446,10 @@ function dailyMonthData(all,y){
  return {byM:byM,labels:labels,vals:vals,rows:rows};
 }
 function dailyFocusHtml(all){
- var y=dailyFocusYear(all),ys=dailyFocusYears(all),md=dailyMonthData(all,y);
+ var y=dailyFocusYear(all),ys=dailyFocusYears(all),cur=String(new Date().getFullYear());
+ if(ys.indexOf(cur)<0)ys.push(cur);
+ ys.sort();
+ var md=dailyMonthData(all,y);
  var out=0,inc=0,n=0,act=0,peak={k:'',v:0};
  md.vals.forEach(function(k){
   var b=md.byM[k];out+=b.out;inc+=b.inc;n+=b.n;if(b.n)act++;
@@ -2311,7 +2462,7 @@ function dailyFocusHtml(all){
    '<select id="dy-focus-year">'+ys.map(function(q){return '<option value="'+q+'"'+(q===y?' selected':'')+'>'+q+' 年</option>'}).join('')+'</select>'+
    '<button class="btn btn-sm" data-act="daily-focus" data-val="next">下一年 →</button>'+
    '<span class="sp"></span><span class="muted small">跟随上方查询条件</span>'+
-   '<div class="dy-focus-tip">点上方「按年 · 收支趋势」的年份柱 / 年份文字、年度花销表的年份行或「明细」，这里会同步切换为该年的月花销图与年度花销数据；点本区月份柱 / 月份行可继续下钻到逐笔明细。</div>'+
+   '<div class="dy-focus-tip">默认展示当年，点上方年份柱 / 年份行 /「月图」会切到该年并跳到这里；这里点月份柱或「明细」才会打开逐笔明细。</div>'+
   '</div><div class="fin-grid">'+
    '<div class="card"><div class="card-h"><h2>'+esc(y)+' 年 · 月花销图</h2><span class="sub">红=支出 绿=收入 · 点柱看明细，点月份下钻</span></div>'+
     dailySvg(md.rows,md.labels,'month',md.vals,null)+'</div>'+
@@ -2371,7 +2522,11 @@ function renderDaily(){
   '<span class="sep">/</span><b data-act="daily-drill" data-dim="year" data-val="">全部年份</b>';
  if(dailyCfg.level!=='year')crumb+='<span class="sep">/</span><b>'+esc(dailyCfg.year)+' 年</b>';
  if(dailyCfg.level==='list')crumb+='<span class="sep">/</span><b>'+Number(dailyCfg.month)+' 月</b>';
- crumb+='<span class="muted" style="margin-left:auto">点年份 → 看 12 个月；点月份 → 看逐笔明细；下方月图随所选年份联动</span></div>';
+ crumb+='<span class="dy-acts">'+
+  '<button class="btn btn-sm btn-primary" data-act="daily-add">＋ 记一笔</button>'+
+  '<button class="btn btn-sm" data-act="daily-export-csv">导出 CSV</button>'+
+  '<button class="btn btn-sm" data-act="daily-export-json">导出账本 JSON</button></span></div>';
+ if(dailyForm.open)html+=dailyFormHtml();
  html+=crumb;
 
  if(dailyCfg.level==='year'){
@@ -2380,16 +2535,15 @@ function renderDaily(){
   var ys=Object.keys(byY).sort(),rows=ys.map(function(y){return {out:byY[y].out,inc:byY[y].inc}});
   html+='<div class="fin-grid">'+
    '<div class="card"><div class="card-h"><h2>按年 · 收支趋势</h2><span class="sub">点年份柱 / 文字联动下方月图</span></div>'+dailySvg(rows,ys,'year',ys,dailyCfg.focusYear)+'</div>'+
-   '<div class="card"><div class="card-h"><h2>年度花销</h2><span class="sub">点年份行下钻 · 点「明细」弹逐笔</span></div>'+
+   '<div class="card"><div class="card-h"><div class="dy-hd"><h2>年度花销</h2>'+
+   '<span class="dy-total">总支出 <b class="fin-out">'+money(exp)+'</b>　总收入 <b class="fin-in">'+money(inc)+'</b></span></div>'+
+   '<span class="sub">点年份行或「月图」跳到该年月图</span></div>'+
     '<div class="table-wrap"><table class="tbl"><thead><tr><th>年份</th><th>支出</th><th>收入</th><th>笔数</th><th>操作</th></tr></thead><tbody>'+
     (ys.length?ys.map(function(y){return '<tr class="fd-hit fd-hit-row'+(String(y)===String(dailyCfg.focusYear)?' dy-focus-row':'')+'" data-act="daily-drill" data-dim="year" data-val="'+y+'" title="点击查看 '+y+' 年 12 个月">'+
      '<td><b>'+y+'</b> ↗</td><td class="fin-money fin-out">'+money(byY[y].out)+'</td><td class="fin-money fin-in">'+money(byY[y].inc)+'</td>'+
-     '<td>'+byY[y].n+'</td><td><button class="btn btn-sm" data-act="daily-detail" data-dim="year" data-val="'+y+'" data-kind="all">明细</button></td></tr>'}).join(''):
+     '<td>'+byY[y].n+'</td><td><button class="btn btn-sm" data-act="daily-detail" data-dim="year" data-val="'+y+'" data-kind="all">月图</button></td></tr>'}).join(''):
      '<tr><td colspan="5" style="text-align:center;padding:24px">没有符合条件的记录</td></tr>')+'</tbody></table></div></div></div>';
-  var byCat={};all.forEach(function(r){if(r.type==='out')byCat[r.cat||'其他']=(byCat[r.cat||'其他']||0)+(Number(r.money)||0)});
-  var co=Object.keys(byCat).sort(function(a,b){return byCat[b]-byCat[a]}).slice(0,15),cm=byCat[co[0]]||1;
-  html+='<div class="card"><div class="card-h"><h2>支出类别排行（当前条件）</h2><span class="sub">点条形看该类别逐笔明细</span></div>'+
-   (co.length?co.map(function(c){return dailyBar(c,byCat[c],cm,'','daily-detail','category',c)}).join(''):'<div class="hint">暂无支出记录</div>')+'</div>';
+  var catHtml=dailyCatPanel(all);
  } else if(dailyCfg.level==='month'){
   var y=dailyCfg.year,inYear=all.filter(function(r){return String(r.day).slice(0,4)===y});
   var byM={},labels=[],mrows=[];
@@ -2413,11 +2567,11 @@ function renderDaily(){
    '<button class="btn btn-sm" data-act="daily-export">导出 CSV</button></div></div>'+
    '<div class="hint" style="margin-bottom:12px">共 '+list.length+' 笔 · 支出 '+money(dailySum(list,'out'))+' / 收入 '+money(dailySum(list,'in'))+
    '。「凭证」列可为任意一笔上传 PDF 或图片，文件保存在 NAS，不占用 grades.json 体积；标「原凭证」的是 9090 记账软件里已有的凭证文件名。</div>';
-  if(dailyForm.open)html+=dailyFormHtml();
   html+='<div class="table-wrap"><table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>项目</th><th>金额</th><th>支付</th><th>归属</th><th>备注 / 原凭证</th><th>操作</th></tr></thead><tbody>'+
    dailyRowsHtml(list)+'</tbody></table></div></div>';
  }
  html+=dailyFocusHtml(all);
+ if(typeof catHtml!=='undefined')html+=catHtml;
  $('#v-daily').innerHTML=html;
 }
 function dailyDrill(dim,val){
@@ -2435,11 +2589,12 @@ function dailyDetailList(dim,val){
   if(dim==='year')return String(r.day).slice(0,4)===String(val);
   if(dim==='month')return String(r.day).slice(0,7)===String(val);
   if(dim==='category')return r.cat===String(val);
+  if(dim==='group')return r.type==='out'&&dailyGroupOf(r.cat||'其他')===String(val);
   return true;
  });
 }
 function dailyDetailTitle(dim,val){
- return dim==='year'?val+' 年':(dim==='month'?val+' 月':(dim==='category'?'类别「'+val+'」':'全部记录'));
+ return dim==='year'?val+' 年':(dim==='month'?val+' 月':((dim==='category'||dim==='group')?'类别「'+val+'」':'全部记录'));
 }
 function openDailyForm(id){
  dailyForm={open:true,id:id||null};renderDaily();
@@ -2567,7 +2722,14 @@ function renderSettings(){
    '<button class="btn" data-act="export-csv">导出成绩 CSV</button>'+
    '<button class="btn" data-act="refresh">重新载入</button>'+
    '<button class="btn" data-act="load-demo">载入示例数据</button>'+
-   '<button class="btn btn-danger" data-act="clear-all">清空全部数据</button></div></div>';
+   '<button class="btn btn-danger" data-act="clear-all">清空全部数据</button></div>'+
+  '<div class="hint" style="margin-top:12px;background:#f8fafc;border-radius:9px;padding:10px 12px">'+
+   '<b>完整备份说明</b>：上面的「导出 JSON 备份」只包含成绩、花销、压岁钱、笔记本和日常账本增量；'+
+   '试卷与凭证附件（<span class="mono">data/attachments/</span>、<span class="mono">data/attachments.json</span>）、'+
+   '历史账本（<span class="mono">public/daily-ledger.json</span>）和头像不在里面。'+
+   '部署在 NAS 时，<span class="mono">scripts/backup.sh</span> 会把这些文件全部打包到 <span class="mono">backups/</span>，'+
+   '已配置为每天 02:30 自动执行并保留最近 30 份；恢复用 <span class="mono">sh scripts/restore.sh &lt;备份包&gt;</span>。'+
+   '代码另有一份在 Gitee 私有仓库，仓库里不含真实家庭数据。</div></div>';
  html+='<div class="card"><div class="card-h"><h2>访问密码</h2><span class="sub">'+(isDefaultPwd?'当前使用默认密码，建议尽快修改':'已设置自定义密码')+'</span></div>'+
   '<div class="hint" style="margin-bottom:12px">本程序只需密码，不需要用户名。'+
   (mode==='server'?'密码保存在 NAS 的 <span class="mono">/app/data/auth.json</span>（加盐哈希，不存明文），修改后其它设备需重新登录。忘记密码时删除该文件并重启容器，即可恢复默认密码 <span class="mono">meimima</span>。':
@@ -2585,7 +2747,7 @@ function renderSettings(){
  $('#v-settings').innerHTML=html;
 }
 function filePrefix(){var n=(state.profile&&state.profile.name)?state.profile.name:'';return n?n+'-':''}
-function exportJSON(){download(filePrefix()+'成绩轨迹备份-'+today()+'.json',JSON.stringify(state,null,2))}
+function exportJSON(){download(filePrefix()+'家庭事项记录备份-'+today()+'.json',JSON.stringify(state,null,2))}
 function exportCSV(){
  var head=['考试名称','日期','学段','年级','学期','类型','科目','分数','满分','得分率%','班级名次','年级名次','区县名次','问题标签','备注'];
  var lines=[head.join(',')];
@@ -3071,29 +3233,69 @@ document.addEventListener('click',function(ev){
   case 'daily-drill':{
    var gd=el.dataset.dim,gv=String(el.dataset.val||'');
    if((gd==='year'||gd==='month')&&/^\d{4}/.test(gv))dailyCfg.focusYear=gv.slice(0,4);
-   dailyDrill(gd,gv);break;
+   dailyDrill(gd,gv);
+   if(gd==='year'&&gv){var jd=$('#dyFocus');if(jd&&jd.scrollIntoView)jd.scrollIntoView({block:'start',behavior:'smooth'})}
+   break;
   }
   case 'daily-up':dailyGo(dailyCfg.level==='list'?'month':'year',dailyCfg.level==='list'?dailyCfg.year:'','');break;
   case 'daily-detail':{
    var dd=el.dataset.dim,dv=String(el.dataset.val||'');
-   if((dd==='year'||dd==='month')&&/^\d{4}/.test(dv)){dailyCfg.focusYear=dv.slice(0,4);renderDaily()}
-   dailyOpenDetail(dailyDetailTitle(dd,dv)+' · 分项明细',dailyDetailList(dd,dv));break;
+   if(dd==='year'){
+    dailyCfg.focusYear=dv;
+    dailyGo('month',dv,'');
+    var jf=$('#dyFocus');if(jf&&jf.scrollIntoView)jf.scrollIntoView({block:'start',behavior:'smooth'});
+   }else{
+    if(dd==='month'&&/^\d{4}/.test(dv)){dailyCfg.focusYear=dv.slice(0,4);renderDaily()}
+    dailyOpenDetail(dailyDetailTitle(dd,dv)+' · 分项明细',dailyDetailList(dd,dv));
+   }
+   break;
   }
   case 'daily-detail-close':dailyCloseDetail();break;
   case 'daily-detail-export':if(dailyDetail)dailyExportList(dailyDetail.list,'日常记账-'+dailyDetail.title.replace(/[\s·「」]/g,''));break;
-  case 'daily-receipt':openReceipt(id);break;
+  case 'daily-receipt':dailyCloseDetail();openReceipt(id);break;
   case 'rc-close':closeReceipt();break;
   case 'rc-upload':uploadReceipts();break;
   case 'rc-preview':previewAttachment(id);break;
   case 'rc-del':deleteReceipt(id);break;
   case 'daily-add':openDailyForm(null);break;
-  case 'daily-edit':openDailyForm(id);break;
-  case 'daily-del':deleteDailyRecord(id);break;
+  case 'daily-edit':dailyCloseDetail();openDailyForm(id);break;
+  case 'daily-del':dailyCloseDetail();deleteDailyRecord(id);break;
   case 'daily-save':saveDailyRecord();break;
   case 'daily-form-close':dailyForm={open:false,id:null};renderDaily();break;
+  case 'daily-export-csv':dailyExportList(dailyScoped(),'家庭账本-当前筛选');break;
+  case 'daily-export-json':dailyExportJSON();break;
   case 'daily-export':dailyExportList(dailyScoped().filter(function(r){return dailyCfg.level!=='list'||String(r.day).slice(0,7)===dailyCfg.year+'-'+String(dailyCfg.month).padStart(2,'0')}),'日常账本');break;
   case 'daily-search':dailyCfg.q=$('#dy-q')?$('#dy-q').value.trim():dailyCfg.q;renderDaily();toast('总花销已按条件更新','ok');break;
-  case 'daily-reset':dailyCfg={level:dailyCfg.level,year:dailyCfg.year,month:dailyCfg.month,focusYear:dailyCfg.focusYear,q:'',type:'all',cat:'all',pay:'all',from:'',to:'',min:'',max:''};renderDaily();break;
+  case 'daily-group-add':dailyCfg.showCatAdd=true;renderDaily();var ng=$('#dyNewGroup');if(ng&&ng.focus)ng.focus();break;
+  case 'daily-group-cancel':dailyCfg.showCatAdd=false;renderDaily();break;
+  case 'daily-group-save':{
+   var ngi=$('#dyNewGroup'),ngv=ngi?String(ngi.value||'').trim():'';
+   if(!ngv){toast('请输入类别名称','err');break}
+   var ngs=dailyCatGroups();
+   if(ngs.indexOf(ngv)>=0){toast('这个类别已存在','err');break}
+   ngs.push(ngv);state.daily.catGroups=ngs;
+   dailyCfg.showCatAdd=false;persist();renderDaily();toast('已新增类别「'+ngv+'」','ok');break;
+  }
+  case 'daily-group-del':{
+   var dgv=el.dataset.val;
+   confirmBox('删除类别','「'+dgv+'」会被移除，原本指派到它的类别会自动回到「日常花销」，账目不会丢失。',function(){
+    state.daily.catGroups=dailyCatGroups().filter(function(g){return g!==dgv});
+    var dm=dailyCatMap();Object.keys(dm).forEach(function(k){if(dm[k]===dgv)delete dm[k]});
+    state.daily.catMap=dm;persist();renderDaily();toast('类别已删除','ok');
+   },'删除类别');break;
+  }
+  case 'daily-group-map':dailyCfg.showCatMap=!dailyCfg.showCatMap;renderDaily();break;
+  case 'daily-group-map-close':dailyCfg.showCatMap=false;renderDaily();break;
+  case 'daily-group-map-save':{
+   var dcm=dailyCatMap(),n=0;
+   $$('[data-rawcat]').forEach(function(sel){
+    var k=sel.getAttribute?sel.getAttribute('data-rawcat'):sel.dataset.rawcat;
+    if(k&&sel.value)dcm[k]=sel.value;n++;
+   });
+   state.daily.catMap=dcm;dailyCfg.showCatMap=false;persist();renderDaily();
+   toast('已保存 '+n+' 条归类规则','ok');break;
+  }
+  case 'daily-reset':dailyCfg={level:dailyCfg.level,year:dailyCfg.year,month:dailyCfg.month,focusYear:dailyCfg.focusYear,showCatMap:dailyCfg.showCatMap,showCatAdd:false,q:'',type:'all',cat:'all',pay:'all',from:'',to:'',min:'',max:''};renderDaily();break;
   case 'fin-detail':openFinDetail(el.dataset.dim,el.dataset.val,el.dataset.kind);break;
   case 'fin-detail-close':closeFinDetail();break;
   case 'fin-detail-filter':finDetailFilterScope();break;

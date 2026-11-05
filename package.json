@@ -1,6 +1,6 @@
 {
   "name": "family-hub",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "private": true,
   "description": "家庭事项记录 · 学习成长 / 学生花销 / 家庭账本 / 笔记本（NAS Docker + 安卓 WebView）",
   "main": "server.js",

@@ -67,7 +67,14 @@ grades-track/
 ### 4. 安卓 App v2.0.0
 WebView 壳改名为「家庭事项记录」，默认服务器地址不变，首次启动可填私有服务器地址、顶部「服务器」可随时切换（家里内网 / 外面域名或穿透）。页面是服务端提供的，网页版更新后手机刷新即可，不需要重装。支持附件上传、凭证上传、导出到系统下载目录、返回键回退。安装包可从 `http://192.168.5.132:8999/FamilyHub-v2.0.0.apk` 直接下载。
 
-### 5. Gitee 私有仓库
+### 5. 家庭账本增强（v2.1 / v2.2）
+- 月花销图**默认展示当年**（2026），无需先选年份；点按年趋势的年份柱、年度表的年份行或「月图」只跳转到该年的月图，**不再弹逐笔明细**；只有点月图的柱或月份「明细」才打开逐笔明细。
+- 支出类别由原来的 64 个原始类**合并为 8 类**：日常花销、红包转账、交通出行、爱车养车、数码电器、学习教育、餐饮美食、住房物业。支持「＋ 新增类别」自定义类项，以及「归类管理」逐条调整原始类别归属（存 `state.daily.catGroups / catMap`）。类别图位于页面最下方，顺序为 **年 → 月 → 支出类别**。
+- 年度花销卡片标题旁显示当前筛选下的**总支出 / 总收入**。
+- 「＋ 记一笔」在年 / 月 / 明细层级都能打开表单（此前只在逐笔明细层级显示，看起来像没反应）；分项明细弹层里可直接**编辑、上传凭证、删除**。
+- 所有层级都有「导出 CSV（当前筛选）」与「导出账本 JSON（全量，含历史账目与增量）」。
+
+### 6. Gitee 私有仓库
 代码已推送到 Gitee **私有仓库**：https://gitee.com/pele1224/family-hub （账号 `pele1224`，`master` 分支）。出于隐私考虑，仓库里**不含真实家庭数据**：`data/grades.json`、`public/daily-ledger.json`、`data/attachments/`、`*.keystore`、`android/dist/*.apk` 都在 `.gitignore` 中，改以 `examples/` 下的脱敏示例文件代替。从仓库重新部署时，需要把自己的数据文件放回对应目录（详见 `examples/README.md`）。
 
 ## 历史更新（v1.4.0）
@@ -215,7 +222,9 @@ docker compose -f docker-compose.build.yml up -d --build
 - 2026 年 3 月分隔线之后的条目归入**六年级下学期**（含毕业照、预科初一数学）。
 - **初一上学期 6 笔，合计 9,475 元**：学平险 100（其他）、管乐团 3530（兴趣特长，备注写明其中学费 1600 / 教材 350 / 小号 1580）、游泳次卡 110 次 3000（兴趣特长）、校服 589（校服被褥）、充饭卡 2200（午托托管）、打印语数英资料 56（课本费）。管乐团按原文记为一笔，未拆分。
 
-## 数据、备份与迁移
+## 数据位置与常见操作
+
+> 完整备份方案与跨服务器迁移请见后面的「数据备份与灾难恢复」「迁移到另一台服务器」两节。
 
 - **数据位置**：容器 `/app/data/grades.json`，对应宿主机 `grades-track/data/grades.json`。定期复制这个文件就是最可靠的备份。
 - **页面内备份**：「设置与数据」→ 导出 JSON 备份 / 导出成绩 CSV；「花销记账」→ 导出收支明细 CSV。
@@ -253,6 +262,47 @@ docker compose -f docker-compose.build.yml up -d --build
 - 这个服务面向**局域网/内网**使用，没有 HTTPS 和账号体系，只有一道密码。不要直接把 8999 端口映射到公网。
 - 确实需要外网访问时，建议走飞牛的反向代理 + HTTPS + 强密码，或仅限 VPN / 内网穿透访问。
 - `data/auth.json` 存的是 scrypt 加盐哈希和登录令牌，不含明文密码；不要把它提交到公开仓库。
+
+## 数据备份与灾难恢复
+
+数据是这个项目最值钱的部分，目前是**三层备份**：
+
+| 层 | 位置 | 内容 | 说明 |
+|---|---|---|---|
+| 代码 | Gitee 私有仓库 `https://gitee.com/pele1224/family-hub` | `server.js`、前端、Docker 配置、安卓工程、文档、示例数据 | **不含真实家庭数据**（见 `.gitignore`），换电脑 `git clone` 即可拿到完整代码 |
+| 自动冷备（NAS） | `/vol1/1000/docker/grades-track/backups/family-hub-<时间戳>.tar.gz` | `grades.json`、`auth.json`、`attachments.json`、`attachments/`、`daily-ledger.json`、`avatar.jpg` | `scripts/backup.sh`，已配置每天 02:30 自动执行，保留最近 30 份 |
+| 本地冷备 | `D:/grades-track-sdk/backups/2026-11-05-full/` | NAS 项目目录的完整快照 + 一份 tar.gz | 建议再复制到移动硬盘 / 网盘，做异地备份 |
+
+网页「设置与数据 → 导出 JSON 备份」只导出 `grades.json` 里的内容（成绩、花销、压岁钱、笔记本、日常账本增量），
+**不含试卷/凭证附件、历史账本 `public/daily-ledger.json` 和头像**，所以它不能替代上面的完整备份。
+
+手动备份 / 恢复：
+
+```bash
+cd /vol1/1000/docker/grades-track
+sh scripts/backup.sh                         # 生成 backups/family-hub-*.tar.gz
+sh scripts/restore.sh backups/family-hub-20261105-023000.tar.gz   # 恢复（需输入 yes 确认）
+docker restart grades-track                  # 换过 grades.json 后必须重启，服务端有内存缓存
+```
+
+备份脚本零依赖、只用 `tar`，任何 Linux / NAS 都能跑；`scripts/restore.sh` 会先要求确认再覆盖，避免误操作。
+
+## 迁移到另一台服务器（Docker）——可以，无需改代码
+
+已确认 `docker-compose.yml` 用**相对路径** `./:/app` 挂载，文件里没有写死 IP 或绝对路径，唯一固定的地址是
+安卓 App 的**默认服务器地址**（在 App 顶部「服务器」里随时可改）和文档里的示例。迁移步骤：
+
+1. 新服务器装好 Docker + Docker Compose，把整个项目目录复制过去（或 `git clone` 私有仓库，再按 `examples/README.md` 放回数据文件）。
+2. 把最近一份备份包解到项目根目录：`tar -xzf family-hub-<时间戳>.tar.gz -C /你的路径/grades-track`。
+   或者用 `scp -r` 直接复制 `data/`、`public/daily-ledger.json`、`public/avatar.jpg`。
+3. 需要换端口就改 `docker-compose.yml` 里的 `"8999:3000"`（只改左边）。
+4. 启动：`docker compose up -d`。若拉不到 `node:20-alpine`（国内网络常见），先配置镜像加速，
+   或改用 `docker compose -f docker-compose.build.yml up -d --build` 本地构建镜像。
+5. 打开 `http://新服务器IP:8999`。`auth.json` 一起带过来时沿用原来的访问密码；没带则恢复默认 `meimima`。
+6. 手机 App：顶部「服务器」改成新地址即可，页面是服务端提供的，**不用重装 APK**。
+7. 验证：`/api/health` 返回 `{"ok":true}`；四个一级目录都在；家庭账本能看到 10,641 笔历史数据；笔记与附件在。
+
+迁移后建议立刻改一次访问密码，并确认新服务器上的自动备份任务（`scripts/backup.sh`）也已配置。
 
 ## 还可以继续加什么（建议）
 

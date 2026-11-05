@@ -1,0 +1,23 @@
+# ===== 真实家庭数据：不上传代码仓库 =====
+data/grades.json
+data/grades.json.bak-*
+data/auth.json
+data/attachments.json
+data/attachments/
+public/daily-ledger.json
+public/avatar.jpg
+
+# ===== 签名密钥与构建产物 =====
+*.keystore
+*.idsig
+*.apk
+android/build/
+android/dist/
+*.upload.tmp
+
+# ===== 临时与系统文件 =====
+node_modules/
+.DS_Store
+Thumbs.db
+*.bak-*
+*.tmp

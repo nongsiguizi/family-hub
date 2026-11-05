@@ -1,0 +1,12 @@
+{
+  "source": "示例占位数据（非真实账本）",
+  "exported": "2026-11-05",
+  "count": 2,
+  "fields": ["id", "day", "type", "cat", "pay", "money", "name", "note", "attr", "invoice"],
+  "note": "type: out=支出 / in=收入 / none=不计收支。rows 是列式数组，顺序与 fields 一致。",
+  "years": [{ "year": "2026", "expense": 135.5, "income": 0, "neutral": 0, "count": 2 }],
+  "rows": [
+    [900001, "2026-01-03", "out", "日用", "微信", 35.5, "示例：买水果", "", "", ""],
+    [900002, "2026-01-05", "out", "学习", "支付宝", 100, "示例：练习本", "", "学生姓名", ""]
+  ]
+}

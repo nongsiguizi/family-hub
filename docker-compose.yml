@@ -1,0 +1,18 @@
+# 免构建方案（推荐）：直接用官方 Node 镜像挂载本目录，不需要 build
+# 飞牛 Docker 的「Compose / 项目」里粘贴本文件即可；路径以本文件所在目录为基准
+services:
+  grades-track:
+    image: node:20-alpine
+    container_name: grades-track
+    restart: unless-stopped
+    working_dir: /app
+    command: ["node", "server.js"]
+    ports:
+      - "8999:3000"
+    volumes:
+      - ./:/app
+    environment:
+      TZ: Asia/Shanghai
+      PORT: "3000"
+      # 仅首次启动时生效；auth.json 已存在时改这里不生效，请在页面「设置与数据」里改密码
+      # DEFAULT_PASSWORD: "your-own-password"

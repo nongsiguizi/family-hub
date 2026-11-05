@@ -1,0 +1,15 @@
+# 可选：把应用打成自己的镜像（不挂载源码，只挂载数据）
+# docker compose -f docker-compose.build.yml up -d --build
+services:
+  grades-track:
+    build: .
+    image: grades-track:local
+    container_name: grades-track
+    restart: unless-stopped
+    ports:
+      - "8999:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      TZ: Asia/Shanghai
+      PORT: "3000"

@@ -185,6 +185,10 @@ table{border-collapse:collapse;font-size:13px}
 .fin-bar .nm{width:96px;flex:0 0 96px}
 .fin-bar .ct{width:104px;flex:0 0 104px;text-align:right}
 .fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.fin-grid.split{grid-template-columns:minmax(0,.88fr) minmax(0,1.22fr);align-items:start}
+.fin-grid.split .lk-check{font-size:12px}
+.fin-grid.split .lk-check th,.fin-grid.split .lk-check td{padding-left:8px;padding-right:8px}
+@media(max-width:980px){.fin-grid.split{grid-template-columns:1fr}}
 @media(max-width:980px){.fin-grid{grid-template-columns:1fr}}
 .fin-yearchart svg{display:block;width:100%;height:auto}
 .fin-yearchart text{font:11px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#94a3b8}
@@ -778,6 +782,10 @@ var FIN_GRADES=['一年级','二年级','三年级','四年级','五年级','六
 var FIN_TERMS=['上学期','下学期','暑期','寒假','全年'];
 var EXP_CATS=['学费','午托托管','课后服务','课本费','学科补课','兴趣特长','校服被褥','研学活动','生活用品','其他'];
 var INC_CATS=['奖学金','压岁钱','退费返还','其他收入'];
+/* 原始账本里按年级写明的合计，用于「与原文合计核对」表 */
+var FIN_CLAIMED={'一年级':23150,'二年级':22515,'三年级':15476,'四年级':24959.5};
+/* 原始压岁钱账本写明的合计；null 表示原文没给合计 */
+var LK_CLAIMED={2023:{in:9100,out:6300},2024:{in:9100,out:7000},2025:{in:7100,out:null},2026:{in:null,out:null}};
 var PAGE={
  home:['家庭总览','日历 · 每日美文 · NAS 相册 · 四大模块速览'],
  dashboard:['概览','初一到高三的成绩全貌与最近变化'],
@@ -2262,8 +2270,18 @@ function renderFinance(){
  var gOrder=FIN_GRADES.filter(function(g){return byGrade[g]!=null});
  Object.keys(byGrade).forEach(function(g){if(gOrder.indexOf(g)<0)gOrder.push(g)});
  var gMax=Math.max.apply(null,gOrder.map(function(g){return byGrade[g]}).concat([1]));
- html+='<div class="card"><div class="card-h"><h2>各年级支出</h2><span class="sub">点击条形查看该年级逐笔明细</span></div>'+
-  gOrder.map(function(g){return finBar(g,byGrade[g],gMax,false,'grade','expense')}).join('')+'</div>';
+ var checkRows=gOrder.map(function(g){
+  var v=byGrade[g],c=FIN_CLAIMED[g];
+  var cell=c==null?'<span class="faint">原文未给合计</span>'
+   :(Math.abs(v-c)<0.01?'<span class="fin-ok">✓ 一致</span>':'<span class="fin-diff">差 '+money(v-c)+'</span>');
+  return '<tr class="fd-hit fd-hit-row" data-act="fin-detail" data-dim="grade" data-val="'+esc(g)+'" data-kind="expense" title="点击查看「'+esc(g)+'」明细"><td><b>'+esc(g)+'</b> <span class="faint" style="font-size:11px">↗</span></td><td class="fin-money">'+money(v)+'</td><td class="fin-money">'+(c==null?'—':money(c))+'</td><td>'+cell+'</td></tr>';
+ }).join('');
+ html+='<div class="fin-grid split">'+
+  '<div class="card"><div class="card-h"><h2>各年级支出</h2><span class="sub">点击条形查看该年级逐笔明细</span></div>'+
+   gOrder.map(function(g){return finBar(g,byGrade[g],gMax,false,'grade','expense')}).join('')+'</div>'+
+  '<div class="card"><div class="card-h"><h2>与原文合计核对</h2><span class="sub">点击任一行查看该年级明细</span></div>'+
+   '<div class="table-wrap"><table class="tbl"><thead><tr><th>年级</th><th>系统合计</th><th>原文合计</th><th>核对</th></tr></thead><tbody>'+checkRows+'</tbody></table></div>'+
+   '<div class="hint" style="margin-top:12px">原文合计取自原始账本按年级写的合计；五年级、六年级原文未给合计，此处按逐笔明细求和（五年级原文写 7,268.60，差 203 元是 2024-10-30 野趣成长田园研学，按明细全额计入）。</div></div></div>';
 
  var byCat={};exps.forEach(function(r){var c=r.category||'其他';byCat[c]=(byCat[c]||0)+(Number(r.amount)||0)});
  var catOrder=Object.keys(byCat).sort(function(a,b){return byCat[b]-byCat[a]});
@@ -2529,7 +2547,23 @@ function renderLucky(){
   lkHit(kpi('累计存入银行',money(saveAll),'压岁钱里存起来的部分'),'all','','save','all')+
   lkHit(kpi('净结余',money(allIn-allOut),'全部收入减全部支出（含其余收支）'),'all','','all','all')+'</div>';
 
- html+='<div class="card"><div class="card-h"><h2>逐年收到 / 给出 / 存入</h2><span class="sub">点柱子、年份或整列看明细</span></div>'+lkYearChart()+'</div>';
+ var checkRows=years.map(function(y){
+  var ls=recs.filter(function(r){return r.year===y});
+  var gi=lkSum(ls,'in','压岁钱'),go=lkSum(ls,'out','压岁钱'),sv=lkSum(ls,'save');
+  var ai=lkSum(ls,'in'),ao=lkSum(ls,'out'),cl=LK_CLAIMED[y]||{};
+  var ci=cl['in']==null?'<span class="faint">原文未给</span>':(Math.abs(gi-cl['in'])<0.01?'<span class="fin-ok">✓ 一致</span>':'<span class="fin-diff">差 '+money(gi-cl['in'])+'</span>');
+  var co=cl.out==null?'<span class="faint">原文未给</span>':(Math.abs(go-cl.out)<0.01?'<span class="fin-ok">✓ 一致</span>':'<span class="fin-diff">差 '+money(go-cl.out)+'</span>');
+  return '<tr class="fd-hit fd-hit-row lk-check" data-act="lk-detail" data-dim="year" data-val="'+y+'" data-kind="all" data-cat="all" title="点击查看 '+y+' 年全部明细">'+
+   '<td><b>'+y+'</b> <span class="faint" style="font-size:11px">↗</span></td>'+
+   '<td class="fin-money">'+money(gi)+'</td><td class="fin-money">'+(cl['in']==null?'—':money(cl['in']))+'</td><td>'+ci+'</td>'+
+   '<td class="fin-money">'+money(go)+'</td><td class="fin-money">'+(cl.out==null?'—':money(cl.out))+'</td><td>'+co+'</td>'+
+   '<td class="fin-money">'+money(sv)+'</td><td class="fin-money">'+money(ai-ao)+'</td></tr>';
+ }).join('');
+ html+='<div class="fin-grid split">'+
+  '<div class="card"><div class="card-h"><h2>逐年收到 / 给出 / 存入</h2><span class="sub">点柱子、年份或整列看明细</span></div>'+lkYearChart()+'</div>'+
+  '<div class="card"><div class="card-h"><h2>与原文合计核对</h2><span class="sub">点任一行看该年逐笔明细</span></div>'+
+   '<div class="table-wrap"><table class="tbl"><thead><tr><th>年份</th><th>收到</th><th>原文</th><th>核对</th><th>给出</th><th>原文</th><th>核对</th><th>存入</th><th>净结余</th></tr></thead><tbody>'+checkRows+'</tbody></table></div>'+
+   '<div class="hint" style="margin-top:12px">2024 年另有「其余支出」1,000 元（二宝瞌睡钱）和「其余收入」200 元（舅爷六一儿童节 100、月考数学第一姥姥奖励 100），不计入上表压岁钱合计，但计入全部收支与净结余；2026 年「胖子」原文只写名字未写金额，按 0 记入并加备注，可随时补录。</div></div></div>';
 
  html+='<div class="fin-grid">'+
   '<div class="card"><div class="card-h"><h2>谁给的压岁钱最多</h2><span class="sub">跨年累计 · 点条形看这个人历年明细</span></div>'+lkPersonRank('in')+'</div>'+

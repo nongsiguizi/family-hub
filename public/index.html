@@ -441,6 +441,68 @@ table{border-collapse:collapse;font-size:13px}
 .hm-quick{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
 @media(max-width:1100px){.hm-mods{grid-template-columns:repeat(2,1fr)}.hm-2{grid-template-columns:1fr}}
 @media(max-width:640px){.hm-hero{flex-wrap:wrap}.hm-date{text-align:left}.hm-mods{grid-template-columns:1fr 1fr}.hm-photo{height:330px}}
+/* ---------- v2.4：明细弹层加宽 / 相册加高 / 明细表 / 账本日历 ---------- */
+.fd-modal{width:min(1420px,96vw);max-height:92vh}
+.fd-modal .fd-body{max-height:64vh}
+.hm-photo{height:660px}
+@media(max-width:640px){.hm-photo{height:440px}}
+
+/* 明细表：可排序表头、金额高亮、备注换行、小票与图标操作 */
+.dy-tbl{min-width:1080px;table-layout:auto}
+.dy-tbl th.dy-th{cursor:pointer;user-select:none;white-space:nowrap}
+.dy-tbl th.dy-th:hover{background:var(--soft);color:var(--primary)}
+.dy-tbl th.dy-th.on{color:var(--primary);background:var(--soft)}
+.dy-ar{margin-left:5px;font-size:10px;opacity:.55;font-weight:400}
+.dy-tbl th.dy-th.on .dy-ar{opacity:1;font-weight:700}
+.dy-amt{display:inline-block;padding:2px 9px;border-radius:7px;font-weight:700;font-size:12.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dy-amt.out{background:#fee2e2;color:#dc2626}
+.dy-amt.in{background:#dcfce7;color:#16a34a}
+.dy-amt.none{background:#f1f5f9;color:#64748b}
+.dy-tbl td.dy-note{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;min-width:220px;max-width:340px;line-height:1.55;vertical-align:top;font-size:11.5px;color:var(--muted)}
+.dy-tbl td.dy-name{max-width:260px;white-space:normal;overflow-wrap:anywhere}
+.dy-tbl td.dy-ticket-cell{text-align:center}
+.dy-ico{width:27px;height:27px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:7px;cursor:pointer;padding:0;margin:0 2px;vertical-align:middle}
+.dy-ico svg{width:15px;height:15px}
+.dy-ico:hover{border-color:#c7d2fe;color:var(--primary);background:var(--soft)}
+.dy-ico.del:hover{border-color:#fecaca;color:var(--red);background:#fef2f2}
+.dy-ico.ticket.has{border-style:dashed;border-color:#f59e0b;color:#d97706}
+.dy-ops{white-space:nowrap}
+.dy-tags{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px;padding:2px 0}
+.dy-tag{display:inline-flex;align-items:center;background:#eef2ff;color:var(--primary);border-radius:20px;padding:3px 10px;font-size:11.5px}
+.dy-tag.pri{background:#fce7f3;color:#db2777}
+.dy-tag.sort{background:#f1f5f9;color:var(--muted)}
+.dy-inv{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+
+/* 账本日历 */
+.cal-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.cal-kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px 18px}
+.cal-kpi .l{font-size:12px;color:var(--muted)}
+.cal-kpi .v{font-size:22px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.cal-card{padding:0;overflow:hidden}
+.cal-bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:linear-gradient(100deg,#10b981,#059669);color:#fff;padding:11px 16px}
+.cal-bar h2{margin:0;font-size:16px;font-weight:700;min-width:128px;text-align:center}
+.cal-bar .sp{flex:1}
+.cal-bar select.cal-sel{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:7px;padding:4px 8px;font-size:12px}
+.cal-bar select.cal-sel option{color:#334155}
+.cal-nav{background:rgba(255,255,255,.18);border:0;color:#fff;width:26px;height:26px;border-radius:7px;cursor:pointer;font-size:17px;line-height:1}
+.cal-nav:hover{background:rgba(255,255,255,.34)}
+.cal-bar .btn{background:rgba(255,255,255,.18);border-color:transparent;color:#fff}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:#d1fae5;border-top:1px solid #d1fae5}
+.cal-wd{background:#f0fdf4;text-align:center;font-size:11.5px;color:#059669;padding:7px 0;font-weight:600}
+.cal-cell{background:#f8fefb;min-height:94px;padding:8px 9px;cursor:pointer;border:1px solid transparent;transition:background .15s}
+.cal-cell:hover{background:#ecfdf5}
+.cal-cell.today{background:#fff;border-color:#10b981}
+.cal-cell.out{background:#fafafa;cursor:default}
+.cal-top{display:flex;align-items:center;justify-content:space-between}
+.cal-d{font-size:13px;font-weight:600;color:#475569}
+.cal-cell.out .cal-d{color:#c3c9d6}
+.cal-plus{width:20px;height:20px;border-radius:50%;border:0;background:#10b981;color:#fff;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.cal-plus:hover{background:#047857}
+.cal-amt{display:block;width:100%;text-align:left;border:0;border-radius:6px;padding:3px 7px;margin-top:7px;font-size:12px;font-weight:700;cursor:pointer;color:#fff;font-variant-numeric:tabular-nums}
+.cal-amt.red{background:#ef4444}.cal-amt.orange{background:#f97316}.cal-amt.yellow{background:#eab308}.cal-amt.in{background:#10b981}
+.cal-sub{font-size:10.5px;color:#94a3b8;margin-top:3px}
+.cal-empty{color:#d1d5db;font-size:11px;margin-top:8px}
+@media(max-width:900px){.cal-kpis{grid-template-columns:repeat(2,1fr)}.cal-cell{min-height:76px;padding:5px}}
 </style>
 </head>
 <body data-page-node-id="IQww0v65Vaa78CdoavCQeI">
@@ -486,6 +548,7 @@ table{border-collapse:collapse;font-size:13px}
         <button class="nav-group-h" data-act="nav-toggle"><svg><use href="#i-home"/></svg><span>家庭账本</span><svg class="chev"><use href="#i-chev"/></svg></button>
         <div class="nav-sub">
           <button class="nav-item sub" data-view="daily"><span class="nt">日常记账</span></button>
+          <button class="nav-item sub" data-view="calendar"><span class="nt">账本日历</span></button>
         </div>
       </div>
       <div class="nav-group open" data-group="note">
@@ -519,6 +582,7 @@ table{border-collapse:collapse;font-size:13px}
       <div class="view" id="v-finance"></div>
       <div class="view" id="v-lucky"></div>
       <div class="view" id="v-daily"></div>
+      <div class="view" id="v-calendar"></div>
       <div class="view" id="v-notes"></div>
       <div data-page-node-id="xtd2Dhl6TI3xXBpsYlcemJ" class="view" id="v-settings"></div>
     </div>
@@ -567,7 +631,7 @@ table{border-collapse:collapse;font-size:13px}
   <p id="ddSub" style="margin-bottom:10px"></p>
   <div class="fd-sum" id="ddSum"></div>
   <div class="fd-body" id="ddBody"></div>
-  <div class="fd-hint">点月份柱 /「明细」打开逐笔明细，这里可直接编辑、上传凭证或删除；按 Esc 或点击空白处关闭。</div>
+  <div class="fd-hint">点表头可排序；备注自动换行；点「小票」图标预览 / 上传凭证，操作列可编辑或删除；按 Esc 或点击空白处关闭。</div>
   <div class="row"><button class="btn btn-sm" data-act="daily-detail-export">导出这组 CSV</button><button class="btn" data-act="daily-detail-close">关闭</button></div>
 </div></div>
 <div class="overlay hidden" id="receiptLayer"><div class="modal att-modal">
@@ -643,10 +707,6 @@ var FIN_GRADES=['一年级','二年级','三年级','四年级','五年级','六
 var FIN_TERMS=['上学期','下学期','暑期','寒假','全年'];
 var EXP_CATS=['学费','午托托管','课后服务','课本费','学科补课','兴趣特长','校服被褥','研学活动','生活用品','其他'];
 var INC_CATS=['奖学金','压岁钱','退费返还','其他收入'];
-/* 用户原始账本里给出的年级合计，仅用于看板核对展示 */
-var FIN_CLAIMED={'一年级':23150,'二年级':22515,'三年级':15476,'四年级':24959.5};
-/* 原始压岁钱账本写明的合计，仅用于看板核对；null 表示原文没给合计 */
-var LK_CLAIMED={2023:{in:9100,out:6300},2024:{in:9100,out:7000},2025:{in:7100,out:null},2026:{in:null,out:null}};
 var PAGE={
  home:['家庭总览','日历 · 每日美文 · NAS 相册 · 四大模块速览'],
  dashboard:['概览','初一到高三的成绩全貌与最近变化'],
@@ -658,6 +718,7 @@ var PAGE={
  finance:['袁铭泽花销记账','教育支出、收入与收支看板，支持逐笔录入与筛选'],
  lucky:['压岁钱管理','2023 年至今：收礼、回礼、存入银行与逐年结余，点任意分项看逐笔明细'],
  daily:['日常记账','2017 年至今家庭日常账本 · 按年 → 按月 → 逐笔明细，可查询总花销并上传凭证'],
+ calendar:['账本日历','按月历查看每天收支，绿色「＋」快速记一笔，点金额条看当天逐笔明细'],
  notes:['笔记本','随手记录、待办清单、分类与标签，自动同步到 NAS'],
  settings:['设置与数据','学生信息、科目设置、备份与导入']
 };
@@ -950,8 +1011,8 @@ function render(){
  });
  $$('.view').forEach(function(v){v.classList.toggle('active',v.id==='v-'+view)});
  syncNavGroups();
- var tb=$('#topAddBtn');if(tb)tb.textContent=(view==='notes'?'＋ 新建笔记':((view==='daily'||view==='home')?'＋ 记一笔':'＋ 录入考试'));
- ({home:renderHome,dashboard:renderDashboard,entry:renderEntry,records:renderRecords,trend:renderTrend,analysis:renderAnalysis,report:renderReport,finance:renderFinance,lucky:renderLucky,daily:renderDaily,notes:renderNotes,settings:renderSettings})[view]();
+ var tb=$('#topAddBtn');if(tb)tb.textContent=(view==='notes'?'＋ 新建笔记':((view==='daily'||view==='home'||view==='calendar')?'＋ 记一笔':'＋ 录入考试'));
+ ({home:renderHome,calendar:renderCal,dashboard:renderDashboard,entry:renderEntry,records:renderRecords,trend:renderTrend,analysis:renderAnalysis,report:renderReport,finance:renderFinance,lucky:renderLucky,daily:renderDaily,notes:renderNotes,settings:renderSettings})[view]();
  window.scrollTo(0,0);
 }
 function syncNavGroups(){
@@ -2077,19 +2138,8 @@ function renderFinance(){
  var gOrder=FIN_GRADES.filter(function(g){return byGrade[g]!=null});
  Object.keys(byGrade).forEach(function(g){if(gOrder.indexOf(g)<0)gOrder.push(g)});
  var gMax=Math.max.apply(null,gOrder.map(function(g){return byGrade[g]}).concat([1]));
- var checkRows=gOrder.map(function(g){
-  var v=byGrade[g],c=FIN_CLAIMED[g];
-  var cell=c==null?'<span class="faint">原文未给合计</span>'
-   :(Math.abs(v-c)<0.01?'<span class="fin-ok">✓ 一致</span>':'<span class="fin-diff">差 '+money(v-c)+'</span>');
-  return '<tr class="fd-hit fd-hit-row" data-act="fin-detail" data-dim="grade" data-val="'+esc(g)+'" data-kind="expense" title="点击查看「'+esc(g)+'」明细"><td><b>'+esc(g)+'</b> <span class="faint" style="font-size:11px">↗</span></td><td class="fin-money">'+money(v)+'</td><td class="fin-money">'+(c==null?'—':money(c))+'</td><td>'+cell+'</td></tr>';
- }).join('');
- html+='<div class="fin-grid">'+
-  '<div class="card"><div class="card-h"><h2>各年级支出</h2><span class="sub">点击条形查看该年级逐笔明细</span></div>'+
-   gOrder.map(function(g){return finBar(g,byGrade[g],gMax,false,'grade','expense')}).join('')+
-   '<div class="hint" style="margin-top:12px">一年级到四年级的系统合计与原始账本写的合计完全一致，说明逐笔录入没有遗漏；五年级、六年级原文未给合计，此处按明细求和。</div></div>'+
-  '<div class="card"><div class="card-h"><h2>与原文合计核对</h2><span class="sub">点击任一行查看该年级明细</span></div>'+
-   '<div class="table-wrap"><table class="tbl"><thead><tr><th>年级</th><th>系统合计</th><th>原文合计</th><th>结果</th></tr></thead><tbody>'+checkRows+'</tbody></table></div>'+
-   '<div class="hint" style="margin-top:12px">五年级上学期原文写「共 7268.6」，逐笔明细相加是 7471.6，差的 203 元是 2024-10-30 野趣成长田园研学。系统按明细全额计入；如需按原文口径，在明细里删除该条即可。</div></div></div>';
+ html+='<div class="card"><div class="card-h"><h2>各年级支出</h2><span class="sub">点击条形查看该年级逐笔明细</span></div>'+
+  gOrder.map(function(g){return finBar(g,byGrade[g],gMax,false,'grade','expense')}).join('')+'</div>';
 
  var byCat={};exps.forEach(function(r){var c=r.category||'其他';byCat[c]=(byCat[c]||0)+(Number(r.amount)||0)});
  var catOrder=Object.keys(byCat).sort(function(a,b){return byCat[b]-byCat[a]});
@@ -2332,7 +2382,7 @@ function lkFormHtml(){
   return '<option value="'+esc(c)+'"'+(cat===c?' selected':'')+'>'+esc(c)+'</option>'}).join('');
  return '<div class="card" id="lkFormCard" style="border-color:#fecaca;background:#fffafa">'+
   '<div class="card-h"><h2>'+(rec?'编辑压岁钱记录':'记一笔'+(kind==='save'?'存入银行':lkKindName(kind)))+'</h2>'+
-  '<span class="sub">类别选「压岁钱」才会进入原文合计核对表</span></div>'+
+  '<span class="sub">类别选「压岁钱」计入收到 / 给出合计</span></div>'+
   '<div class="fin-form-grid">'+
    '<div class="field"><label class="f">类型</label><select class="inp" id="lk-f-kind"><option value="in"'+(kind==='in'?' selected':'')+'>收到</option><option value="out"'+(kind==='out'?' selected':'')+'>给出 / 支出</option><option value="save"'+(kind==='save'?' selected':'')+'>存入银行</option></select></div>'+
    '<div class="field"><label class="f">年份</label><select class="inp" id="lk-f-year">'+yearOpts+'</select></div>'+
@@ -2355,23 +2405,7 @@ function renderLucky(){
   lkHit(kpi('累计存入银行',money(saveAll),'压岁钱里存起来的部分'),'all','','save','all')+
   lkHit(kpi('净结余',money(allIn-allOut),'全部收入减全部支出（含其余收支）'),'all','','all','all')+'</div>';
 
- var checkRows=years.map(function(y){
-  var ls=recs.filter(function(r){return r.year===y});
-  var gi=lkSum(ls,'in','压岁钱'),go=lkSum(ls,'out','压岁钱'),sv=lkSum(ls,'save');
-  var ai=lkSum(ls,'in'),ao=lkSum(ls,'out'),cl=LK_CLAIMED[y]||{};
-  var ci=cl['in']==null?'<span class="faint">原文未给</span>':(Math.abs(gi-cl['in'])<0.01?'<span class="fin-ok">✓ 一致</span>':'<span class="fin-diff">差 '+money(gi-cl['in'])+'</span>');
-  var co=cl.out==null?'<span class="faint">原文未给</span>':(Math.abs(go-cl.out)<0.01?'<span class="fin-ok">✓ 一致</span>':'<span class="fin-diff">差 '+money(go-cl.out)+'</span>');
-  return '<tr class="fd-hit fd-hit-row lk-check" data-act="lk-detail" data-dim="year" data-val="'+y+'" data-kind="all" data-cat="all" title="点击查看 '+y+' 年全部明细">'+
-   '<td><b>'+y+'</b> <span class="faint" style="font-size:11px">↗</span></td>'+
-   '<td class="fin-money">'+money(gi)+'</td><td class="fin-money">'+(cl['in']==null?'—':money(cl['in']))+'</td><td>'+ci+'</td>'+
-   '<td class="fin-money">'+money(go)+'</td><td class="fin-money">'+(cl.out==null?'—':money(cl.out))+'</td><td>'+co+'</td>'+
-   '<td class="fin-money">'+money(sv)+'</td><td class="fin-money">'+money(ai-ao)+'</td></tr>';
- }).join('');
- html+='<div class="fin-grid">'+
-  '<div class="card"><div class="card-h"><h2>逐年收到 / 给出 / 存入</h2><span class="sub">点柱子、年份或整列看明细</span></div>'+lkYearChart()+'</div>'+
-  '<div class="card"><div class="card-h"><h2>与原文合计核对</h2><span class="sub">点任一行看该年逐笔明细</span></div>'+
-   '<div class="table-wrap"><table class="tbl"><thead><tr><th>年份</th><th>收到</th><th>原文</th><th>核对</th><th>给出</th><th>原文</th><th>核对</th><th>存入</th><th>净结余</th></tr></thead><tbody>'+checkRows+'</tbody></table></div>'+
-   '<div class="hint" style="margin-top:12px">2024 年另有「其余支出」1000 元（二宝瞌睡钱）和「其余收入」200 元（舅爷六一儿童节 100、月考数学第一姥姥奖励 100），不计入上表压岁钱合计，但计入全部收支与净结余。2026 年「胖子」原文只写了名字没写金额，按 0 记入并加备注，可随时补录。</div></div></div>';
+ html+='<div class="card"><div class="card-h"><h2>逐年收到 / 给出 / 存入</h2><span class="sub">点柱子、年份或整列看明细</span></div>'+lkYearChart()+'</div>';
 
  html+='<div class="fin-grid">'+
   '<div class="card"><div class="card-h"><h2>谁给的压岁钱最多</h2><span class="sub">跨年累计 · 点条形看这个人历年明细</span></div>'+lkPersonRank('in')+'</div>'+
@@ -2385,7 +2419,7 @@ function renderLucky(){
   '<button class="btn btn-sm" data-act="lk-add-out">＋ 记一笔回礼 / 支出</button>'+
   '<button class="btn btn-sm" data-act="lk-add-save">＋ 记一笔存入</button>'+
   '<button class="btn btn-sm" data-act="lk-export">导出 CSV</button></div></div>'+
-  '<div class="hint" style="margin-bottom:14px">数据来自 2023–2026 年手工账本：原文未标日期的条目按当年春节推定（备注已注明）；2024 年「娟娟姐娃 一人 500」按原文合计 7000 计为 2 人共 1000；存入银行属于资金去向，不计入收到 / 给出的合计。所有图表和 KPI 都可以点开逐笔明细。</div>'+
+  '<div class="hint" style="margin-bottom:14px">数据来自 2023–2026 年手工账本：未标日期的条目按当年春节推定（备注已注明）；存入银行属于资金去向，不计入收到 / 给出的合计。所有图表和 KPI 都可以点开逐笔明细。</div>'+
   '<div class="filters">'+
    '<div class="field"><label class="f">年份</label><select class="inp" id="lk-year">'+finOpts(years.slice().reverse(),lkCfg.year,'全部年份')+'</select></div>'+
    '<div class="field"><label class="f">类型</label><select class="inp" id="lk-kind">'+
@@ -2533,27 +2567,195 @@ function dailySvg(rows,labels,drillDim,vals,focus){
  return '<div class="dy-chart fin-yearchart"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="收支趋势">'+g+'</svg></div>'+
   '<div class="legend"><span><i style="background:#dc2626"></i>支出</span><span><i style="background:#16a34a"></i>收入</span><span class="muted">点击柱子看分项明细 · 点击年份 / 月份文字下钻</span></div>';
 }
+/* ---------- v2.4 明细表：表头排序 / 小票 / 备注换行 / 图3 紧凑样式 ---------- */
+var dailySort={key:'day',dir:'desc'};
+var DAILY_COLS=[['day','日期'],['type','类型'],['cat','类别'],['money','金额'],['name','项目'],
+ ['pay','支付'],['attr','归属'],['ticket','小票'],['note','备注'],['ops','操作']];
+var DY_ICO={
+ ticket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M4 17l5-5 3 3 4-4 4 4"/></svg>',
+ receipt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5l-8.4 8.4a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8"/></svg>',
+ edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+ del:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>'
+};
+function dailySortVal(r,k){
+ if(k==='money')return Number(r.money)||0;
+ if(k==='ticket')return r.invoice?1:0;
+ return String(r[k]==null?'':r[k]);
+}
+function dailySorted(list){
+ var k=dailySort.key,sgn=dailySort.dir==='asc'?1:-1;
+ return list.slice().sort(function(a,b){
+  var x=dailySortVal(a,k),y=dailySortVal(b,k),c;
+  if(typeof x==='number'&&typeof y==='number')c=x-y;
+  else c=String(x).localeCompare(String(y),'zh-CN');
+  if(!c)c=String(b.day||'').localeCompare(String(a.day||''))||String(b.id||'').localeCompare(String(a.id||''));
+  return c*sgn;
+ });
+}
+function dailySortHead(scope){
+ return '<tr>'+DAILY_COLS.map(function(c){
+  if(c[0]==='ops')return '<th class="dy-th">操作</th>';
+  var on=dailySort.key===c[0];
+  return '<th class="dy-th'+(on?' on':'')+'" data-act="daily-sort" data-key="'+c[0]+'" data-scope="'+scope+'" title="点击按「'+esc(c[1])+'」排序">'+
+   esc(c[1])+'<span class="dy-ar">'+(on?(dailySort.dir==='asc'?'↑':'↓'):'⇅')+'</span></th>';
+ }).join('')+'</tr>';
+}
+function dailyAmt(r){
+ var t=r.type,cls=t==='in'?'in':(t==='out'?'out':'none'),sign=t==='in'?'+':(t==='out'?'-':'·');
+ return '<span class="dy-amt '+cls+'">'+sign+money(r.money)+'</span>';
+}
+function dailyTicketCell(r){
+ var has=!!r.invoice;
+ return '<td class="dy-ticket-cell"><button class="dy-ico ticket'+(has?' has':'')+'" data-act="daily-ticket" data-id="'+esc(r.id)+'" title="'+
+  (has?'原凭证：'+esc(r.invoice)+' · 点击查看 / 上传小票':'查看或上传小票')+'">'+DY_ICO.ticket+'</button></td>';
+}
+function dailyOpsCell(r){
+ return '<td class="dy-ops">'+
+  '<button class="dy-ico" data-act="daily-receipt" data-id="'+esc(r.id)+'" title="凭证管理">'+DY_ICO.receipt+'</button>'+
+  '<button class="dy-ico" data-act="daily-edit" data-id="'+esc(r.id)+'" title="编辑">'+DY_ICO.edit+'</button>'+
+  '<button class="dy-ico del" data-act="daily-del" data-id="'+esc(r.id)+'" title="删除">'+DY_ICO.del+'</button></td>';
+}
+function dailyDetailRow(r){
+ return '<tr><td class="muted">'+esc(r.day)+'</td>'+
+  '<td><span class="pill'+(r.type==='out'?' warn':'')+'">'+dailyTypeName(r.type)+'</span></td>'+
+  '<td>'+esc(r.cat)+'</td><td>'+dailyAmt(r)+'</td>'+
+  '<td class="dy-name"><b>'+esc(r.name||'—')+'</b></td>'+
+  '<td>'+esc(r.pay)+'</td><td>'+esc(r.attr||'—')+'</td>'+
+  dailyTicketCell(r)+
+  '<td class="dy-note">'+esc(r.note||'')+(r.invoice?'<div class="dy-inv" title="'+esc(r.invoice)+'">原凭证：'+esc(r.invoice)+'</div>':'')+'</td>'+
+  dailyOpsCell(r)+'</tr>';
+}
+function dailyTagsHtml(list){
+ if(!list.length)return '<span class="dy-tag">这个分项暂无记录</span>';
+ var days=list.map(function(r){return String(r.day||'')}).filter(Boolean).sort(),tp={};
+ list.forEach(function(r){tp[r.type]=1});
+ var names=Object.keys(tp).map(dailyTypeName).join(' / ');
+ var cn=(DAILY_COLS.filter(function(c){return c[0]===dailySort.key})[0]||['',''])[1];
+ return '<span class="dy-tag">开始: '+esc(days[0])+'</span>'+
+  '<span class="dy-tag">结束: '+esc(days[days.length-1])+'</span>'+
+  '<span class="dy-tag pri">'+esc(names)+'</span>'+
+  '<span class="dy-tag">共 '+list.length+' 笔</span>'+
+  '<span class="dy-tag sort">排序：'+esc(cn)+' '+(dailySort.dir==='asc'?'↑ 升序':'↓ 降序')+'</span>';
+}
+function dailyTableHtml(list,scope,limit){
+ var rows=dailySorted(list),max=limit||600,total=rows.length;
+ var body=total?rows.slice(0,max).map(dailyDetailRow).join(''):
+  '<tr><td colspan="10" style="text-align:center;padding:26px;color:var(--faint)">这个分项暂无记录</td></tr>';
+ if(total>max)body+='<tr><td colspan="10" class="hint">仅显示 '+max+' 笔，共 '+total+' 笔；用上方条件缩小范围或导出 CSV 查看全部。</td></tr>';
+ return '<div class="dy-tags">'+dailyTagsHtml(list)+'</div>'+
+  '<table class="tbl dy-tbl"><thead>'+dailySortHead(scope)+'</thead><tbody>'+body+'</tbody></table>';
+}
+function dailyRedrawDetail(){
+ if(!dailyDetail)return;
+ var b=$('#ddBody');if(b)b.innerHTML=dailyTableHtml(dailyDetail.list,'modal',600);
+ var s=$('#ddSub');if(s)s.innerHTML='共 '+dailyDetail.list.length+' 笔 · 点击表头可排序，最多展示 600 笔。';
+}
+function dailyTicket(id){
+ if(!attReady()){toast('小票预览需要连接 NAS 服务','err');return}
+ attApi('api/attachments?examId='+encodeURIComponent('daily-'+id)).then(function(r){return r.json()}).then(function(j){
+  var fs=(j.items||[]).filter(function(f){return f.key==='receipt'});
+  if(fs.length){previewAttachment(fs[0].id);return}
+  dailyCloseDetail();openReceipt(id);
+ }).catch(function(){dailyCloseDetail();openReceipt(id)});
+}
+
+/* ---------- v2.4 账本日历（家庭账本 · 二级目录） ---------- */
+var calCfg={year:0,month:0};
+function calInit(){
+ if(calCfg.year)return;
+ var d=new Date();calCfg.year=d.getFullYear();calCfg.month=d.getMonth()+1;
+ var maxd='';
+ dailyRecords().forEach(function(r){var k=String(r.day||'');if(k>maxd)maxd=k});
+ if(maxd.length>=7){
+  var my=Number(maxd.slice(0,4)),mm=Number(maxd.slice(5,7));
+  if(my*12+mm<calCfg.year*12+calCfg.month){calCfg.year=my;calCfg.month=mm}
+ }
+}
+function calKey(y,m,d){return y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
+function calRecordsOfMonth(y,m){
+ var pre=y+'-'+String(m).padStart(2,'0'),byDay={};
+ dailyRecords().forEach(function(r){
+  var k=String(r.day||'');if(k.slice(0,7)!==pre)return;
+  if(!byDay[k])byDay[k]={out:0,inc:0,n:0,rows:[]};
+  var b=byDay[k];
+  if(r.type==='out')b.out+=Number(r.money)||0;
+  else if(r.type==='in')b.inc+=Number(r.money)||0;
+  b.n++;b.rows.push(r);
+ });
+ return byDay;
+}
+function calTone(net){
+ if(net>0)return 'in';
+ var a=-net;
+ return a>=500?'red':(a>=100?'orange':'yellow');
+}
+function calCell(y,m,d,byDay,out){
+ var k=calKey(y,m,d),b=byDay[k],net=b?(b.inc-b.out):0;
+ var cls='cal-cell'+(out?' out':'')+(k===today()?' today':'');
+ var h='<div class="'+cls+'" data-act="cal-day" data-day="'+k+'">'+
+  '<div class="cal-top"><span class="cal-d">'+d+'</span>'+
+   (out?'':'<button class="cal-plus" data-act="cal-add" data-day="'+k+'" title="在 '+k+' 记一笔">+</button>')+'</div>';
+ if(b&&b.n){
+  h+='<button class="cal-amt '+calTone(net)+'" data-act="cal-day" data-day="'+k+'" title="查看 '+k+' 的 '+b.n+' 笔明细">'+
+   (net>0?'+':'-')+money(Math.abs(net))+'</button><div class="cal-sub">'+b.n+' 笔</div>';
+ }else h+='<div class="cal-empty">'+(out?'':'—')+'</div>';
+ return h+'</div>';
+}
+function calGridHtml(y,m,byDay){
+ var first=new Date(y,m-1,1).getDay(),days=new Date(y,m,0).getDate(),prevDays=new Date(y,m-1,0).getDate();
+ var wd=['日','一','二','三','四','五','六'],i,h='<div class="cal-grid">';
+ for(i=0;i<7;i++)h+='<div class="cal-wd">'+wd[i]+'</div>';
+ for(i=0;i<42;i++){
+  var dn=i-first+1,yy=y,mm=m,dd=dn,out=false;
+  if(dn<1){dd=prevDays+dn;mm=m-1;if(mm<1){mm=12;yy--}out=true}
+  else if(dn>days){dd=dn-days;mm=m+1;if(mm>12){mm=1;yy++}out=true}
+  h+=calCell(yy,mm,dd,byDay,out);
+ }
+ return h+'</div>';
+}
+function renderCal(){
+ var host=$('#v-calendar');if(!host)return;
+ if(!dailyCache){
+  host.innerHTML='<div class="card"><h2>正在载入账本日历…</h2><div class="hint">首次加载约 1.5MB，之后缓存在当前页面。</div></div>';
+  dailyLoad().then(function(){if(view==='calendar')renderCal()}).catch(function(e){
+   host.innerHTML='<div class="card"><h2>账本载入失败</h2><p>'+esc(e.message)+'</p></div>';
+  });
+  return;
+ }
+ calInit();
+ var y=calCfg.year,m=calCfg.month,byDay=calRecordsOfMonth(y,m),out=0,inc=0,cnt=0;
+ Object.keys(byDay).forEach(function(k){out+=byDay[k].out;inc+=byDay[k].inc;cnt+=byDay[k].n});
+ var years=(dailyCache.years&&dailyCache.years.length)?dailyCache.years.map(String).sort():[];
+ if(!years.length){var q,ny=new Date().getFullYear();for(q=2017;q<=ny+1;q++)years.push(String(q))}
+ if(years.indexOf(String(y))<0){years.push(String(y));years.sort()}
+ var h='<div class="cal-kpis">'+
+  '<div class="cal-kpi"><div class="l">当月总收入</div><div class="v fin-in">'+money(inc)+'</div></div>'+
+  '<div class="cal-kpi"><div class="l">当月总支出</div><div class="v fin-out">'+money(out)+'</div></div>'+
+  '<div class="cal-kpi"><div class="l">当月结余</div><div class="v '+(inc-out>=0?'fin-in':'fin-out')+'">'+money(inc-out)+'</div></div>'+
+  '<div class="cal-kpi"><div class="l">记账笔数</div><div class="v">'+cnt+'</div></div></div>';
+ var mopts='',q2;for(q2=1;q2<=12;q2++)mopts+='<option value="'+q2+'"'+(q2===m?' selected':'')+'>'+q2+' 月</option>';
+ h+='<div class="card cal-card"><div class="cal-bar">'+
+  '<button class="cal-nav" data-act="cal-prev" title="上个月">‹</button>'+
+  '<h2>'+y+' 年 '+m+' 月</h2>'+
+  '<button class="cal-nav" data-act="cal-next" title="下个月">›</button>'+
+  '<select class="cal-sel" id="calYear">'+years.map(function(v){return '<option value="'+esc(v)+'"'+(v===String(y)?' selected':'')+'>'+esc(v)+' 年</option>'}).join('')+'</select>'+
+  '<select class="cal-sel" id="calMonth">'+mopts+'</select>'+
+  '<button class="btn btn-sm" data-act="cal-today">今天</button>'+
+  '<span class="sp"></span><button class="btn btn-sm" data-act="cal-stat">统计分析</button></div>'+
+  calGridHtml(y,m,byDay)+
+  '<div class="hint" style="padding:12px 16px;border-top:1px solid var(--line2)">点彩色金额条或日期格查看当天逐笔明细；点右上角绿色「＋」直接在这天记一笔。颜色：绿色=净收入，红 / 橙 / 黄=净支出由大到小。</div></div>';
+ host.innerHTML=h;
+}
+
 function dailyRowsHtml(list){
- list=list.slice().sort(function(a,b){return String(b.day).localeCompare(String(a.day))||String(b.id).localeCompare(String(a.id))});
- if(!list.length)return '<tr><td colspan="9" style="text-align:center;color:var(--faint);padding:26px">没有符合条件的记录</td></tr>';
- return list.slice(0,600).map(function(r){
-  var t=r.type,cls=t==='in'?'fin-in':(t==='out'?'fin-out':'');
-  var sign=t==='in'?'+':(t==='out'?'-':'·');
-  return '<tr><td class="muted">'+esc(r.day)+'</td>'+
-   '<td><span class="pill'+(t==='out'?' warn':'')+'">'+dailyTypeName(t)+'</span></td>'+
-   '<td>'+esc(r.cat)+'</td>'+
-   '<td class="fin-money '+cls+'">'+sign+money(r.money)+'</td>'+
-   '<td><b>'+esc(r.name||'—')+'</b></td>'+
-   '<td>'+esc(r.pay)+'</td><td>'+esc(r.attr||'—')+'</td>'+
-   '<td class="fin-note">'+esc(r.note||'')+(r.invoice?'<div class="dy-inv" title="'+esc(r.invoice)+'">原凭证：'+esc(r.invoice)+'</div>':'')+'</td>'+
-   '<td style="white-space:nowrap"><button class="btn btn-sm" data-act="daily-receipt" data-id="'+esc(r.id)+'">凭证</button> '+
-   '<button class="btn btn-sm" data-act="daily-edit" data-id="'+esc(r.id)+'">编辑</button> '+
-   '<button class="btn btn-sm btn-danger" data-act="daily-del" data-id="'+esc(r.id)+'">删除</button></td></tr>';
- }).join('')+(list.length>600?'<tr><td colspan="9" class="hint">仅显示最近 600 笔，共 '+list.length+' 笔；用上方条件缩小范围或导出 CSV 查看全部。</td></tr>':'');
+ var rows=dailySorted(list);
+ if(!rows.length)return '<tr><td colspan="10" style="text-align:center;color:var(--faint);padding:26px">没有符合条件的记录</td></tr>';
+ return rows.slice(0,600).map(dailyDetailRow).join('')+
+  (rows.length>600?'<tr><td colspan="10" class="hint">仅显示 600 笔，共 '+rows.length+' 笔；用上方条件缩小范围或导出 CSV 查看全部。</td></tr>':'');
 }
 function dailyFormHtml(){
  var rec=dailyForm.id?dailyRecords().filter(function(r){return String(r.id)===String(dailyForm.id)})[0]:null;
- var d=rec||{day:today(),type:'out',cat:'',pay:'微信',money:'',name:'',note:'',attr:''};
+ var d=rec||{day:dailyForm.day||today(),type:'out',cat:'',pay:'微信',money:'',name:'',note:'',attr:''};
  var cats={};dailyRecords().forEach(function(r){if(r.cat)cats[r.cat]=1});
  var catList=Object.keys(cats).sort();
  var pays=['微信','支付宝','银行卡','京东金融','拼多多','抖音','美团','现金','其他'];
@@ -2593,21 +2795,11 @@ function dailyExportJSON(){
 function dailyOpenDetail(title,list){
  dailyDetail={title:title,list:list};
  $('#ddTitle').textContent=title;
- $('#ddSub').textContent='共 '+list.length+' 笔 · 按日期倒序，最多展示 600 笔。';
+ $('#ddSub').textContent='共 '+list.length+' 笔 · 点击表头可排序，最多展示 600 笔。';
  $('#ddSum').innerHTML='<div>支出<b class="fin-out">'+money(dailySum(list,'out'))+'</b></div>'+
   '<div>收入<b class="fin-in">'+money(dailySum(list,'in'))+'</b></div>'+
   '<div>不计收支<b>'+money(dailySum(list,'none'))+'</b></div>';
- $('#ddBody').innerHTML='<table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>金额</th><th>项目</th><th>支付</th><th>归属</th><th>备注</th><th>操作</th></tr></thead><tbody>'+
-  (list.length?list.slice().sort(function(a,b){return String(b.day).localeCompare(String(a.day))}).slice(0,600).map(function(r){
-   return '<tr><td class="muted">'+esc(r.day)+'</td><td>'+dailyTypeName(r.type)+'</td><td>'+esc(r.cat)+'</td>'+
-    '<td class="fin-money '+(r.type==='in'?'fin-in':'fin-out')+'">'+
-    (r.type==='in'?'+':(r.type==='out'?'-':'·'))+money(r.money)+'</td><td><b>'+esc(r.name||'—')+'</b></td>'+
-    '<td>'+esc(r.pay)+'</td><td>'+esc(r.attr||'—')+'</td>'+
-    '<td class="fin-note">'+esc(r.note||'')+'</td>'+
-    '<td style="white-space:nowrap"><button class="btn btn-sm" data-act="daily-receipt" data-id="'+esc(r.id)+'">凭证</button> '+
-    '<button class="btn btn-sm" data-act="daily-edit" data-id="'+esc(r.id)+'">编辑</button> '+
-    '<button class="btn btn-sm btn-danger" data-act="daily-del" data-id="'+esc(r.id)+'">删除</button></td></tr>';
-  }).join(''):'<tr><td colspan="9" style="text-align:center;padding:26px">这个分项暂无记录</td></tr>')+'</tbody></table>';
+ $('#ddBody').innerHTML=dailyTableHtml(list,'modal',600);
  $('#dailyDetailLayer').classList.remove('hidden');
 }
 function dailyCloseDetail(){var l=$('#dailyDetailLayer');if(l)l.classList.add('hidden');dailyDetail=null}
@@ -2709,8 +2901,7 @@ function dailyCatPanel(all,y,mapAll){
   '<button class="btn btn-sm" data-act="daily-group-cancel">取消</button></div>';
  if(dailyCfg.showCatMap)h+=dailyCatMapHtml(mapAll||all);
  h+=gs.map(function(g){
-  var n=Object.keys(g.cats).length;
-  return dailyBar(g.name+'（'+n+' 个原始类）',g.value,max,'','daily-detail','group',g.name);
+  return dailyBar(g.name,g.value,max,'','daily-detail','group',g.name);
  }).join('')||'<div class="hint">暂无支出记录</div>';
  return h+'</div>';
 }
@@ -2848,8 +3039,8 @@ function renderDaily(){
    '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm btn-primary" data-act="daily-add">＋ 记一笔</button>'+
    '<button class="btn btn-sm" data-act="daily-export">导出 CSV</button></div></div>'+
    '<div class="hint" style="margin-bottom:12px">共 '+list.length+' 笔 · 支出 '+money(dailySum(list,'out'))+' / 收入 '+money(dailySum(list,'in'))+
-   '。「凭证」列可为任意一笔上传 PDF 或图片，文件保存在 NAS，不占用 grades.json 体积；标「原凭证」的是 9090 记账软件里已有的凭证文件名。</div>';
-  html+='<div class="table-wrap"><table class="tbl"><thead><tr><th>日期</th><th>类型</th><th>类别</th><th>金额</th><th>项目</th><th>支付</th><th>归属</th><th>备注 / 原凭证</th><th>操作</th></tr></thead><tbody>'+
+   '。点击表头可排序；备注自动换行；「小票」列可预览 / 上传凭证图片，文件保存在 NAS，不占用 grades.json 体积。</div>';
+  html+='<div class="table-wrap"><table class="tbl dy-tbl"><thead>'+dailySortHead('page')+'</thead><tbody>'+
    dailyRowsHtml(list)+'</tbody></table></div></div>';
  }
  html+=dailyFocusHtml(all);
@@ -2880,8 +3071,9 @@ function dailyDetailList(dim,val){
 function dailyDetailTitle(dim,val){
  return dim==='year'?val+' 年':(dim==='month'?val+' 月':((dim==='category'||dim==='group')?'类别「'+val+'」':'全部记录'));
 }
-function openDailyForm(id){
- dailyForm={open:true,id:id||null};renderDaily();
+function openDailyForm(id,day){
+ if(view==='calendar')go('daily');
+ dailyForm={open:true,id:id||null,day:day||''};renderDaily();
  var f=$('#dyFormCard');if(f)f.scrollIntoView({block:'center',behavior:'smooth'});
 }
 function saveDailyRecord(){
@@ -2898,8 +3090,8 @@ function saveDailyRecord(){
  } else {
   d.extra=d.extra||[];d.extra.push(Object.assign({id:'d'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)},obj));
  }
- state.daily=d;dailyForm={open:false,id:null};
- persist();renderDaily();toast(mode==='server'?'已保存，正在同步到 NAS':'记录已保存','ok');
+ state.daily=d;dailyForm={open:false,id:null,day:''};
+ persist();(view==='calendar'?renderCal():renderDaily());toast(mode==='server'?'已保存，正在同步到 NAS':'记录已保存','ok');
 }
 function deleteDailyRecord(id){
  var r=dailyRecords().filter(function(x){return String(x.id)===String(id)})[0];if(!r)return;
@@ -2908,7 +3100,7 @@ function deleteDailyRecord(id){
   var rest=(d.extra||[]).filter(function(x){return String(x.id)!==String(id)});
   if(rest.length!==(d.extra||[]).length)d.extra=rest;
   else {d.deleted=d.deleted||[];if(d.deleted.indexOf(String(id))<0)d.deleted.push(String(id))}
-  state.daily=d;persist();renderDaily();toast('已删除','ok');
+  state.daily=d;persist();(view==='calendar'?renderCal():renderDaily());toast('已删除','ok');
  },'确认删除');
 }
 /* ---------- 凭证（复用 NAS 附件接口，examId=daily-<记录id>） ---------- */
@@ -3404,7 +3596,7 @@ document.addEventListener('click',function(ev){
  switch(act){
   case 'top-add':
    if(view==='notes')openNoteEditor(null,'note');
-   else if(view==='daily')openDailyForm(null);
+   else if(view==='daily'||view==='calendar')openDailyForm(null);
    else if(view==='home'){go('daily');dailyLoad().then(function(){if(view==='daily')openDailyForm(null)}).catch(function(){})}
    else newExam();
    break;
@@ -3546,6 +3738,29 @@ document.addEventListener('click',function(ev){
    }
    break;
   }
+  case 'daily-sort':{
+   var sk=String(el.dataset.key||'day'),sc=String(el.dataset.scope||'page');
+   if(dailySort.key===sk)dailySort.dir=dailySort.dir==='asc'?'desc':'asc';
+   else {dailySort.key=sk;dailySort.dir=(sk==='money'||sk==='day')?'desc':'asc'}
+   if(sc==='modal'&&dailyDetail)dailyRedrawDetail();else renderDaily();
+   break;
+  }
+  case 'daily-ticket':dailyTicket(id);break;
+  case 'cal-prev':calCfg.month--;if(calCfg.month<1){calCfg.month=12;calCfg.year--}renderCal();break;
+  case 'cal-next':calCfg.month++;if(calCfg.month>12){calCfg.month=1;calCfg.year++}renderCal();break;
+  case 'cal-today':{var cd=new Date();calCfg.year=cd.getFullYear();calCfg.month=cd.getMonth()+1;renderCal();break}
+  case 'cal-stat':dailyCfg.focusYear=String(calCfg.year);go('daily');break;
+  case 'cal-add':{
+   var cad=String(el.dataset.day||'');
+   go('daily');dailyLoad().then(function(){if(view==='daily')openDailyForm(null,cad)}).catch(function(){});
+   break;
+  }
+  case 'cal-day':{
+   var cdk=String(el.dataset.day||''),cy=Number(cdk.slice(0,4)),cm=Number(cdk.slice(5,7));
+   var cbd=calRecordsOfMonth(cy,cm);
+   dailyOpenDetail(cdk+' · 当天明细',(cbd[cdk]&&cbd[cdk].rows)||[]);
+   break;
+  }
   case 'daily-detail-close':dailyCloseDetail();break;
   case 'daily-detail-export':if(dailyDetail)dailyExportList(dailyDetail.list,'日常记账-'+dailyDetail.title.replace(/[\s·「」]/g,''));break;
   case 'daily-receipt':dailyCloseDetail();openReceipt(id);break;
@@ -3557,7 +3772,7 @@ document.addEventListener('click',function(ev){
   case 'daily-edit':dailyCloseDetail();openDailyForm(id);break;
   case 'daily-del':dailyCloseDetail();deleteDailyRecord(id);break;
   case 'daily-save':saveDailyRecord();break;
-  case 'daily-form-close':dailyForm={open:false,id:null};renderDaily();break;
+  case 'daily-form-close':dailyForm={open:false,id:null,day:''};renderDaily();break;
   case 'daily-export-csv':dailyExportList(dailyScoped(),'家庭账本-当前筛选');break;
   case 'daily-export-json':dailyExportJSON();break;
   case 'daily-export':dailyExportList(dailyScoped().filter(function(r){return dailyCfg.level!=='list'||String(r.day).slice(0,7)===dailyCfg.year+'-'+String(dailyCfg.month).padStart(2,'0')}),'日常账本');break;
@@ -3709,6 +3924,8 @@ document.addEventListener('change',function(ev){
  else if(id==='lk-year'){lkCfg.year=t.value;renderLucky()}
  else if(id==='lk-kind'){lkCfg.kind=t.value;renderLucky()}
  else if(id==='lk-cat'){lkCfg.cat=t.value;renderLucky()}
+ else if(id==='calYear'){calCfg.year=Number(t.value)||calCfg.year;renderCal()}
+ else if(id==='calMonth'){calCfg.month=Number(t.value)||calCfg.month;renderCal()}
  else if(id==='dy-type'){dailyCfg.type=t.value;renderDaily()}
  else if(id==='dy-cat'){dailyCfg.cat=t.value;renderDaily()}
  else if(id==='dy-pay'){dailyCfg.pay=t.value;renderDaily()}

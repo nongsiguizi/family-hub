@@ -68,7 +68,7 @@ grades-track/
 WebView 壳改名为「家庭事项记录」，默认服务器地址不变，首次启动可填私有服务器地址、顶部「服务器」可随时切换（家里内网 / 外面域名或穿透）。页面是服务端提供的，网页版更新后手机刷新即可，不需要重装。支持附件上传、凭证上传、导出到系统下载目录、返回键回退。安装包可从 `http://192.168.5.132:8999/FamilyHub-v2.0.0.apk` 直接下载。
 
 ### 5. Gitee 私有仓库
-代码已推送到 Gitee **私有仓库**。出于隐私考虑，仓库里**不含真实家庭数据**：`data/grades.json`、`public/daily-ledger.json`、`data/attachments/`、`*.keystore`、`android/dist/*.apk` 都在 `.gitignore` 中，改以 `examples/` 下的脱敏示例文件代替。从仓库重新部署时，需要把自己的数据文件放回对应目录（详见 `examples/README.md`）。
+代码已推送到 Gitee **私有仓库**：https://gitee.com/pele1224/family-hub （账号 `pele1224`，`master` 分支）。出于隐私考虑，仓库里**不含真实家庭数据**：`data/grades.json`、`public/daily-ledger.json`、`data/attachments/`、`*.keystore`、`android/dist/*.apk` 都在 `.gitignore` 中，改以 `examples/` 下的脱敏示例文件代替。从仓库重新部署时，需要把自己的数据文件放回对应目录（详见 `examples/README.md`）。
 
 ## 历史更新（v1.4.0）
 
@@ -96,7 +96,7 @@ WebView 壳改名为「家庭事项记录」，默认服务器地址不变，首
 - 注意：「清空全部数据」会清空成绩 / 花销 / 压岁钱与增量账目，但**不会删掉 `daily-ledger.json` 原始账本**；该操作同时会调用清空附件接口，凭证与试卷附件会被一起删除，请先备份 `data/attachments/`。
 
 ### 4. 安卓客户端（原生 WebView 壳，仅安卓）
-- 安装包：`android/dist/GradesTrack-v1.4.0.apk`，已签名，支持 Android 8.0（API 26）及以上。**手机连家里 WiFi 时直接打开 `http://192.168.5.132:8999/GradesTrack-v1.4.0.apk` 就能下载安装**，也可以把 APK 复制到手机点开（需允许「安装未知应用」）或用 `adb install -r`。
+- 安装包（v1.4.0 时的旧包名，现已升级为 `FamilyHub-v2.0.0.apk`），已签名，支持 Android 8.0（API 26）及以上；当前下载入口见本文件顶部 v2.0.0 章节。
 - 首次启动填**私有服务器地址**，默认 `http://192.168.5.132:8999/`；顶部「服务器」可保存并切换多个地址（家里用局域网 IP，出门换外网域名 / 穿透地址），支持 HTTP 明文与自签 HTTPS 的确认提示。
 - 已适配 H5 的移动端：登录 token 保存、试卷 PDF / 图片上传、附件预览、CSV / JSON 导出（自动保存到系统「下载」目录并询问是否打开）、返回键回退、加载进度与失败重试、外链跳系统浏览器。
 - 成绩单「打印 / 存为 PDF」请在电脑浏览器操作，安卓 WebView 没有系统打印能力（App 内会给出提示）。

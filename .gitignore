@@ -26,3 +26,4 @@ Thumbs.db
 
 # 备份产物（backup.sh 会写到项目内 backups/）
 backups/
+accounts.seed.json

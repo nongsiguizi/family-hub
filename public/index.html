@@ -503,6 +503,69 @@ table{border-collapse:collapse;font-size:13px}
 .cal-sub{font-size:10.5px;color:#94a3b8;margin-top:3px}
 .cal-empty{color:#d1d5db;font-size:11px;margin-top:8px}
 @media(max-width:900px){.cal-kpis{grid-template-columns:repeat(2,1fr)}.cal-cell{min-height:76px;padding:5px}}
+/* ---------- v2.5 工作账号 ---------- */
+.ac-hero{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;margin-bottom:16px;font-size:12.5px;line-height:1.7}
+.ac-hero svg{width:22px;height:22px;flex:0 0 22px;color:#ea580c}
+.ac-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.ac-bar .inp{max-width:260px}
+.ac-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.ac-kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px 16px}
+.ac-kpi .l{font-size:12px;color:var(--muted)}
+.ac-kpi .v{font-size:21px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+.ac-sec{background:#fff;border:1px solid var(--line);border-radius:13px;margin-bottom:12px;overflow:hidden}
+.ac-sec-h{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#f8fafc;cursor:pointer;border-bottom:1px solid var(--line2)}
+.ac-sec-h h3{margin:0;font-size:14.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ac-sec-h .ac-n{font-size:11px;color:var(--muted);background:#eef2ff;border-radius:20px;padding:2px 9px}
+.ac-sec-h .chev{transition:transform .2s;color:var(--muted)}
+.ac-sec.closed .chev{transform:rotate(-90deg)}
+.ac-sec.closed .ac-sec-b{display:none}
+.ac-sec-b{padding:14px 16px}
+.ac-note{width:100%;min-height:76px;max-height:280px;resize:vertical;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font:12.5px/1.7 inherit;color:var(--text);background:#fcfdff;margin-bottom:12px;white-space:pre-wrap}
+.ac-note:focus{outline:none;border-color:var(--primary2);box-shadow:0 0 0 3px rgba(99,102,241,.10)}
+.ac-tbl-wrap{overflow:auto;border:1px solid var(--line);border-radius:9px;margin-bottom:10px}
+.ac-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.ac-tbl th{background:#f8fafc;color:var(--muted);font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
+.ac-tbl td{padding:7px 10px;border-bottom:1px solid var(--line2);vertical-align:top;word-break:break-word;max-width:280px}
+.ac-tbl tr:last-child td{border-bottom:0}
+.ac-tbl tbody tr:hover{background:#fafbff}
+.ac-secret{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:1px;color:#b45309}
+.ac-cell{white-space:pre-wrap}
+.ac-eye,.ac-copy{border:0;background:transparent;color:var(--primary);cursor:pointer;font-size:11px;padding:0 4px}
+.ac-eye:hover,.ac-copy:hover{text-decoration:underline}
+.ac-ops{white-space:nowrap;text-align:right}
+.ac-ico{width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:6px;cursor:pointer;padding:0;margin:0 1px}
+.ac-ico svg{width:13px;height:13px}
+.ac-ico:hover{color:var(--primary);border-color:#c7d2fe;background:var(--soft)}
+.ac-ico.del:hover{color:var(--red);border-color:#fecaca;background:#fef2f2}
+.ac-form{margin-bottom:16px;border-color:#a7f3d0;background:#f8fffc}
+.ac-form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.ac-empty{color:var(--faint);font-size:12.5px;padding:10px 0}
+@media(max-width:900px){.ac-kpis{grid-template-columns:repeat(2,1fr)}}
+.set-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-bottom:10px}
+.set-cat-row{display:flex;gap:6px;align-items:center}
+.set-cat-row .inp{flex:1;min-width:0}
+
+/* ---------- v2.5 笔记本图片上传 ---------- */
+.nt-ed-body img.nt-img{max-width:100%;height:auto;border-radius:8px;margin:8px 0;border:1px solid var(--line)}
+.nt-ed-body img.nt-img[data-att]{min-height:36px;background:#f1f5f9}
+.nt-imgbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.nt-imgbar .btn{padding:3px 8px;font-size:12px}
+.nt-drop-hint{font-size:11px;color:var(--faint);margin-left:4px}
+.nt-ed-body.dragover{outline:2px dashed var(--primary2);outline-offset:4px;background:#f8faff}
+/* ---------- v2.5 记一笔弹层 ---------- */
+.dy-form-modal{width:min(560px,94vw);max-height:90vh;overflow:auto;padding:0}
+.dy-form-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dy-form-hd h3{margin:0;font-size:16px}
+.dy-form-x{border:0;background:transparent;color:var(--muted);font-size:23px;line-height:1;cursor:pointer;padding:0 5px}
+.dy-form-x:hover{color:var(--text)}
+.dy-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px 20px}
+.dy-form-grid .field{margin:0}
+.dy-form-grid .span2{grid-column:1/-1}
+.dy-form-grid textarea.inp{min-height:86px;resize:vertical;line-height:1.6;padding:8px 10px}
+.dy-form-foot{display:flex;justify-content:flex-end;gap:9px;padding:14px 20px;border-top:1px solid var(--line);background:#f8fafc;border-radius:0 0 12px 12px;flex-wrap:wrap}
+.dy-save-next{background:#16a34a;border-color:#16a34a;color:#fff;font-weight:600}
+.dy-save-next:hover{background:#15803d;color:#fff}
+@media(max-width:560px){.dy-form-grid{grid-template-columns:1fr}.dy-form-grid .span2{grid-column:auto}}
 </style>
 </head>
 <body data-page-node-id="IQww0v65Vaa78CdoavCQeI">
@@ -547,8 +610,8 @@ table{border-collapse:collapse;font-size:13px}
       <div class="nav-group open" data-group="home">
         <button class="nav-group-h" data-act="nav-toggle"><svg><use href="#i-home"/></svg><span>家庭账本</span><svg class="chev"><use href="#i-chev"/></svg></button>
         <div class="nav-sub">
-          <button class="nav-item sub" data-view="daily"><span class="nt">日常记账</span></button>
           <button class="nav-item sub" data-view="calendar"><span class="nt">账本日历</span></button>
+          <button class="nav-item sub" data-view="daily"><span class="nt">日常记账</span></button>
         </div>
       </div>
       <div class="nav-group open" data-group="note">
@@ -559,6 +622,12 @@ table{border-collapse:collapse;font-size:13px}
           <button class="nav-item sub" data-view="notes" data-note-tab="todo"><span class="nt">待办清单</span></button>
           <button class="nav-item sub" data-view="notes" data-note-tab="folder"><span class="nt">分类管理</span></button>
           <button class="nav-item sub" data-view="notes" data-note-tab="trash"><span class="nt">回收站</span></button>
+        </div>
+      </div>
+      <div class="nav-group open" data-group="work">
+        <button class="nav-group-h" data-act="nav-toggle"><svg><use href="#i-list"/></svg><span>工作账号</span><svg class="chev"><use href="#i-chev"/></svg></button>
+        <div class="nav-sub">
+          <button class="nav-item sub" data-view="accounts"><span class="nt">账号清单</span></button>
         </div>
       </div>
       <div class="nav-divider"></div>
@@ -584,6 +653,7 @@ table{border-collapse:collapse;font-size:13px}
       <div class="view" id="v-daily"></div>
       <div class="view" id="v-calendar"></div>
       <div class="view" id="v-notes"></div>
+      <div class="view" id="v-accounts"></div>
       <div data-page-node-id="xtd2Dhl6TI3xXBpsYlcemJ" class="view" id="v-settings"></div>
     </div>
   </div>
@@ -671,8 +741,9 @@ table{border-collapse:collapse;font-size:13px}
   <div class="nt-ed-body" id="nteBody" contenteditable="true" data-placeholder="写点什么吧…"></div>
   <div id="nteTodoBox" class="hidden"><div class="nt-progress"><i id="nteTodoBar" style="width:0"></i></div><div id="nteTodo"></div><button class="btn btn-sm" data-act="note-todo-add" style="margin-top:8px">＋ 添加一项</button></div>
   <div class="nt-ed-foot"><span id="nteCount">0 字</span><span>自动保存 · 内容保存在自家 NAS</span><span class="sp"></span>
-    <button class="btn btn-sm" data-act="note-image">插入图片</button><button class="btn btn-sm" data-act="note-md">导出 Markdown</button>
-    <input type="file" id="nteImg" accept="image/*" hidden></div>
+    <button class="btn btn-sm" data-act="note-image">内嵌图片</button><button class="btn btn-sm" data-act="note-upload-img">上传图片到 NAS</button><button class="btn btn-sm" data-act="note-md">导出 Markdown</button>
+    <span class="nt-drop-hint">支持拖拽 / 粘贴图片</span>
+    <input type="file" id="nteImg" accept="image/*" hidden><input type="file" id="nteImgNas" accept="image/*" multiple hidden></div>
 </div></div>
 <div data-page-node-id="GPOh3w2jqhgqqv2GxI0Z9B" id="toastBox"></div>
 <input data-page-node-id="ZQBk5EjxvCTZC8FiYryD6s" accept=".json,application/json" hidden id="fileInput" type="file">
@@ -720,7 +791,8 @@ var PAGE={
  daily:['日常记账','2017 年至今家庭日常账本 · 按年 → 按月 → 逐笔明细，可查询总花销并上传凭证'],
  calendar:['账本日历','按月历查看每天收支，绿色「＋」快速记一笔，点金额条看当天逐笔明细'],
  notes:['笔记本','随手记录、待办清单、分类与标签，自动同步到 NAS'],
- settings:['设置与数据','学生信息、科目设置、备份与导入']
+ settings:['设置与数据','学生信息、科目设置、支出类别维护、备份与导入'],
+ accounts:['工作账号','各类工作系统的账号与密码，分组 / 正文 / 表格都可以直接编辑']
 };
 
 /* ---------- 工具 ---------- */
@@ -743,7 +815,7 @@ function download(name,text,type){
  var b=new Blob([text],{type:type||'application/json;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
  a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1500);
 }
-function defaultState(){return {version:1,profile:{name:'袁铭泽',school:'西安市航天城第一中学',className:'初一四班'},subjects:deep(DEF_SUBJECTS),exams:[],finance:{records:[]},lucky:{records:[]},daily:{extra:[],edits:{},deleted:[],catGroups:['日常花销','红包转账','交通出行','爱车养车','数码电器','学习教育','餐饮美食','住房物业'],catMap:{}},notes:{records:[],folders:['日常','学习','家庭','工作','灵感']}}}
+function defaultState(){return {version:1,profile:{name:'袁铭泽',school:'西安市航天城第一中学',className:'初一四班'},subjects:deep(DEF_SUBJECTS),exams:[],finance:{records:[]},lucky:{records:[]},daily:{extra:[],edits:{},deleted:[],catGroups:['日常花销','红包转账','交通出行','爱车养车','数码电器','学习教育','餐饮美食','住房物业'],catMap:{}},notes:{records:[],folders:['日常','学习','家庭','工作','灵感']},accounts:{sections:[],updatedAt:''}}}
 function normalizeExam(e){
  return {id:String(e.id),stage:e.stage||'初中',grade:e.grade||'初一',term:e.term||'上学期',type:e.type||'月考',
   seq:e.seq||'',name:e.name||'',date:e.date||'',classSize:num(e.classSize),gradeSize:num(e.gradeSize),districtSize:num(e.districtSize),
@@ -785,6 +857,7 @@ function normalize(d){
  s.lucky=normalizeLucky(d.lucky);
  s.daily=normalizeDaily(d.daily);
  s.notes=normalizeNotes(d.notes);
+ s.accounts=normalizeAccounts(d.accounts);
  return s;
 }
 
@@ -1011,8 +1084,8 @@ function render(){
  });
  $$('.view').forEach(function(v){v.classList.toggle('active',v.id==='v-'+view)});
  syncNavGroups();
- var tb=$('#topAddBtn');if(tb)tb.textContent=(view==='notes'?'＋ 新建笔记':((view==='daily'||view==='home'||view==='calendar')?'＋ 记一笔':'＋ 录入考试'));
- ({home:renderHome,calendar:renderCal,dashboard:renderDashboard,entry:renderEntry,records:renderRecords,trend:renderTrend,analysis:renderAnalysis,report:renderReport,finance:renderFinance,lucky:renderLucky,daily:renderDaily,notes:renderNotes,settings:renderSettings})[view]();
+ var tb=$('#topAddBtn');if(tb)tb.textContent=(view==='notes'?'＋ 新建笔记':((view==='daily'||view==='home'||view==='calendar')?'＋ 记一笔':(view==='accounts'?'＋ 新增分组':'＋ 录入考试')));
+ ({home:renderHome,calendar:renderCal,accounts:renderAccounts,dashboard:renderDashboard,entry:renderEntry,records:renderRecords,trend:renderTrend,analysis:renderAnalysis,report:renderReport,finance:renderFinance,lucky:renderLucky,daily:renderDaily,notes:renderNotes,settings:renderSettings})[view]();
  window.scrollTo(0,0);
 }
 function syncNavGroups(){
@@ -2084,17 +2157,20 @@ function finYearChart(exps,incs){
   '<div class="legend"><span><i style="background:#dc2626"></i>支出</span><span><i style="background:#16a34a"></i>收入</span><span class="muted">按记录日期所属自然年统计 · 点击柱子或年份看明细</span></div>';
 }
 function finRowsHtml(list){
- if(!list.length)return '<tr><td colspan="7" style="text-align:center;color:var(--faint);padding:26px">没有符合条件的记录</td></tr>';
- return list.map(function(r){
-  var inc=r.kind==='income';
+ if(!list.length)return '<tr><td colspan="9" style="text-align:center;color:var(--faint);padding:26px">没有符合条件的记录</td></tr>';
+ return finSorted(list).map(function(r){
+  var inc=r.kind==='income',cls=inc?'in':'out';
   return '<tr><td class="muted">'+esc(r.date)+'</td>'+
+   '<td><span class="pill'+(inc?'':' warn')+'">'+(inc?'收入':'支出')+'</span></td>'+
    '<td>'+esc(r.grade)+' · '+esc(r.term)+'</td>'+
    '<td><span class="pill'+(inc?'':' warn')+'">'+esc(r.category)+'</span></td>'+
-   '<td><b>'+esc(r.name)+'</b></td>'+
-   '<td class="fin-money '+(inc?'fin-in':'fin-out')+'">'+(inc?'+':'-')+money(r.amount)+'</td>'+
-   '<td class="fin-note">'+esc(r.note||'')+'</td>'+
-   '<td style="white-space:nowrap"><button class="btn btn-sm" data-act="fin-edit" data-id="'+esc(r.id)+'">编辑</button> '+
-   '<button class="btn btn-sm btn-danger" data-act="fin-del" data-id="'+esc(r.id)+'">删除</button></td></tr>';
+   '<td><span class="dy-amt '+cls+'">'+(inc?'+':'-')+money(r.amount)+'</span></td>'+
+   '<td class="dy-name"><b>'+esc(r.name)+'</b></td>'+
+   '<td class="dy-note">'+esc(r.note||'')+'</td>'+
+   '<td class="dy-ticket-cell"><button class="dy-ico ticket" data-act="fin-ticket" data-id="'+esc(r.id)+'" title="查看 / 上传票据">'+DY_ICO.ticket+'</button></td>'+
+   '<td class="dy-ops">'+
+   '<button class="dy-ico" data-act="fin-edit" data-id="'+esc(r.id)+'" title="编辑">'+DY_ICO.edit+'</button>'+
+   '<button class="dy-ico del" data-act="fin-del" data-id="'+esc(r.id)+'" title="删除">'+DY_ICO.del+'</button></td></tr>';
  }).join('');
 }
 function finFormHtml(){
@@ -2171,7 +2247,7 @@ function renderFinance(){
    '<div class="field"><label class="f">搜索项目 / 备注</label><input class="inp" id="fin-q" value="'+esc(finCfg.q)+'" placeholder="如 英杰、眼镜、研学"></div>'+
   '</div>';
  if(finForm.open)html+=finFormHtml();
- html+='<div class="table-wrap"><table class="tbl"><thead><tr><th>日期</th><th>年级 · 学期</th><th>类别</th><th>项目</th><th>金额</th><th>备注</th><th>操作</th></tr></thead>'+
+ html+='<div class="table-wrap"><table class="tbl dy-tbl"><thead>'+finSortHead()+'</thead>'+
   '<tbody id="fin-tbody">'+finRowsHtml(filtered)+'</tbody></table></div>'+
   '<div class="hint" style="margin-top:12px" id="fin-count">当前显示 '+filtered.length+' 笔 · 合计支出 '+money(finSum(filtered,'expense'))+' / 收入 '+money(finSum(filtered,'income'))+'</div></div>';
  $('#v-finance').innerHTML=html;
@@ -2522,7 +2598,7 @@ function dailyScoped(){
  var lo=dailyCfg.min===''?null:Number(dailyCfg.min),hi=dailyCfg.max===''?null:Number(dailyCfg.max);
  return dailyRecords().filter(function(r){
   if(dailyCfg.type!=='all'&&r.type!==dailyCfg.type)return false;
-  if(dailyCfg.cat!=='all'&&r.cat!==dailyCfg.cat)return false;
+  if(dailyCfg.cat!=='all'&&dailyGroupOf(r.cat)!==dailyCfg.cat)return false;
   if(dailyCfg.pay!=='all'&&r.pay!==dailyCfg.pay)return false;
   if(dailyCfg.from&&r.day<dailyCfg.from)return false;
   if(dailyCfg.to&&r.day>dailyCfg.to)return false;
@@ -2747,6 +2823,308 @@ function renderCal(){
  host.innerHTML=h;
 }
 
+/* ==================== v2.5 · 工作账号 ==================== */
+var acctCfg={open:{},q:'',edit:null};
+function normalizeAccounts(d){
+ var out={sections:[],updatedAt:''};
+ if(!d||typeof d!=='object')return out;
+ if(Array.isArray(d.sections))out.sections=d.sections.filter(function(x){return x&&x.id}).map(function(x){
+  return {id:String(x.id),title:String(x.title||'未命名分组'),note:String(x.note||''),
+   tables:(Array.isArray(x.tables)?x.tables:[]).map(function(t){
+    return {headers:(Array.isArray(t.headers)?t.headers:[]).map(String),
+     rows:(Array.isArray(t.rows)?t.rows:[]).map(function(r){return (Array.isArray(r)?r:[]).map(String)})};
+   })};
+ });
+ out.updatedAt=String(d.updatedAt||'');
+ return out;
+}
+function acctData(){
+ if(!state.accounts||typeof state.accounts!=='object')state.accounts={sections:[],updatedAt:''};
+ if(!Array.isArray(state.accounts.sections))state.accounts.sections=[];
+ return state.accounts;
+}
+function acctTouch(){acctData().updatedAt=nowStamp();persist()}
+function acSecret(h){return /密码|口令|pwd|pass|密钥|secret|token|验证码|pin/i.test(String(h||''))}
+function acctMatch(sec,q){
+ if(!q)return true;
+ if(String(sec.title).toLowerCase().indexOf(q)>=0||String(sec.note).toLowerCase().indexOf(q)>=0)return true;
+ return (sec.tables||[]).some(function(t){return (t.rows||[]).some(function(r){
+  return (r||[]).some(function(c){return String(c).toLowerCase().indexOf(q)>=0})})});
+}
+function acctCellHtml(sec,ti,ri,ci,v,h){
+ var secret=acSecret(h);
+ if(!secret)return '<td class="ac-cell">'+esc(v)+'</td>';
+ return '<td class="ac-cell"><span class="ac-secret" data-act="acct-eye" data-sec="'+esc(sec.id)+'" data-t="'+ti+'" data-r="'+ri+'" data-c="'+ci+'" data-val="'+esc(v)+'">••••••</span>'+
+  ' <button class="ac-copy" data-act="acct-copy" data-val="'+esc(v)+'" title="复制">复制</button></td>';
+}
+function acctTableHtml(sec,ti,t){
+ var hs=t.headers||[],rows=t.rows||[];
+ return '<div class="ac-tbl-wrap"><table class="ac-tbl"><thead><tr>'+
+  hs.map(function(h){return '<th>'+esc(h||'—')+'</th>'}).join('')+'<th style="text-align:right">操作</th></tr></thead><tbody>'+
+  (rows.length?rows.map(function(r,ri){
+   return '<tr>'+hs.map(function(h,ci){return acctCellHtml(sec,ti,ri,ci,r[ci]||'',h)}).join('')+
+    '<td class="ac-ops"><button class="ac-ico" data-act="acct-edit-row" data-sec="'+esc(sec.id)+'" data-t="'+ti+'" data-r="'+ri+'" title="编辑这一行">'+
+    (typeof DY_ICO!=='undefined'?DY_ICO.edit:'✎')+'</button>'+
+    '<button class="ac-ico del" data-act="acct-del-row" data-sec="'+esc(sec.id)+'" data-t="'+ti+'" data-r="'+ri+'" title="删除这一行">'+
+    (typeof DY_ICO!=='undefined'?DY_ICO.del:'×')+'</button></td></tr>';
+  }).join(''):'<tr><td colspan="'+(hs.length+1)+'" class="ac-empty">这个表格暂无数据，点下方「＋ 新增一行」。</td></tr>')+
+  '</tbody></table></div>'+
+  '<button class="btn btn-sm" data-act="acct-add-row" data-sec="'+esc(sec.id)+'" data-t="'+ti+'">＋ 新增一行</button>';
+}
+function acctSectionHtml(sec){
+ var closed=acctCfg.open[sec.id]===false;
+ var n=(sec.tables||[]).reduce(function(a,t){return a+(t.rows||[]).length},0);
+ return '<div class="ac-sec'+(closed?' closed':'')+'" id="ac-sec-'+esc(sec.id)+'">'+
+  '<div class="ac-sec-h" data-act="acct-toggle" data-sec="'+esc(sec.id)+'">'+
+   '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M6 9l6 6 6-6"/></svg>'+
+   '<h3>'+esc(sec.title)+'</h3><span class="ac-n">'+n+' 条</span>'+
+   '<button class="ac-ico" data-act="acct-edit-sec" data-sec="'+esc(sec.id)+'" title="重命名分组">'+
+   (typeof DY_ICO!=='undefined'?DY_ICO.edit:'✎')+'</button>'+
+   '<button class="ac-ico del" data-act="acct-del-sec" data-sec="'+esc(sec.id)+'" title="删除分组">'+
+   (typeof DY_ICO!=='undefined'?DY_ICO.del:'×')+'</button></div>'+
+  '<div class="ac-sec-b">'+
+   '<textarea class="ac-note" id="ac-note-'+esc(sec.id)+'" data-sec="'+esc(sec.id)+'" placeholder="这一组的说明 / 原文备注，可直接编辑">'+esc(sec.note||'')+'</textarea>'+
+   (sec.tables||[]).map(function(t,ti){return acctTableHtml(sec,ti,t)}).join('')+
+   ((sec.tables||[]).length?'':'<div class="ac-empty">这个分组只有文字内容，可直接在上框编辑。</div>')+
+  '</div></div>';
+}
+function acctFormHtml(){
+ return '<div class="card ac-form hidden" id="acForm"><div class="card-h"><h2 id="acFormTitle">编辑</h2>'+
+  '<span class="sub">修改后点保存；所有改动会同步到自家 NAS</span></div>'+
+  '<div id="acFormFields"></div>'+
+  '<div class="row" style="margin-top:12px"><button class="btn btn-primary" data-act="acct-save-form">保存</button>'+
+  '<button class="btn" data-act="acct-cancel-form">取消</button></div></div>';
+}
+function settingsCatHtml(){
+ var gs=dailyCatGroups();
+ return '<div class="card"><div class="card-h"><h2>支出类别维护</h2><span class="sub">家庭账本 · 合并类别与原始类别归类</span></div>'+
+  '<div class="hint" style="margin-bottom:12px">家庭账本「类别」筛选只显示下面这些合并类别（默认 8 类），不再列出账本里的几十个原始类别。改名 / 删除不会丢失账目，原本指派到该类的记录会自动按内置规则重新归类。下方「归类管理」可逐个指定原始类别归属。</div>'+
+  '<div class="set-cats">'+gs.map(function(g,i){
+   return '<div class="set-cat-row"><input class="inp" data-catname="'+i+'" value="'+esc(g)+'">'+
+    '<button class="btn btn-sm btn-danger" data-act="set-cat-del" data-val="'+esc(g)+'">删除</button></div>';
+  }).join('')+'</div>'+
+  '<div class="row" style="margin-top:10px;flex-wrap:wrap;gap:8px"><input class="inp" id="setNewCat" placeholder="新类别名称" style="max-width:220px">'+
+  '<button class="btn btn-sm btn-primary" data-act="set-cat-add-save">＋ 新增类别</button>'+
+  '<button class="btn btn-sm" data-act="set-cat-save">保存名称修改</button></div>'+
+  (dailyCache?dailyCatMapHtml(dailyRecords()):'<div class="hint" style="margin-top:12px">归类管理正在载入账本，稍后自动刷新…</div>')+
+  '</div>';
+}
+function acctListHtml(){
+ var d=acctData(),q=String(acctCfg.q||'').trim().toLowerCase();
+ var secs=d.sections.filter(function(s){return acctMatch(s,q)});
+ return secs.length?secs.map(acctSectionHtml).join(''):
+  '<div class="card"><div class="ac-empty">没有匹配的分组。清空搜索或点「＋ 新增分组」。</div></div>';
+}
+function renderAccounts(){
+ var d=acctData(),q=String(acctCfg.q||'').trim().toLowerCase();
+ var secs=d.sections.filter(function(s){return acctMatch(s,q)});
+ var totalRows=d.sections.reduce(function(a,s){return a+(s.tables||[]).reduce(function(b,t){return b+(t.rows||[]).length},0)},0);
+ var h='<div class="ac-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 8v5M12 16h.01"/></svg>'+
+  '<div><b>敏感信息提示</b>：账号与密码只保存在自家 NAS 的 <code>data/grades.json</code>，<b>不会上传到 Gitee 或任何代码仓库</b>；密码列默认打码。请只在家里的内网访问，并尽快在「设置与数据」修改初始密码。</div></div>';
+ h+='<div class="ac-kpis">'+
+  '<div class="ac-kpi"><div class="l">分组</div><div class="v">'+d.sections.length+'</div></div>'+
+  '<div class="ac-kpi"><div class="l">表格条目</div><div class="v">'+totalRows+'</div></div>'+
+  '<div class="ac-kpi"><div class="l">当前匹配</div><div class="v">'+secs.length+'</div></div>'+
+  '<div class="ac-kpi"><div class="l">最近更新</div><div class="v" style="font-size:13px">'+esc(d.updatedAt||'—')+'</div></div></div>';
+ h+='<div class="card" style="margin-bottom:16px"><div class="ac-bar">'+
+  '<input class="inp" id="ac-q" value="'+esc(acctCfg.q)+'" placeholder="搜索分组 / 备注 / 表格内容">'+
+  '<button class="btn btn-sm btn-primary" data-act="acct-add-sec">＋ 新增分组</button>'+
+  '<button class="btn btn-sm" data-act="acct-expand-all">展开全部</button>'+
+  '<button class="btn btn-sm" data-act="acct-collapse-all">折叠全部</button>'+
+  '<button class="btn btn-sm" data-act="acct-export">导出备份 JSON</button>'+
+  '<button class="btn btn-sm" data-act="acct-import">导入备份</button>'+
+  '<input type="file" id="acImportFile" accept="application/json,.json" hidden></div>'+
+  '<div class="hint">分组标题、正文、表格每一行都可以编辑；点标题栏折叠 / 展开，密码列点「••••••」显示、点「复制」取用。</div></div>';
+ h+=acctFormHtml();
+ h+='<div id="acList">'+acctListHtml()+'</div>';
+ var host=$('#v-accounts');if(host)host.innerHTML=h;
+}
+function acctSec(id){return acctData().sections.filter(function(s){return s.id===String(id)})[0]}
+function acctOpenForm(title,fields,ctx){
+ acctCfg.edit=ctx;
+ var box=$('#acFormFields'),t=$('#acFormTitle'),f=$('#acForm');
+ if(t)t.textContent=title;
+ if(box)box.innerHTML='<div class="ac-form-grid">'+fields.map(function(x){
+  var tag=x[2]==='textarea';
+  return '<div class="field"'+(tag?' style="grid-column:1/-1"':'')+'><label class="f">'+esc(x[0])+'</label>'+
+   (tag?'<textarea class="ac-note" data-f="'+esc(x[1])+'" style="min-height:90px">'+esc(x[3]||'')+'</textarea>':
+    '<input class="inp" data-f="'+esc(x[1])+'" value="'+esc(x[3]||'')+'">')+'</div>';
+ }).join('')+'</div>';
+ if(f){f.classList.remove('hidden');if(f.scrollIntoView)f.scrollIntoView({block:'center',behavior:'smooth'})}
+}
+function acctCloseForm(){acctCfg.edit=null;var f=$('#acForm');if(f)f.classList.add('hidden')}
+function acctFormVals(){
+ var o={},f=$('#acFormFields');if(!f)return o;
+ $$('[data-f]',f).forEach(function(el){o[el.dataset.f]=el.value});
+ return o;
+}
+function acctEditRow(sid,ti,ri){
+ var sec=acctSec(sid);if(!sec)return;
+ var t=sec.tables[ti];if(!t)return;
+ var row=t.rows[ri]||[],hs=t.headers||[];
+ acctOpenForm('编辑一行 · '+sec.title,hs.map(function(h,i){return [h||('列 '+(i+1)),'c'+i,'text',row[i]||'']}),
+  {mode:'row',sid:sid,ti:ti,ri:ri});
+}
+function acctAddRow(sid,ti){
+ var sec=acctSec(sid);if(!sec)return;
+ var t=sec.tables[ti];if(!t)return;
+ acctOpenForm('新增一行 · '+sec.title,(t.headers||[]).map(function(h,i){return [h||('列 '+(i+1)),'c'+i,'text','']}),
+  {mode:'addrow',sid:sid,ti:ti});
+}
+function acctEditSection(sid,mode){
+ var sec=mode==='add'?null:acctSec(sid);
+ acctOpenForm(mode==='add'?'新增分组':'编辑分组 · '+(sec?sec.title:''),
+  [['分组名称','title','text',sec?sec.title:''],['正文 / 备注','note','textarea',sec?sec.note:'']],
+  {mode:mode==='add'?'addsec':'sec',sid:sid});
+}
+function acctSaveForm(){
+ var e=acctCfg.edit;if(!e)return;
+ var v=acctFormVals(),d=acctData(),sec=e.sid?acctSec(e.sid):null;
+ if(e.mode==='row'||e.mode==='addrow'){
+  if(!sec||!sec.tables[e.ti])return;
+  var row=(sec.tables[e.ti].headers||[]).map(function(_,i){return String(v['c'+i]||'')});
+  if(e.mode==='row')sec.tables[e.ti].rows[e.ri]=row;
+  else sec.tables[e.ti].rows.push(row);
+ } else if(e.mode==='sec'){
+  if(!sec)return;
+  sec.title=String(v.title||'未命名分组').slice(0,80);sec.note=String(v.note||'');
+ } else if(e.mode==='addsec'){
+  var id='ac'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  d.sections.push({id:id,title:String(v.title||'新分组').slice(0,80),note:String(v.note||''),tables:[]});
+  acctCfg.open[id]=true;
+ }
+ acctTouch();acctCloseForm();renderAccounts();toast('已保存','ok');
+}
+function acctExport(){
+ var d=acctData();
+ download('工作账号-备份-'+today()+'.json',JSON.stringify({source:'工作账号',exported:nowStamp(),sections:d.sections},null,2),'application/json;charset=utf-8');
+ toast('已导出 '+d.sections.length+' 个分组','ok');
+}
+function acctImport(file){
+ var fr=new FileReader();
+ fr.onload=function(){
+  try{
+   var j=JSON.parse(String(fr.result)),arr=Array.isArray(j)?j:(j.sections||[]);
+   if(!Array.isArray(arr))throw new Error('格式不对');
+   confirmBox('导入工作账号','将用备份里的 '+arr.length+' 个分组替换当前内容，确定继续？',function(){
+    var d=acctData();d.sections=normalizeAccounts({sections:arr}).sections;
+    acctTouch();renderAccounts();toast('已导入 '+arr.length+' 个分组','ok');
+   },'确认导入');
+  }catch(e){toast('导入失败：'+e.message,'err')}
+ };
+ fr.readAsText(file);
+}
+
+/* ==================== v2.5 · 笔记本上传图片到 NAS ==================== */
+var noteBlobUrls=[];
+function noteRevokeBlobs(){noteBlobUrls.forEach(function(u){try{URL.revokeObjectURL(u)}catch(e){}});noteBlobUrls=[]}
+function noteInsertHtml(html){
+ var b=$('#nteBody');if(!b)return;
+ if(b.focus)b.focus();
+ var sel=window.getSelection?window.getSelection():null;
+ if(sel&&sel.rangeCount&&b.contains(sel.anchorNode)&&document.createRange){
+  var rg=sel.getRangeAt(0);rg.deleteContents();
+  var frag=document.createRange().createContextualFragment(html);
+  var last=frag.lastChild;rg.insertNode(frag);
+  if(last){rg.setStartAfter(last);rg.collapse(true);sel.removeAllRanges();sel.addRange(rg)}
+ }else b.innerHTML+=html;
+}
+function noteCleanImgSrc(raw){
+ raw=String(raw||'');
+ try{
+  var tmp=document.createElement('div');tmp.innerHTML=raw;
+  $$('img[data-att]',tmp).forEach(function(im){im.removeAttribute('src')});
+  return tmp.innerHTML;
+ }catch(e){return raw.replace(/\ssrc="blob:[^"]*"/gi,'')}
+}
+function hydrateNoteImages(host){
+ noteRevokeBlobs();
+ if(!host||!host.querySelectorAll)return;
+ $$('img[data-att]',host).forEach(function(im){
+  var fid=im.getAttribute('data-att');if(!fid)return;
+  im.className='nt-img';
+  attApi('api/file?id='+encodeURIComponent(fid)).then(function(r){if(!r.ok)throw new Error('missing');return r.blob()})
+   .then(function(b){var u=URL.createObjectURL(b);noteBlobUrls.push(u);im.src=u})
+   .catch(function(){im.alt='（图片附件已丢失）'});
+ });
+}
+function noteUploadImages(files){
+ if(!noteEditor.open)return;
+ if(!attReady()){toast('上传图片需要连接 NAS 服务','err');return}
+ var list=Array.prototype.slice.call(files||[]).filter(function(f){return /^image\//.test(f.type||'')});
+ if(!list.length){toast('请选择图片文件','err');return}
+ if(!noteEditor.id)noteEditor.id=uid();
+ var chain=Promise.resolve(),ok=0,bad=0;
+ list.forEach(function(f){
+  chain=chain.then(function(){return readFileAsDataURL(f)}).then(function(durl){
+   return attApi('api/attachments',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({examId:'note-'+noteEditor.id,key:'image',name:f.name,mime:f.type||'image/jpeg',data:durl})})
+    .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j}})})
+    .then(function(x){
+     if(!x.ok)throw new Error(x.j.error||'上传失败');
+     noteInsertHtml('<img class="nt-img" data-att="'+esc(x.j.id||'')+'" alt="'+esc(f.name)+'">');ok++;
+    });
+  }).catch(function(e){bad++;toast(f.name+'：'+e.message,'err',5000)});
+ });
+ chain.then(function(){
+  hydrateNoteImages($('#nteBody'));noteAutosave();
+  if(ok)toast('已上传 '+ok+' 张图片到 NAS'+(bad?'，'+bad+' 张失败':''),'ok');
+ });
+}
+function noteBindImageEvents(b){
+ if(!b)return;
+ b.ondragover=function(ev){ev.preventDefault();if(b.classList)b.classList.add('dragover')};
+ b.ondragleave=function(){if(b.classList)b.classList.remove('dragover')};
+ b.ondrop=function(ev){
+  ev.preventDefault();if(b.classList)b.classList.remove('dragover');
+  if(ev.dataTransfer&&ev.dataTransfer.files&&ev.dataTransfer.files.length)noteUploadImages(ev.dataTransfer.files);
+ };
+ b.onpaste=function(ev){
+  var items=(ev.clipboardData||{}).items||[],fs=[];
+  for(var i=0;i<items.length;i++)if(items[i].kind==='file'&&/^image\//.test(items[i].type||'')){
+   var f=items[i].getAsFile&&items[i].getAsFile();if(f)fs.push(f);
+  }
+  if(fs.length){ev.preventDefault();noteUploadImages(fs)}
+ };
+}
+
+/* ==================== v2.5 · 袁铭泽花销记账明细增强 ==================== */
+var finSort={key:'date',dir:'desc'};
+var FIN_COLS=[['date','日期'],['kind','类型'],['grade','年级 · 学期'],['category','类别'],['amount','金额'],
+ ['name','项目'],['note','备注'],['ticket','票据'],['ops','操作']];
+function finSortVal(r,k){
+ if(k==='amount')return Number(r.amount)||0;
+ if(k==='kind')return r.kind==='income'?'收入':'支出';
+ if(k==='grade')return String(r.grade||'')+' '+String(r.term||'');
+ return String(r[k]==null?'':r[k]);
+}
+function finSorted(list){
+ var k=finSort.key,sgn=finSort.dir==='asc'?1:-1;
+ return list.slice().sort(function(a,b){
+  var x=finSortVal(a,k),y=finSortVal(b,k),c;
+  if(typeof x==='number'&&typeof y==='number')c=x-y;
+  else c=String(x).localeCompare(String(y),'zh-CN');
+  if(!c)c=String(b.date||'').localeCompare(String(a.date||''));
+  return c*sgn;
+ });
+}
+function finSortHead(){
+ return '<tr>'+FIN_COLS.map(function(c){
+  if(c[0]==='ops')return '<th class="dy-th">操作</th>';
+  var on=finSort.key===c[0];
+  return '<th class="dy-th'+(on?' on':'')+'" data-act="fin-sort" data-key="'+c[0]+'" title="点击按「'+esc(c[1])+'」排序">'+
+   esc(c[1])+'<span class="dy-ar">'+(on?(finSort.dir==='asc'?'↑':'↓'):'⇅')+'</span></th>';
+ }).join('')+'</tr>';
+}
+function finTicket(id){
+ if(!attReady()){toast('票据预览需要连接 NAS 服务','err');return}
+ attApi('api/attachments?examId='+encodeURIComponent('fin-'+id)).then(function(r){return r.json()}).then(function(j){
+  var fs=(j.items||[]).filter(function(f){return f.key==='receipt'});
+  if(fs.length){previewAttachment(fs[0].id);return}
+  openReceipt(id,{prefix:'fin'});
+ }).catch(function(){openReceipt(id,{prefix:'fin'})});
+}
+
 function dailyRowsHtml(list){
  var rows=dailySorted(list);
  if(!rows.length)return '<tr><td colspan="10" style="text-align:center;color:var(--faint);padding:26px">没有符合条件的记录</td></tr>';
@@ -2756,23 +3134,29 @@ function dailyRowsHtml(list){
 function dailyFormHtml(){
  var rec=dailyForm.id?dailyRecords().filter(function(r){return String(r.id)===String(dailyForm.id)})[0]:null;
  var d=rec||{day:dailyForm.day||today(),type:'out',cat:'',pay:'微信',money:'',name:'',note:'',attr:''};
- var cats={};dailyRecords().forEach(function(r){if(r.cat)cats[r.cat]=1});
- var catList=Object.keys(cats).sort();
+ var catList=dailyCatGroups(),nameSet={};
+ dailyRecords().forEach(function(r){if(r.name)nameSet[String(r.name)]=1});
+ var nameList=Object.keys(nameSet).slice(0,200);
  var pays=['微信','支付宝','银行卡','京东金融','拼多多','抖音','美团','现金','其他'];
- return '<div class="card" id="dyFormCard" style="border-color:#a7f3d0;background:#f8fffc">'+
-  '<div class="card-h"><h2>'+(rec?'编辑记录':'新增一笔日常账')+'</h2><span class="sub">新记录只写入增量，不改动原始账本文件</span></div>'+
-  '<div class="fin-form-grid">'+
+ var dl=function(id,arr){return '<datalist id="'+id+'">'+arr.map(function(c){return '<option value="'+esc(c)+'">'})+'</datalist>'};
+ return '<div class="overlay" id="dyFormCard"><div class="modal dy-form-modal">'+
+  '<div class="dy-form-hd"><h3>'+(rec?'编辑流水':'新增流水')+'</h3>'+
+   '<button class="dy-form-x" data-act="daily-form-close" title="关闭">×</button></div>'+
+  '<div class="dy-form-grid">'+
    '<div class="field"><label class="f">日期</label><input class="inp" type="date" id="dy-f-day" value="'+esc(d.day)+'"></div>'+
-   '<div class="field"><label class="f">类型</label><select class="inp" id="dy-f-type">'+
+   '<div class="field"><label class="f">流水类型</label><select class="inp" id="dy-f-type">'+
     ['out','in','none'].map(function(t){return '<option value="'+t+'"'+(d.type===t?' selected':'')+'>'+dailyTypeName(t)+'</option>'}).join('')+'</select></div>'+
-   '<div class="field"><label class="f">类别</label><input class="inp" id="dy-f-cat" list="dyCats" value="'+esc(d.cat)+'"><datalist id="dyCats">'+catList.map(function(c){return '<option value="'+esc(c)+'">'}).join('')+'</datalist></div>'+
-   '<div class="field"><label class="f">支付方式</label><input class="inp" id="dy-f-pay" list="dyPays" value="'+esc(d.pay)+'"><datalist id="dyPays">'+pays.map(function(c){return '<option value="'+esc(c)+'">'}).join('')+'</datalist></div>'+
-   '<div class="field"><label class="f">项目</label><input class="inp" id="dy-f-name" value="'+esc(d.name)+'" placeholder="如 买水果、物业费"></div>'+
-   '<div class="field"><label class="f">金额（元）</label><input class="inp" type="number" step="0.01" min="0" id="dy-f-money" value="'+esc(d.money)+'"></div>'+
-   '<div class="field"><label class="f">归属</label><input class="inp" id="dy-f-attr" value="'+esc(d.attr)+'" placeholder="可留空，如 袁铭泽"></div>'+
-   '<div class="field"><label class="f">备注</label><input class="inp" id="dy-f-note" value="'+esc(d.note)+'"></div>'+
-  '</div><div style="display:flex;gap:9px;margin-top:14px"><button class="btn btn-primary" data-act="daily-save">保存记录</button>'+
-  '<button class="btn" data-act="daily-form-close">取消</button></div></div>';
+   '<div class="field"><label class="f">金额</label><input class="inp" type="number" step="0.01" min="0" id="dy-f-money" value="'+esc(d.money)+'" placeholder="请输入金额"></div>'+
+   '<div class="field"><label class="f">流水名称</label><input class="inp" id="dy-f-name" list="dyNames" value="'+esc(d.name)+'" placeholder="输入或选择名称">'+dl('dyNames',nameList)+'</div>'+
+   '<div class="field span2"><label class="f">支出类型</label><input class="inp" id="dy-f-cat" list="dyCats" value="'+esc(d.cat)+'" placeholder="输入或选择类型">'+dl('dyCats',catList)+'</div>'+
+   '<div class="field span2"><label class="f">支付方式</label><input class="inp" id="dy-f-pay" list="dyPays" value="'+esc(d.pay)+'" placeholder="输入或选择支付方式">'+dl('dyPays',pays)+'</div>'+
+   '<div class="field span2"><label class="f">流水归属</label><input class="inp" id="dy-f-attr" value="'+esc(d.attr)+'" placeholder="可留空，如 袁铭泽"></div>'+
+   '<div class="field span2"><label class="f">备注</label><textarea class="inp" id="dy-f-note" placeholder="请输入备注">'+esc(d.note)+'</textarea></div>'+
+  '</div><div class="dy-form-foot">'+
+   '<button class="btn" data-act="daily-form-close">取消</button>'+
+   '<button class="btn btn-primary" data-act="daily-save">确定</button>'+
+   '<button class="btn dy-save-next" data-act="daily-save-continue">确定并继续</button></div>'+
+  '</div></div>';
 }
 function dailyExportList(list,label){
  var head=['日期','类型','类别','项目','金额(元)','支付方式','归属','备注','原始凭证'];
@@ -2985,8 +3369,8 @@ function renderDaily(){
   return;
  }
  var all=dailyScoped(),exp=dailySum(all,'out'),inc=dailySum(all,'in'),neu=dailySum(all,'none');
- var cats={},pays={};dailyRecords().forEach(function(r){if(r.cat)cats[r.cat]=1;if(r.pay)pays[r.pay]=1});
- var catList=Object.keys(cats).sort(),payList=Object.keys(pays).sort();
+ var pays={};dailyRecords().forEach(function(r){if(r.pay)pays[r.pay]=1});
+ var catList=dailyCatGroups(),payList=Object.keys(pays).sort();
  var html='<div class="grid g4" style="margin-bottom:18px">'+
   '<div class="kpi"><div class="lab">查询总花销</div><div class="val dy-big">'+money(exp)+'</div><div class="foot">当前筛选下的支出合计</div></div>'+
   kpi('累计收入','<span class="fin-in">'+money(inc)+'</span>','同一筛选条件')+
@@ -2998,7 +3382,7 @@ function renderDaily(){
    '<div class="field"><label class="f">关键词</label><input class="inp" id="dy-q" value="'+esc(dailyCfg.q)+'" placeholder="项目 / 备注 / 类别"></div>'+
    '<div class="field"><label class="f">类型</label><select class="inp" id="dy-type">'+
     ['all','out','in','none'].map(function(t){return '<option value="'+t+'"'+(dailyCfg.type===t?' selected':'')+'>'+(t==='all'?'全部类型':dailyTypeName(t))+'</option>'}).join('')+'</select></div>'+
-   '<div class="field"><label class="f">类别</label><select class="inp" id="dy-cat">'+finOpts(catList,dailyCfg.cat,'全部类别')+'</select></div>'+
+   '<div class="field"><label class="f">类别（合并后）</label><select class="inp" id="dy-cat">'+finOpts(catList,dailyCfg.cat,'全部类别')+'</select></div>'+
    '<div class="field"><label class="f">支付方式</label><select class="inp" id="dy-pay">'+finOpts(payList,dailyCfg.pay,'全部方式')+'</select></div>'+
    '<div class="field"><label class="f">起始日期</label><input class="inp" type="date" id="dy-from" value="'+esc(dailyCfg.from)+'"></div>'+
    '<div class="field"><label class="f">结束日期</label><input class="inp" type="date" id="dy-to" value="'+esc(dailyCfg.to)+'"></div>'+
@@ -3074,9 +3458,9 @@ function dailyDetailTitle(dim,val){
 function openDailyForm(id,day){
  if(view==='calendar')go('daily');
  dailyForm={open:true,id:id||null,day:day||''};renderDaily();
- var f=$('#dyFormCard');if(f)f.scrollIntoView({block:'center',behavior:'smooth'});
+ var fm=$('#dy-f-money');if(fm&&fm.focus)fm.focus();
 }
-function saveDailyRecord(){
+function saveDailyRecord(cont){
  var day=$('#dy-f-day').value||today(),type=$('#dy-f-type').value,
   cat=$('#dy-f-cat').value.trim(),pay=$('#dy-f-pay').value.trim(),
   name=$('#dy-f-name').value.trim(),money0v=num($('#dy-f-money').value),
@@ -3092,6 +3476,7 @@ function saveDailyRecord(){
  }
  state.daily=d;dailyForm={open:false,id:null,day:''};
  persist();(view==='calendar'?renderCal():renderDaily());toast(mode==='server'?'已保存，正在同步到 NAS':'记录已保存','ok');
+ if(cont)openDailyForm(null,day);
 }
 function deleteDailyRecord(id){
  var r=dailyRecords().filter(function(x){return String(x.id)===String(id)})[0];if(!r)return;
@@ -3104,10 +3489,15 @@ function deleteDailyRecord(id){
  },'确认删除');
 }
 /* ---------- 凭证（复用 NAS 附件接口，examId=daily-<记录id>） ---------- */
-function openReceipt(id){
- var r=dailyRecords().filter(function(x){return String(x.id)===String(id)})[0];
- receiptCtx={id:String(id),name:r?r.name:'记录',invoice:r?r.invoice:''};
- $('#rcTitle').textContent='凭证 · '+(r?r.name:'记录');
+function openReceipt(id,opt){
+ opt=opt||{};
+ var prefix=String(opt.prefix||'daily'),r=null,name=String(opt.name||'记录'),invoice=String(opt.invoice||'');
+ if(prefix==='daily'){
+  r=dailyRecords().filter(function(x){return String(x.id)===String(id)})[0];
+  name=r?r.name:'记录';invoice=r?r.invoice:'';
+ }
+ receiptCtx={id:String(id),prefix:prefix,name:name,invoice:invoice};
+ $('#rcTitle').textContent='票据 / 凭证 · '+name;
  $('#rcSub').textContent=attReady()?'凭证保存在 NAS 的 data/attachments 目录，同一地址在其它设备也能查看。':'凭证功能需要连接 NAS 服务。';
  $('[data-act="rc-upload"]').disabled=!attReady();
  $('#receiptLayer').classList.remove('hidden');
@@ -3116,7 +3506,7 @@ function openReceipt(id){
 function closeReceipt(){$('#receiptLayer').classList.add('hidden');receiptCtx=null;receiptFiles=[];var f=$('#rcFile');if(f)f.value=''}
 function loadReceipts(){
  if(!attReady()||!receiptCtx){receiptFiles=[];paintReceipts();return Promise.resolve()}
- return attApi('api/attachments?examId='+encodeURIComponent('daily-'+receiptCtx.id))
+ return attApi('api/attachments?examId='+encodeURIComponent(receiptCtx.prefix+'-'+receiptCtx.id))
   .then(function(r){return r.json()}).then(function(j){
    receiptFiles=(j.items||[]).filter(function(f){return f.key==='receipt'});paintReceipts();
   }).catch(function(){paintReceipts()});
@@ -3145,7 +3535,7 @@ function uploadReceipts(){
  files.forEach(function(f){
   chain=chain.then(function(){return readFileAsDataURL(f)}).then(function(durl){
    return attApi('api/attachments',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({examId:'daily-'+receiptCtx.id,key:'receipt',name:f.name,mime:f.type||'',data:durl})})
+    body:JSON.stringify({examId:receiptCtx.prefix+'-'+receiptCtx.id,key:'receipt',name:f.name,mime:f.type||'',data:durl})})
     .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j}})})
     .then(function(x){if(!x.ok)throw new Error(x.j.error||'上传失败');ok++});
   }).catch(function(e){bad++;toast(f.name+'：'+e.message,'err',5000)});
@@ -3169,6 +3559,7 @@ function deleteReceipt(id){
 
 /* ---------- 设置与数据 ---------- */
 function renderSettings(){
+ if(!dailyCache)dailyLoad().then(function(){if(view==='settings')renderSettings()}).catch(function(){});
  var p=state.profile;
  var html='<div class="card"><div class="card-h"><h2>学生信息</h2><span class="sub">头像用于成绩单抬头</span></div>'+
   '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><img class="rp-avatar" src="avatar.jpg" alt=""><div><b>'+esc(p.name||'学生')+'</b><div class="small muted">头像文件 avatar.jpg，替换同名文件即可更换</div></div></div>'+
@@ -3187,6 +3578,7 @@ function renderSettings(){
    '<label style="font-size:12px"><input type="checkbox" data-sstage="高中"'+(s.stages.indexOf('高中')>=0?' checked':'')+'> 高中</label></td>'+
    '<td><button class="btn btn-sm btn-danger" data-act="del-subject" data-id="'+esc(s.id)+'">删除</button></td></tr>'}).join('')+
   '</tbody></table></div></div>';
+ html+=settingsCatHtml();
  html+='<div class="card"><div class="card-h"><h2>数据管理与备份</h2><span class="sub" id="dataStat">'+state.exams.length+' 次考试</span></div>'+
   '<div class="hint" style="margin-bottom:14px">'+
   (mode==='server'?'当前已连接 NAS：所有修改自动保存到容器的 <span class="mono">/app/data/grades.json</span>，同一局域网内任意设备访问本地址都能看到同一份数据。':
@@ -3499,7 +3891,7 @@ function openNoteEditor(id,kind){
  var kd=$('#nteKind');if(kd)kd.value=k;
  var p=$('#ntePin');if(p)p.checked=rec?!!rec.pinned:false;
  var st=$('#nteStar');if(st)st.checked=rec?!!rec.starred:false;
- var b=$('#nteBody');if(b)b.innerHTML=rec?rec.html:'';
+ var b=$('#nteBody');if(b){b.innerHTML=rec?rec.html:'';hydrateNoteImages(b);noteBindImageEvents(b)}
  var cs=$('#nteColors');if(cs)cs.innerHTML=NOTE_COLORS.map(function(c){
   return '<button class="nt-color'+(c===noteEditor.color?' on':'')+'" data-act="note-color" data-val="'+esc(c)+'" style="background:'+esc(c)+'" title="'+esc(c)+'"></button>'}).join('');
  noteTodoRender();noteUpdateKindUI();noteUpdateCount();
@@ -3508,7 +3900,7 @@ function openNoteEditor(id,kind){
 }
 function noteCollect(){
  var t=$('#nteTitle'),b=$('#nteBody'),f=$('#nteFolder'),g=$('#nteTags'),k=$('#nteKind'),p=$('#ntePin'),s=$('#nteStar');
- var html=noteSanitize(b?b.innerHTML:''),stamp=nowStamp();
+ var html=noteSanitize(noteCleanImgSrc(b?b.innerHTML:'')),stamp=nowStamp();
  return {title:(t?String(t.value||'').trim():'')||'无标题',html:html,text:noteText(html),
   kind:k?k.value:'note',folder:f?f.value:noteFolders()[0],
   tags:g?String(g.value||'').split(/[,，]/).map(function(x){return x.trim()}).filter(Boolean).slice(0,12):[],
@@ -3520,7 +3912,7 @@ function saveNote(closeAfter){
  if(!noteEditor.open)return;
  var d=noteCollect(),arr=noteRecs(),rec=noteEditor.id?noteById(noteEditor.id):null;
  if(rec)Object.assign(rec,d);
- else{d.id=uid();d.createdAt=d.updatedAt;noteEditor.id=d.id;arr.push(d)}
+ else{d.id=noteEditor.id||uid();d.createdAt=d.updatedAt;noteEditor.id=d.id;arr.push(d)}
  if(!state.notes||typeof state.notes!=='object')state.notes={records:[],folders:noteFolders()};
  state.notes.records=arr;
  persist();noteUpdateCount();
@@ -3528,7 +3920,7 @@ function saveNote(closeAfter){
 }
 function closeNoteEditor(doSave){
  if(doSave!==false&&noteEditor.open)saveNote(false);
- noteEditor.open=false;
+ noteEditor.open=false;noteRevokeBlobs();
  var l=$('#noteEditorLayer');if(l)l.classList.add('hidden');
  if(view==='notes')renderNotes();
 }
@@ -3544,7 +3936,7 @@ function noteInsertImage(file){
    if(!c.getContext||!c.getContext('2d'))return;
    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
    var url=c.toDataURL('image/jpeg',0.78),b=$('#nteBody');
-   if(b){b.focus();if(document.execCommand)document.execCommand('insertImage',false,url)}
+   noteInsertHtml('<img class="nt-img" src="'+url+'" alt="图片">');
    noteAutosave();
   };
   img.src=String(fr.result);
@@ -3580,6 +3972,7 @@ function noteExportAll(){
 
 /* ---------- 事件 ---------- */
 document.addEventListener('click',function(ev){
+ if(ev.target.id==='dyFormCard'){dailyForm={open:false,id:null,day:''};renderDaily();return}
  if(ev.target.id==='finDetailLayer'){closeFinDetail();return}
  if(ev.target.id==='lkDetailLayer'){closeLuckyDetail();return}
  if(ev.target.id==='dailyDetailLayer'){dailyCloseDetail();return}
@@ -3597,6 +3990,7 @@ document.addEventListener('click',function(ev){
   case 'top-add':
    if(view==='notes')openNoteEditor(null,'note');
    else if(view==='daily'||view==='calendar')openDailyForm(null);
+   else if(view==='accounts')acctEditSection(null,'add');
    else if(view==='home'){go('daily');dailyLoad().then(function(){if(view==='daily')openDailyForm(null)}).catch(function(){})}
    else newExam();
    break;
@@ -3738,6 +4132,77 @@ document.addEventListener('click',function(ev){
    }
    break;
   }
+  case 'acct-toggle':{var as=String(el.dataset.sec||'');acctCfg.open[as]=acctCfg.open[as]===false;renderAccounts();break}
+  case 'acct-add-sec':acctEditSection(null,'add');break;
+  case 'acct-edit-sec':acctEditSection(String(el.dataset.sec||''),'edit');break;
+  case 'acct-del-sec':{
+   var ads=String(el.dataset.sec||''),adsSec=acctSec(ads);
+   confirmBox('删除分组','「'+(adsSec?adsSec.title:'')+'』及其中的表格和正文都会被删除，账目数据不受影响。',function(){
+    var ad=acctData();ad.sections=ad.sections.filter(function(x){return x.id!==ads});
+    acctTouch();renderAccounts();toast('已删除分组','ok');
+   },'确认删除');break;
+  }
+  case 'acct-edit-row':acctEditRow(String(el.dataset.sec||''),Number(el.dataset.t),Number(el.dataset.r));break;
+  case 'acct-add-row':acctAddRow(String(el.dataset.sec||''),Number(el.dataset.t));break;
+  case 'acct-del-row':{
+   var drs=String(el.dataset.sec||''),drt=Number(el.dataset.t),drr=Number(el.dataset.r),drSec=acctSec(drs);
+   if(drSec&&drSec.tables[drt]){drSec.tables[drt].rows.splice(drr,1);acctTouch();renderAccounts();toast('已删除该行','ok')}
+   break;
+  }
+  case 'acct-save-form':acctSaveForm();break;
+  case 'acct-cancel-form':acctCloseForm();break;
+  case 'acct-expand-all':{var ae=acctData();ae.sections.forEach(function(x){acctCfg.open[x.id]=true});renderAccounts();break}
+  case 'acct-collapse-all':{var ac=acctData();ac.sections.forEach(function(x){acctCfg.open[x.id]=false});renderAccounts();break}
+  case 'acct-eye':{
+   var aeEl=el,av=String(el.dataset.val||'');
+   if(el.dataset.shown==='1'){el.textContent='••••••';el.dataset.shown=''}
+   else{el.textContent=av||'（空）';el.dataset.shown='1'}
+   break;
+  }
+  case 'acct-copy':{
+   var cpv=String(el.dataset.val||'');
+   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(cpv).then(function(){toast('已复制','ok')});
+   else{var ci=document.createElement('textarea');ci.value=cpv;document.body.appendChild(ci);ci.select();
+    try{document.execCommand('copy');toast('已复制','ok')}catch(e){toast('复制失败','err')}ci.remove()}
+   break;
+  }
+  case 'acct-export':acctExport();break;
+  case 'acct-import':{var aif=$('#acImportFile');if(aif&&aif.click)aif.click();break}
+  case 'set-cat-save':{
+   var scs=dailyCatGroups(),pairs=[];
+   $$('[data-catname]').forEach(function(inp){
+    var si=Number(inp.dataset.catname),sv=String(inp.value||'').trim();
+    if(si<scs.length&&sv&&sv!==scs[si]){pairs.push([scs[si],sv]);scs[si]=sv}
+   });
+   if(pairs.length){
+    var scm=dailyCatMap();
+    Object.keys(scm).forEach(function(k){pairs.forEach(function(p){if(scm[k]===p[0])scm[k]=p[1]})});
+    state.daily.catMap=scm;state.daily.catGroups=scs;persist();
+   }
+   render();toast(pairs.length?'已保存 '+pairs.length+' 处名称修改':'名称没有变化','ok');break;
+  }
+  case 'set-cat-add-save':{
+   var sni=$('#setNewCat'),snv=sni?String(sni.value||'').trim():'';
+   if(!snv){toast('请输入类别名称','err');break}
+   var sag=dailyCatGroups();if(sag.indexOf(snv)>=0){toast('这个类别已存在','err');break}
+   sag.push(snv);state.daily.catGroups=sag;persist();render();toast('已新增类别「'+snv+'」','ok');break;
+  }
+  case 'set-cat-del':{
+   var scv=String(el.dataset.val||'');
+   confirmBox('删除类别','「'+scv+'」会被移除，原本指派到它的原始类别会按内置规则自动归类，账目不会丢失。',function(){
+    state.daily.catGroups=dailyCatGroups().filter(function(g){return g!==scv});
+    var sdm=dailyCatMap();Object.keys(sdm).forEach(function(k){if(sdm[k]===scv)delete sdm[k]});
+    state.daily.catMap=sdm;persist();render();toast('类别已删除','ok');
+   },'删除类别');break;
+  }
+  case 'fin-sort':{
+   var fsk=String(el.dataset.key||'date');
+   if(finSort.key===fsk)finSort.dir=finSort.dir==='asc'?'desc':'asc';
+   else{finSort.key=fsk;finSort.dir=(fsk==='amount'||fsk==='date')?'desc':'asc'}
+   renderFinance();break;
+  }
+  case 'fin-ticket':finTicket(id);break;
+  case 'note-upload-img':{var nui=$('#nteImgNas');if(nui&&nui.click)nui.click();break}
   case 'daily-sort':{
    var sk=String(el.dataset.key||'day'),sc=String(el.dataset.scope||'page');
    if(dailySort.key===sk)dailySort.dir=dailySort.dir==='asc'?'desc':'asc';
@@ -3771,7 +4236,8 @@ document.addEventListener('click',function(ev){
   case 'daily-add':openDailyForm(null);break;
   case 'daily-edit':dailyCloseDetail();openDailyForm(id);break;
   case 'daily-del':dailyCloseDetail();deleteDailyRecord(id);break;
-  case 'daily-save':saveDailyRecord();break;
+  case 'daily-save':saveDailyRecord(false);break;
+  case 'daily-save-continue':saveDailyRecord(true);break;
   case 'daily-form-close':dailyForm={open:false,id:null,day:''};renderDaily();break;
   case 'daily-export-csv':dailyExportList(dailyScoped(),'家庭账本-当前筛选');break;
   case 'daily-export-json':dailyExportJSON();break;
@@ -3785,14 +4251,14 @@ document.addEventListener('click',function(ev){
    var ngs=dailyCatGroups();
    if(ngs.indexOf(ngv)>=0){toast('这个类别已存在','err');break}
    ngs.push(ngv);state.daily.catGroups=ngs;
-   dailyCfg.showCatAdd=false;persist();renderDaily();toast('已新增类别「'+ngv+'」','ok');break;
+   dailyCfg.showCatAdd=false;persist();render();toast('已新增类别「'+ngv+'」','ok');break;
   }
   case 'daily-group-del':{
    var dgv=el.dataset.val;
    confirmBox('删除类别','「'+dgv+'」会被移除，原本指派到它的类别会自动回到「日常花销」，账目不会丢失。',function(){
     state.daily.catGroups=dailyCatGroups().filter(function(g){return g!==dgv});
     var dm=dailyCatMap();Object.keys(dm).forEach(function(k){if(dm[k]===dgv)delete dm[k]});
-    state.daily.catMap=dm;persist();renderDaily();toast('类别已删除','ok');
+    state.daily.catMap=dm;persist();render();toast('类别已删除','ok');
    },'删除类别');break;
   }
   case 'daily-group-map':dailyCfg.showCatMap=!dailyCfg.showCatMap;renderDaily();break;
@@ -3803,7 +4269,7 @@ document.addEventListener('click',function(ev){
     var k=sel.getAttribute?sel.getAttribute('data-rawcat'):sel.dataset.rawcat;
     if(k&&sel.value)dcm[k]=sel.value;n++;
    });
-   state.daily.catMap=dcm;dailyCfg.showCatMap=false;persist();renderDaily();
+   state.daily.catMap=dcm;dailyCfg.showCatMap=false;persist();render();
    toast('已保存 '+n+' 条归类规则','ok');break;
   }
   case 'daily-reset':dailyCfg={level:dailyCfg.level,year:dailyCfg.year,month:dailyCfg.month,focusYear:dailyCfg.focusYear,showCatMap:dailyCfg.showCatMap,showCatAdd:false,q:'',type:'all',cat:'all',pay:'all',from:'',to:'',min:'',max:''};renderDaily();break;
@@ -3906,6 +4372,10 @@ document.addEventListener('click',function(ev){
 });
 document.addEventListener('change',function(ev){
  var t=ev.target,id=t.id;
+ if(id==='nteImgNas'&&t.files&&t.files[0]){noteUploadImages(t.files);t.value='';return}
+ if(id&&id.indexOf('ac-note-')===0){
+  var ans=acctSec(id.slice(8));if(ans){ans.note=t.value;acctTouch();toast('备注已保存','ok')}return;
+ }
  if(id==='rec-scope'){recCfg.scope=t.value;expandedId=null;renderRecords()}
  else if(id==='tr-scope'){trendCfg.scope=t.value;renderTrend()}
  else if(id==='tr-mode'){trendCfg.mode=t.value;renderTrend()}
@@ -3966,6 +4436,7 @@ document.addEventListener('change',function(ev){
 });
 document.addEventListener('input',function(ev){
  var t=ev.target;
+ if(t.id==='ac-q'){acctCfg.q=t.value;var aql=$('#acList');if(aql)aql.innerHTML=acctListHtml();return}
  if(t.id==='nt-q'){
   noteCfg.q=t.value;var nbox=$('#ntCards');if(nbox)nbox.innerHTML=noteCardsHtml(noteVisible());
   var nct=$('#ntCount');if(nct)nct.textContent='当前 '+noteVisible().length+' 篇';return;
@@ -3996,6 +4467,7 @@ document.addEventListener('focusin',function(ev){
 document.addEventListener('keydown',function(ev){
  if(ev.key==='Enter'&&ev.target.id==='lockPwd')login();
  if(ev.key==='Escape'){
+  var dfc=$('#dyFormCard');if(dfc&&!dfc.classList.contains('hidden')){dailyForm={open:false,id:null,day:''};renderDaily();return}
   if(!$('#finDetailLayer').classList.contains('hidden')){closeFinDetail();return}
   if(!$('#lkDetailLayer').classList.contains('hidden')){closeLuckyDetail();return}
   if(!$('#dailyDetailLayer').classList.contains('hidden')){dailyCloseDetail();return}

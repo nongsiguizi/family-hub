@@ -19,7 +19,7 @@ WORK = ROOT / 'build'
 DIST = ROOT / 'dist'
 APP = ROOT / 'app' / 'src' / 'main'
 SDK = Path(os.environ.get('GT_SDK_DIR', 'D:/grades-track-sdk'))
-OUT_NAME = 'FamilyHub-v2.0.0.apk'
+OUT_NAME = 'FamilyHub-v2.10.0.apk'
 KS_PASS = 'gradestrack2026'
 
 def need(p, label):
@@ -84,7 +84,7 @@ def main():
     base = WORK / 'base.apk'
     run([aapt2, 'link', '-o', base, '-I', android_jar, '--manifest', manifest,
          '--min-sdk-version', '26', '--target-sdk-version', '35',
-         '--version-code', '2', '--version-name', '2.0.0',
+         '--version-code', '210', '--version-name', '2.10.0',
          '--java', WORK / 'gen', res_zip], 'aapt2 link')
 
     print('\n[3/7] 编译 Java')

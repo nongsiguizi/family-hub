@@ -10,8 +10,8 @@ android {
         applicationId 'cn.lyuan.gradestrack'
         minSdk 26
         targetSdk 35
-        versionCode 1
-        versionName '1.4.0'
+        versionCode 210
+        versionName '2.10.0'
     }
 
     buildTypes {

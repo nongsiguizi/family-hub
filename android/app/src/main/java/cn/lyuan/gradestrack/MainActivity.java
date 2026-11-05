@@ -244,7 +244,7 @@ public class MainActivity extends Activity {
         s.setMediaPlaybackRequiresUserGesture(false);
         s.setCacheMode(WebSettings.LOAD_DEFAULT);
         s.setTextZoom(100);
-        s.setUserAgentString(s.getUserAgentString() + " GradesTrackAndroid/2.0");
+        s.setUserAgentString(s.getUserAgentString() + " GradesTrackAndroid/2.10");
 
         web.addJavascriptInterface(new JsBridge(), "GradesTrack");
         web.setWebViewClient(new WebViewClient() {
@@ -664,7 +664,7 @@ public class MainActivity extends Activity {
                             break;
                         default:
                             new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("家庭事项记录 · 安卓客户端 v2.0.0")
+                                .setTitle("家庭事项记录 · 安卓客户端 v2.10.0")
                                 .setMessage("原生 WebView 外壳，页面与数据全部来自私有服务器：\n" + currentUrl +
                                     "\n\n· 服务器地址可以随时在顶部「服务器」里切换（内网 / 外网）\n" +
                                     "· 登录状态保存在本机，换服务器后会要求重新输入访问密码\n" +

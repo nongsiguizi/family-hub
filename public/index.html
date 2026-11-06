@@ -38,6 +38,8 @@ nav{padding:12px 10px;flex:1;overflow:auto}
 .topbar h1{margin:0;font-size:18px;font-weight:650}
 .topbar p{margin:1px 0 0;color:var(--faint);font-size:12px}
 .top-actions{display:flex;align-items:center;gap:12px}
+.nav-burger{display:none;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;margin-right:10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--text);cursor:pointer}
+.nav-burger svg{width:19px;height:19px}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:20px;font-size:11.5px;background:#f1f5f9;color:var(--muted);white-space:nowrap}
 .badge i{width:7px;height:7px;border-radius:50%;background:var(--faint);display:inline-block}
 .badge.ok{background:#ecfdf5;color:#047857}.badge.ok i{background:var(--green)}
@@ -154,13 +156,19 @@ table{border-collapse:collapse;font-size:13px}
 .stat-line:last-child{border-bottom:0}
 .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px}
 @media(max-width:860px){
-  .side{width:100%;height:auto;position:static;flex:none;border-right:0;border-bottom:1px solid var(--line)}
-  .brand{padding:12px 16px;border-bottom:0}
-  .side-foot{display:none}
-  nav{display:flex;overflow:auto;padding:0 10px 10px;gap:4px}
-  .nav-item{width:auto;white-space:nowrap;margin:0;padding:8px 11px}
-  .nav-item span.nt{display:inline}
+  body.nav-open{overflow:hidden}
   .layout{flex-direction:column}
+  .side{position:fixed;top:0;left:0;bottom:0;width:268px;max-width:82vw;flex:none;height:100vh;
+    border-right:1px solid var(--line);transform:translateX(-100%);transition:transform .22s ease;z-index:95;box-shadow:none}
+  .side.nav-open{transform:translateX(0);box-shadow:0 0 40px rgba(15,23,42,.28)}
+  .side-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:90;opacity:0;pointer-events:none;transition:opacity .2s}
+  .side-backdrop.show{opacity:1;pointer-events:auto}
+  .brand{padding:12px 16px}
+  .side-foot{display:flex}
+  nav{display:block;overflow:auto;padding:0 10px 16px;height:calc(100vh - 70px)}
+  .nav-item{width:100%;white-space:normal;margin-bottom:3px;padding:10px 12px}
+  .nav-item span.nt{display:inline}
+  .nav-burger{display:inline-flex}
   .topbar{padding:12px 16px;position:static}
   .content{padding:16px 14px 50px}
 }
@@ -374,7 +382,7 @@ table{border-collapse:collapse;font-size:13px}
 .nt-ed-foot .sp{flex:1}
 .nt-safe{white-space:pre-wrap;word-break:break-word}
 @media(max-width:900px){.nt-wrap{grid-template-columns:1fr}.nt-folders{flex-direction:row;flex-wrap:wrap}.nt-folder{width:auto}.fin-grid{grid-template-columns:1fr}}
-@media(max-width:720px){.side{width:158px;flex:0 0 158px}.brand{padding:14px 10px}.brand small{display:none}.content{padding:14px}.nt-grid{grid-template-columns:1fr}.dy-mini{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.brand{padding:14px 10px}.brand small{display:none}.content{padding:14px}.nt-grid{grid-template-columns:1fr}.dy-mini{grid-template-columns:1fr 1fr}}
 
 
 /* 支出类别合并 / 归类管理 */
@@ -639,6 +647,7 @@ table{border-collapse:collapse;font-size:13px}
   </aside>
   <div data-page-node-id="JqZY9BmypN8RdEaFgq9mmE" class="main">
     <header data-page-node-id="CKTQ03a4hkuaBDm1IG3m7g" class="topbar">
+      <button class="nav-burger" data-act="nav-burger" aria-label="打开菜单"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       <div data-page-node-id="1zWQyjID09MRcQXKqlVg2s"><h1 data-page-node-id="8ASQ1ApKfT7tajcDyySEuA" id="pageTitle"><!--pnid:L8oXSJjU84ByNq81fkCvbw-->概览</h1><p data-page-node-id="WTbpP7nr9LJLL9TAdPiNzQ" id="pageSub"></p></div>
       <div data-page-node-id="nCDetOn8KWzEPUz5FCLwmF" class="top-actions"><span data-page-node-id="NO6gNs19TUkmYIscVoXOmh" class="badge" id="storageBadge"><i data-page-node-id="5mwQOV2GflRcEcEHDtbU4Z"></i><!--pnid:lQzOv1QbdbNNYvPi3YSq50-->连接中</span><button data-page-node-id="RAzmc0iQcFTOqaevJSWiLF" class="btn btn-primary" data-act="top-add" id="topAddBtn"><!--pnid:BNUdgDTq6MU1hiZPxkdNpv-->＋ 录入考试</button></div>
     </header>
@@ -660,6 +669,7 @@ table{border-collapse:collapse;font-size:13px}
     </div>
   </div>
 </div>
+<div class="side-backdrop" id="sideBackdrop"></div>
 
 <div data-page-node-id="eEjRoObqYSjggTS82EJPFr" class="overlay hidden" id="lockLayer"><div data-page-node-id="wyfaMy00F4CGi8B1HNvher" class="modal">
   <h3 data-page-node-id="KOPhbbyv3CSaiafKuQMhM6"><!--pnid:GpHduY8B1GcL9otsuWhDiO-->家庭事项记录 · 请输入密码</h3><p data-page-node-id="E1UXsE4QU9VAtqM3Nk3Yak" id="lockMsg"><!--pnid:R96J2QlfG7kCmYTFAFWY6t-->本程序仅需密码，不需要用户名。首次使用默认密码为 <b data-page-node-id="yh97nOpU9a3YSBNlMu9T5y"><!--pnid:wLtwUWoQPd4fTP5OCC7fdh-->meimima</b><!--pnid:hBfy6ZChdtal2HQu5e2YEP-->，进入后可在「设置与数据」中修改。</p>
@@ -1095,6 +1105,15 @@ function syncNavGroups(){
  var a=$('.nav-item.active'),g=a&&a.closest?a.closest('.nav-group'):null;
  if(g)g.classList.add('open');
 }
+function navDrawer(open){
+ var side=$('.side'),bd=$('#sideBackdrop');if(!side||!bd)return;
+ if(open===undefined)open=!document.body.classList.contains('nav-open');
+ side.classList.toggle('nav-open',open);
+ bd.classList.toggle('show',open);
+ document.body.classList.toggle('nav-open',open);
+}
+window.addEventListener('resize',function(){if(window.innerWidth>860)navDrawer(false)});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape')navDrawer(false)});
 function confirmBox(title,text,onOk,okLabel){
  $('#modalTitle').textContent=title;$('#modalText').textContent=text;
  $('#modalExtra').innerHTML='';modalOk=onOk;
@@ -4023,14 +4042,16 @@ document.addEventListener('click',function(ev){
  if(ev.target.id==='receiptLayer'){closeReceipt();return}
  if(ev.target.id==='attachLayer'){closeAttach();return}
  if(ev.target.id==='noteEditorLayer'){closeNoteEditor();return}
+ if(ev.target.id==='sideBackdrop'){navDrawer(false);return}
  var nav=ev.target.closest('[data-view]');
  if(nav){
   if(nav.dataset.noteTab){noteCfg.tab=nav.dataset.noteTab;if(noteCfg.tab!=='folder')noteCfg.folder='all'}
-  go(nav.dataset.view);return
+  go(nav.dataset.view);navDrawer(false);return
  }
  var el=ev.target.closest('[data-act]');if(!el)return;
  var act=el.dataset.act,id=el.dataset.id;
  switch(act){
+  case 'nav-burger':navDrawer();break;
   case 'top-add':
    if(view==='notes')openNoteEditor(null,'note');
    else if(view==='daily'||view==='calendar')openDailyForm(null);
